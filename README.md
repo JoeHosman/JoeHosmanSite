@@ -49,7 +49,8 @@ npm run preview
 
 The production preview excludes drafts. The career section contains six roles
 from 2006–2026, adapted from Joe's master resume. The project section includes
-the bathroom remodel, retaining wall and patio, and lake-water irrigation system.
+home-improvement builds, lake-water irrigation, and freight-bidding workflow
+automation delivered through Hosman Solutions LLC.
 
 Browser tests use isolated test-site copies, never your real content. On a local
 machine they use installed Google Chrome. CI uses Playwright Chromium:
