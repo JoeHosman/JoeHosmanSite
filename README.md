@@ -14,8 +14,8 @@ npm run dev
 ```
 
 Open the local address Astro prints, normally `http://localhost:4321/`.
-Development shows draft entries with a visible label. The two included examples
-demonstrate the layout and are not real career or project claims.
+Development shows draft entries with a visible label. The included project example
+demonstrates the layout and is not a real project claim.
 
 If Astro starts a background server, manage it with `npx astro dev status`,
 `npx astro dev logs`, and `npx astro dev stop`.
@@ -47,8 +47,9 @@ npm run build
 npm run preview
 ```
 
-The production preview excludes drafts. Since no real career/project entries have
-been supplied yet, the initial published indexes have empty states.
+The production preview excludes drafts. The career section contains six roles
+from 2006–2026, adapted from Joe's master resume. Project detail pages have not
+been populated yet, so that index has an empty state.
 
 Browser tests use isolated test-site copies, never your real content. On a local
 machine they use installed Google Chrome. CI uses Playwright Chromium:

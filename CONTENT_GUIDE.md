@@ -2,8 +2,8 @@
 
 Copy a template, write your entry, preview it, and mark it ready to publish.
 The site builds career pages, project listings, and category filters from your
-Markdown files. The GitHub Pages workflow is included; connect the repository
-using the steps in `README.md` before expecting pushes to publish the site.
+Markdown files. Push changes to `main` to run the GitHub Pages deployment
+workflow. See `README.md` for repository and hosting details.
 
 Run `npm run dev` to preview your work locally, including drafts. Before
 publication, run `npm run check` and `npm run build`. Invalid metadata reports
@@ -96,8 +96,9 @@ projects sort by their displayed date. Equal dates sort by filename.
 
 `draft: true` entries appear only in local development. Production builds omit
 their detail pages, links, and category filters. `npm run build` followed by
-`npm run preview` shows the published view. The supplied `example-role.md` and
-`example-project.md` are drafts with explicitly illustrative content.
+`npm run preview` shows the published view. The supplied `example-project.md`
+is a draft with explicitly illustrative content. Career entries contain real
+resume-backed experience; use `templates/career.md` to add another.
 
 Drafts are not a privacy mechanism: a public repository exposes its source
 files, and everything in `public/` is copied to the published site regardless
