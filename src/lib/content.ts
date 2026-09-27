@@ -22,12 +22,13 @@ export function sortCareer<T extends { id: string; data: { start: string } }>(
         careerDateBounds(a.data.start).first || a.id.localeCompare(b.id),
   );
 }
-export function sortProjects<T extends { id: string; data: { date: Date } }>(
-  entries: T[],
-): T[] {
+export function sortProjects<
+  T extends { id: string; data: { date: Date | string } },
+>(entries: T[]): T[] {
   return [...entries].sort(
     (a, b) =>
-      b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id),
+      new Date(b.data.date).getTime() - new Date(a.data.date).getTime() ||
+      a.id.localeCompare(b.id),
   );
 }
 export function categoryLabel(category: string): string {

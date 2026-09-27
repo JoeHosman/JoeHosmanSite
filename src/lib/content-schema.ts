@@ -31,7 +31,7 @@ export const projectSchema = z
   .object({
     title: text,
     summary: text,
-    date: projectDate,
+    date: z.union([z.string().regex(/^[1-9]\d{3}$/), projectDate]),
     categories: z
       .array(text)
       .min(1)

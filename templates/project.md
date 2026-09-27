@@ -1,7 +1,7 @@
 ---
 title: "Project title"
 summary: "One sentence about what you made or explored."
-date: 2026-09-27
+date: "2026"
 categories:
   - woodworking
 status: in-progress

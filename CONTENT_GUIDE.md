@@ -28,7 +28,7 @@ represents one project, whether it is a finished piece or an ongoing experiment.
 | --- | --- |
 | `title` | Project name, in quotes. |
 | `summary` | A short description for project listings, in quotes. |
-| `date` | The date you want displayed, formatted `YYYY-MM-DD`. |
+| `date` | The year or date you want displayed: `"2025"` or `"2025-06-15"`. Quote year-only values. |
 | `categories` | One or more categories from the list below. |
 | `status` | `idea`, `in-progress`, `completed`, or `paused`. |
 | `featured` | Set to `true` to nominate the project for the homepage. |
@@ -37,7 +37,7 @@ represents one project, whether it is a finished piece or an ongoing experiment.
 | `cover_alt` | A required description when a cover is supplied, or `""` when there is no cover. |
 
 Start with these categories: `process-automation`, `machine-learning`,
-`software`, `woodworking`, `mechanical-engineering`, and `art`. A project can
+`software`, `woodworking`, `mechanical-engineering`, `home-improvement`, and `art`. A project can
 belong to several categories:
 
 ```yaml
@@ -48,6 +48,10 @@ categories:
 
 Use spaces, not tabs, for indentation. For text containing double quotes, use
 single quotes around the value, for example `title: 'The "Workshop" experiment'`.
+
+For a project spanning several years, use its completion year (or latest year
+worked on) for `date`, and describe the full time span in the story. A year-only
+value displays only the year; sorting places it at the beginning of that year.
 
 ## Add a career entry
 
@@ -96,9 +100,9 @@ projects sort by their displayed date. Equal dates sort by filename.
 
 `draft: true` entries appear only in local development. Production builds omit
 their detail pages, links, and category filters. `npm run build` followed by
-`npm run preview` shows the published view. The supplied `example-project.md`
-is a draft with explicitly illustrative content. Career entries contain real
-resume-backed experience; use `templates/career.md` to add another.
+`npm run preview` shows the published view. The content directories contain real
+career and project entries. Use `templates/career.md` or `templates/project.md`
+to add another.
 
 Drafts are not a privacy mechanism: a public repository exposes its source
 files, and everything in `public/` is copied to the published site regardless

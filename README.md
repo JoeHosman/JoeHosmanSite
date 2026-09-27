@@ -14,8 +14,8 @@ npm run dev
 ```
 
 Open the local address Astro prints, normally `http://localhost:4321/`.
-Development shows draft entries with a visible label. The included project example
-demonstrates the layout and is not a real project claim.
+Development shows draft entries with a visible label. Copy a file from
+`templates/` to start a new entry.
 
 If Astro starts a background server, manage it with `npx astro dev status`,
 `npx astro dev logs`, and `npx astro dev stop`.
@@ -35,8 +35,8 @@ See [the content guide](CONTENT_GUIDE.md) for the full workflow.
 Career appears first on the homepage. Each collection shows up to three featured
 entries, or its newest entries if none are featured. Dates break ties by filename.
 Content defaults to draft if the `draft` setting is omitted. Only `draft: false`
-entries get published; copy the examples into real entries instead of publishing
-the example text.
+entries get published. Replace template prompts with your own content before
+publishing.
 
 ## Verify and preview publication
 
@@ -48,8 +48,8 @@ npm run preview
 ```
 
 The production preview excludes drafts. The career section contains six roles
-from 2006–2026, adapted from Joe's master resume. Project detail pages have not
-been populated yet, so that index has an empty state.
+from 2006–2026, adapted from Joe's master resume. The project section includes
+the bathroom remodel, retaining wall and patio, and lake-water irrigation system.
 
 Browser tests use isolated test-site copies, never your real content. On a local
 machine they use installed Google Chrome. CI uses Playwright Chromium:
@@ -67,7 +67,7 @@ If Chrome is unavailable locally, install Chromium with
 
 Repository: [JoeHosman/JoeHosmanSite](https://github.com/JoeHosman/JoeHosmanSite).
 GitHub Pages is configured to use **GitHub Actions**.
-The initial site address is **https://joehosman.github.io/JoeHosmanSite/**.
+The site address is **https://joe.hosman.org/**.
 
 Push changes to `main` or run **Build and deploy portfolio** from Actions.
 Commit source files and `package-lock.json`, not generated files or dependencies.

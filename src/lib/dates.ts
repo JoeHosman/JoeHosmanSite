@@ -29,7 +29,8 @@ export function formatCareerDate(value: string): string {
   }).format(first);
 }
 
-export function formatProjectDate(value: Date): string {
+export function formatProjectDate(value: Date | string): string {
+  if (typeof value === "string") return value;
   return new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",

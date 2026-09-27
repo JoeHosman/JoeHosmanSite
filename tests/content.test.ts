@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { formatCareerDate } from "../src/lib/dates.ts";
+import { formatCareerDate, formatProjectDate } from "../src/lib/dates.ts";
 import {
   visibleEntries,
   selectHighlights,
@@ -62,6 +62,25 @@ test("cover images require descriptions", () => {
       cover_alt: "Work in progress.",
     }).success,
     true,
+  );
+});
+test("project years retain their precision and sort with exact dates", () => {
+  const data = projectSchema.parse({ ...project, date: "2025" });
+  assert.equal(data.date, "2025");
+  assert.equal(formatProjectDate(data.date), "2025");
+  assert.equal(formatProjectDate(new Date("2024-02-29")), "February 29, 2024");
+  assert.equal(
+    projectSchema.safeParse({ ...project, date: "0000" }).success,
+    false,
+  );
+  const entries = [
+    { id: "year", data },
+    { id: "older", data: { date: new Date("2024-12-31") } },
+    { id: "newer", data: { date: new Date("2026-01-01") } },
+  ];
+  assert.deepEqual(
+    sortProjects(entries).map((entry) => entry.id),
+    ["newer", "year", "older"],
   );
 });
 test("career dates reject impossible ranges without inventing precision", () => {
