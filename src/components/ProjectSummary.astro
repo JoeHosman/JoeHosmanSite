@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categoryLabel } from "../lib/content";
+import { withBase } from "../lib/urls.mjs";
+interface Props {
+  entry: CollectionEntry<"projects">;
+  headingLevel?: "h2" | "h3";
+}
+const { entry, headingLevel: Heading = "h3" } = Astro.props;
+const { title, summary, categories, cover, draft } = entry.data;
+const href = withBase(`/projects/${entry.id}/`, import.meta.env.BASE_URL);
+---
+
+<article
+  class:list={["project-summary", { "has-cover": Boolean(cover) }]}
+  data-project
+  data-categories={JSON.stringify(categories)}
+>
+  {cover && (
+    <a class="project-cover" href={href} tabindex="-1" aria-hidden="true">
+      <img
+        src={withBase(cover, import.meta.env.BASE_URL)}
+        alt=""
+        loading="lazy"
+      />
+    </a>
+  )}
+  <div class="project-copy">
+    <div class="entry-kicker">
+      {categories.map(categoryLabel).join(" / ")}
+      {draft && <span class="draft-badge">Draft</span>}
+    </div>
+    <Heading class="summary-title">
+      <a href={href}>{title}</a>
+    </Heading>
+    <p>{summary}</p>
+  </div>
+</article>

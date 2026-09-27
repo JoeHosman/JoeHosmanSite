@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import CareerSummary from "../../components/CareerSummary.astro";
+import { visibleEntries, sortCareer } from "../../lib/content";
+const entries = sortCareer(
+  visibleEntries(await getCollection("career"), import.meta.env.DEV),
+);
+---
+
+<EditorialLayout
+  title="Career"
+  description="The work, responsibilities, and lessons behind Joe Hosman's thirty years of industry experience."
+>
+  <header class="page-heading">
+    <p class="section-label">Experience & perspective</p>
+    <h1>Career</h1>
+    <p>The work, the decisions, and the lessons along the way.</p>
+  </header>
+  {entries.length ? (
+    entries.map((entry) => <CareerSummary entry={entry} headingLevel="h2" />)
+  ) : (
+    <p class="empty-state">
+      Career entries will appear here as they are added.
+    </p>
+  )}
+</EditorialLayout>

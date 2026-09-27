@@ -1,0 +1,21 @@
+---
+import EditorialLayout from "../layouts/EditorialLayout.astro";
+import { withBase } from "../lib/urls.mjs";
+const base = import.meta.env.BASE_URL;
+---
+
+<EditorialLayout title="Page not found">
+  <header class="page-heading error-page">
+    <p class="section-label">404</p>
+    <h1>This page isn't here.</h1>
+    <p>
+      The address may have changed. You can pick up the thread from one of these
+      pages.
+    </p>
+    <div class="intro-links">
+      <a href={withBase("/", base)}>Home</a>
+      <a href={withBase("/career/", base)}>Career</a>
+      <a href={withBase("/projects/", base)}>Projects</a>
+    </div>
+  </header>
+</EditorialLayout>

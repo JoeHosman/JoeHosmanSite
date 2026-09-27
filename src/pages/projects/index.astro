@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import ProjectSummary from "../../components/ProjectSummary.astro";
+import { visibleEntries, sortProjects, categoryLabel } from "../../lib/content";
+const entries = sortProjects(
+  visibleEntries(await getCollection("projects"), import.meta.env.DEV),
+);
+const categories = [
+  ...new Set(entries.flatMap((entry) => entry.data.categories)),
+].sort();
+---
+
+<EditorialLayout
+  title="Projects"
+  description="Projects and experiments in software, machine learning, woodworking, mechanical engineering, and art."
+>
+  <header class="page-heading">
+    <p class="section-label">Ideas put into practice</p>
+    <h1>Projects</h1>
+    <p>
+      Finished work, ongoing experiments, and lessons from the process of
+      making.
+    </p>
+  </header>
+  {categories.length > 0 && (
+    <div class="filter-controls" data-filters hidden>
+      <div
+        class="filter-buttons"
+        role="group"
+        aria-label="Filter projects by category"
+      >
+        <button type="button" data-filter-all aria-pressed="true">
+          All projects
+        </button>
+        {categories.map((category) => (
+          <button type="button" data-category={category} aria-pressed="false">
+            {categoryLabel(category)}
+          </button>
+        ))}
+      </div>
+      <p
+        class="result-count"
+        aria-live="polite"
+        aria-atomic="true"
+        data-result-count
+      >
+        {entries.length} {entries.length === 1 ? "project" : "projects"}
+      </p>
+    </div>
+  )}
+  <div data-project-list>
+    {entries.length ? (
+      entries.map((entry) => <ProjectSummary entry={entry} headingLevel="h2" />)
+    ) : (
+      <p class="empty-state">Projects will appear here as they are added.</p>
+    )}
+  </div>
+</EditorialLayout>
+<script>
+  import "../../scripts/project-filter";
+</script>

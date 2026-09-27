@@ -1,0 +1,51 @@
+---
+import { site } from "../config/site";
+import { withBase } from "../lib/urls.mjs";
+const nav = [
+  ["Home", "/"],
+  ["Career", "/career/"],
+  ["Projects", "/projects/"],
+  ["About", "/about/"],
+];
+const base = import.meta.env.BASE_URL;
+const current = Astro.url.pathname;
+---
+
+<aside class="identity-sidebar">
+  <div class="identity-inner">
+    <a class="monogram" href={withBase("/", base)} aria-label="Joe Hosman home">
+      JH<span>.</span>
+    </a>
+    <a class="identity-name" href={withBase("/", base)}>
+      {site.name}
+    </a>
+    <p class="identity-description">{site.tagline}</p>
+    <nav aria-label="Main navigation">
+      {nav.map(([label, path]) => {
+        const href = withBase(path, base);
+        const active =
+          path === "/" ? current === href : current.startsWith(href);
+        return (
+          <a href={href} aria-current={active ? "page" : undefined}>
+            {label}
+            <span aria-hidden="true">{active ? "—" : ""}</span>
+          </a>
+        );
+      })}
+    </nav>
+    <div class="identity-footnote">
+      <p>
+        Software. Systems.
+        <br />
+        Wood. Metal. Ideas.
+      </p>
+      {site.links.length > 0 && (
+        <div class="profile-links">
+          {site.links.map((link) => (
+            <a href={link.url}>{link.label}</a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</aside>

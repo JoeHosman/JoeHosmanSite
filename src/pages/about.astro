@@ -1,0 +1,22 @@
+---
+import EditorialLayout from "../layouts/EditorialLayout.astro";
+import { Content } from "../../content/about.md";
+import { site } from "../config/site";
+---
+
+<EditorialLayout title="About">
+  <header class="page-heading">
+    <p class="section-label">The person behind the work</p>
+    <h1>About me</h1>
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+  {site.links.length > 0 && (
+    <div class="public-links">
+      {site.links.map((link) => (
+        <a href={link.url}>{link.label}</a>
+      ))}
+    </div>
+  )}
+</EditorialLayout>

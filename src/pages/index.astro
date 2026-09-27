@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import EditorialLayout from "../layouts/EditorialLayout.astro";
+import CareerSummary from "../components/CareerSummary.astro";
+import ProjectSummary from "../components/ProjectSummary.astro";
+import {
+  selectHighlights,
+  visibleEntries,
+  sortCareer,
+  sortProjects,
+} from "../lib/content";
+import { withBase } from "../lib/urls.mjs";
+const career = selectHighlights(
+  sortCareer(
+    visibleEntries(await getCollection("career"), import.meta.env.DEV),
+  ),
+);
+const projects = selectHighlights(
+  sortProjects(
+    visibleEntries(await getCollection("projects"), import.meta.env.DEV),
+  ),
+);
+const hasDrafts = [...career, ...projects].some((entry) => entry.data.draft);
+const base = import.meta.env.BASE_URL;
+---
+
+<EditorialLayout title="Joe Hosman">
+  <header class="home-intro">
+    <p class="section-label">A working life, in chapters</p>
+    <h1>
+      Good work starts
+      <br />
+      with <em>curiosity.</em>
+    </h1>
+    <p class="lede">
+      Thirty years of industry experience, and plenty left to explore. From
+      process automation and machine learning to woodworking and art, this is a
+      place for my work and the things I make.
+    </p>
+    <div class="intro-links">
+      <a href={withBase("/career/", base)}>Explore my career</a>
+      <a href={withBase("/projects/", base)}>Visit the workshop</a>
+    </div>
+  </header>
+  {hasDrafts && (
+    <p class="draft-note" style="margin-top:32px">
+      Local preview: entries marked Draft are excluded from the published site.
+    </p>
+  )}
+  {career.length > 0 && (
+    <section class="home-section" aria-labelledby="career-title">
+      <div class="section-heading">
+        <h2 id="career-title">A career in industry</h2>
+        <a href={withBase("/career/", base)}>All experience</a>
+      </div>
+      {career.map((entry) => (
+        <CareerSummary entry={entry} />
+      ))}
+    </section>
+  )}
+  {projects.length > 0 && (
+    <section class="home-section" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <h2 id="projects-title">From the workshop</h2>
+        <a href={withBase("/projects/", base)}>All projects</a>
+      </div>
+      {projects.map((entry) => (
+        <ProjectSummary entry={entry} />
+      ))}
+    </section>
+  )}
+  <div class="about-invitation">
+    <p>
+      Software, systems, machines, and materials.{" "}
+      <a href={withBase("/about/", base)}>A little more about me.</a>
+    </p>
+  </div>
+</EditorialLayout>

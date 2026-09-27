@@ -1,0 +1,42 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import { visibleEntries } from "../../lib/content";
+import { formatCareerDate } from "../../lib/dates";
+import { withBase } from "../../lib/urls.mjs";
+export async function getStaticPaths() {
+  return visibleEntries(await getCollection("career"), import.meta.env.DEV).map(
+    (entry) => ({ params: { slug: entry.id }, props: { entry } }),
+  );
+}
+interface Props {
+  entry: CollectionEntry<"career">;
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { company, role, start, end, summary, draft } = entry.data;
+---
+
+<EditorialLayout title={role} description={summary}>
+  <a class="back-link" href={withBase("/career/", import.meta.env.BASE_URL)}>
+    Back to career
+  </a>
+  {draft && (
+    <p class="draft-note">
+      Draft · This entry is visible only in local development.
+    </p>
+  )}
+  <header class="detail-header">
+    <p class="section-label">{company}</p>
+    <h1>{role}</h1>
+    <p class="lede">{summary}</p>
+    <div class="detail-meta">
+      <span>
+        {formatCareerDate(start)} — {formatCareerDate(end)}
+      </span>
+    </div>
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+</EditorialLayout>

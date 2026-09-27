@@ -1,0 +1,56 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import { visibleEntries, categoryLabel } from "../../lib/content";
+import { formatProjectDate } from "../../lib/dates";
+import { withBase } from "../../lib/urls.mjs";
+export async function getStaticPaths() {
+  return visibleEntries(
+    await getCollection("projects"),
+    import.meta.env.DEV,
+  ).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+interface Props {
+  entry: CollectionEntry<"projects">;
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, date, categories, status, cover, cover_alt, draft } =
+  entry.data;
+const statuses = {
+  idea: "Idea",
+  "in-progress": "In progress",
+  completed: "Completed",
+  paused: "Paused",
+};
+---
+
+<EditorialLayout title={title} description={summary}>
+  <a class="back-link" href={withBase("/projects/", import.meta.env.BASE_URL)}>
+    Back to projects
+  </a>
+  {draft && (
+    <p class="draft-note">
+      Draft · This entry is visible only in local development.
+    </p>
+  )}
+  <header class="detail-header">
+    <p class="section-label">{categories.map(categoryLabel).join(" / ")}</p>
+    <h1>{title}</h1>
+    <p class="lede">{summary}</p>
+    <div class="detail-meta">
+      <time datetime={date.toISOString().slice(0, 10)}>
+        {formatProjectDate(date)}
+      </time>
+      <span>{statuses[status]}</span>
+    </div>
+  </header>
+  {cover && (
+    <figure class="cover-figure">
+      <img src={withBase(cover, import.meta.env.BASE_URL)} alt={cover_alt} />
+    </figure>
+  )}
+  <div class="prose">
+    <Content />
+  </div>
+</EditorialLayout>
