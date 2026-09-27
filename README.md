@@ -64,14 +64,14 @@ If Chrome is unavailable locally, install Chromium with
 
 ## GitHub Pages
 
-The workspace is not yet connected to a GitHub repository. When ready:
+Repository: [JoeHosman/JoeHosmanSite](https://github.com/JoeHosman/JoeHosmanSite).
+GitHub Pages is configured to use **GitHub Actions**.
+The initial site address is **https://joehosman.github.io/JoeHosmanSite/**.
 
-1. Create or select the GitHub repository and push the source files, including
-   `package-lock.json`. Do not commit generated build files or dependencies.
-2. In the repository's **Settings → Pages**, set **Source** to **GitHub Actions**.
-3. The workflow uses `main`. If your publishing branch differs, edit
-   `.github/workflows/deploy.yml` before enabling publishing.
-4. Push to that branch or run **Build and deploy portfolio** from Actions.
+Push changes to `main` or run **Build and deploy portfolio** from Actions.
+Commit source files and `package-lock.json`, not generated files or dependencies.
+This repository is public: draft Markdown remains visible in GitHub even though
+draft entries are excluded from the published website.
 
 The workflow tests, checks, builds, and deploys only after successful verification.
 It discovers the site's origin and repository path from GitHub Pages. No token
@@ -80,12 +80,11 @@ needs to be stored in the repository. A failed build leaves the previous site up
 To reproduce a repository-path build locally:
 
 ```sh
-SITE_BASE=/JoeHosmanSite/ SITE_URL=https://USERNAME.github.io npm run build
+SITE_BASE=/JoeHosmanSite/ SITE_URL=https://joehosman.github.io npm run build
 SITE_BASE=/JoeHosmanSite/ npm run preview
 ```
 
-Replace the example origin with your real GitHub Pages origin. `SITE_URL` is
-optional locally; configured sites use it for canonical and social metadata.
+`SITE_URL` is optional locally; configured sites use it for canonical and social metadata.
 `SITE_BASE` defaults to `/`. Markdown image/link paths such as `/images/a.jpg`
 and `/career/` receive the base automatically. Use the same base for build and
 preview. Leave external URLs and fragment links unchanged.
@@ -105,10 +104,9 @@ When the site is ready to go live:
 
    | Type | Name | Value |
    | --- | --- | --- |
-   | CNAME | `joe` | `<GITHUB_OWNER>.github.io` |
+   | CNAME | `joe` | `joehosman.github.io` |
 
-   Replace `<GITHUB_OWNER>` with the actual user or organization owning the
-   repository. The value is a hostname, with no `https://` or repository path.
+   The value is a hostname, with no `https://` or repository path.
    If the domain uses external nameservers, make this record at that DNS host.
 3. Rerun the deployment workflow after setting the custom domain. It picks up
    the custom origin and `/` base path from GitHub's Pages configuration.
