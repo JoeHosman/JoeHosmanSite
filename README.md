@@ -98,17 +98,20 @@ The intended address is **https://joe.hosman.org**. `public/CNAME` records that
 hostname, but does not configure DNS or GitHub Pages by itself. For an Actions
 deployment, set the custom domain in the repository's Pages settings.
 
+GoDaddy is the registrar; Cloudflare hosts the DNS for `hosman.org`.
+
 When the site is ready to go live:
 
 1. In GitHub **Settings → Pages → Custom domain**, enter `joe.hosman.org` and save.
-2. If GoDaddy hosts the DNS for `hosman.org`, add a record in its DNS manager:
+2. In Cloudflare, select **hosman.org → DNS → Records → Add record**:
 
-   | Type | Name | Value |
-   | --- | --- | --- |
-   | CNAME | `joe` | `joehosman.github.io` |
+   | Type | Name | Target | Proxy status | TTL |
+   | --- | --- | --- | --- | --- |
+   | CNAME | `joe` | `joehosman.github.io` | DNS only (gray cloud) | Auto |
 
    The value is a hostname, with no `https://` or repository path.
-   If the domain uses external nameservers, make this record at that DNS host.
+   Use DNS only so visitors connect directly to GitHub Pages and GitHub handles
+   the HTTPS certificate. No GoDaddy DNS changes are needed.
 3. Rerun the deployment workflow after setting the custom domain. It picks up
    the custom origin and `/` base path from GitHub's Pages configuration.
 4. Once GitHub's DNS check and certificate provisioning finish, enable
@@ -119,4 +122,4 @@ mail records do not need to change for this subdomain setup. No DNS records
 have been modified by the local implementation.
 
 References: [GitHub custom-domain setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
-and [GoDaddy CNAME instructions](https://www.godaddy.com/help/add-a-cname-record-19236).
+and [Cloudflare DNS record instructions](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/).
