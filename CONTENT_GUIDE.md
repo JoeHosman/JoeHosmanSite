@@ -122,3 +122,23 @@ links: [
 
 Replace those example values with your actual public details. An empty array
 keeps the contact links hidden.
+
+## Edit the StruxOs case study
+
+The project overview is `content/projects/struxos-conductor.md`. Its five linked
+chapters live in `content/case-studies/struxos/`, with this metadata:
+
+```yaml
+---
+title: "What I built"
+description: "A short introduction to this chapter."
+order: 1
+---
+```
+
+Edit the Markdown beneath the metadata as usual. The chapter filename determines
+its URL under `/projects/struxos-conductor/`; `order` controls the chapter menu
+and previous/next links. These chapters are published directly and have no
+`draft` switch. They do not appear as separate projects in the project listing.
+Update the overview links and the chapter-count browser test if adding chapters.
+Keep raw development sessions and detailed token manifests outside public content.

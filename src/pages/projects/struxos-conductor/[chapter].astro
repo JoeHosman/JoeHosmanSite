@@ -1,0 +1,123 @@
+---
+import EditorialLayout from "../../../layouts/EditorialLayout.astro";
+import { withBase } from "../../../lib/urls.mjs";
+
+type Chapter = {
+  frontmatter: { title: string; description: string; order: number };
+  Content: any;
+};
+const modules = import.meta.glob<Chapter>(
+  "../../../../content/case-studies/struxos/*.md",
+  { eager: true },
+);
+const chapters = Object.entries(modules)
+  .map(([path, page]) => ({
+    slug: path.split("/").pop()!.replace(/\.md$/, ""),
+    ...page,
+  }))
+  .sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+
+export function getStaticPaths() {
+  const pages = import.meta.glob<Chapter>(
+    "../../../../content/case-studies/struxos/*.md",
+    { eager: true },
+  );
+  return Object.entries(pages).map(([path, page]) => ({
+    params: { chapter: path.split("/").pop()!.replace(/\.md$/, "") },
+    props: { page },
+  }));
+}
+const { page } = Astro.props as { page: Chapter };
+const { Content, frontmatter } = page;
+const base = import.meta.env.BASE_URL;
+const root = "/projects/struxos-conductor/";
+const current = chapters.findIndex(
+  (chapter) => chapter.slug === Astro.params.chapter,
+);
+const previous = chapters[current - 1];
+const next = chapters[current + 1];
+---
+
+<EditorialLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+>
+  <a class="back-link" href={withBase(root, base)}>
+    StruxOs &amp; Conductor overview
+  </a>
+  <header class="detail-header">
+    <p class="section-label">
+      An experiment in agent-led development · Chapter {current + 1}
+    </p>
+    <h1>{frontmatter.title}</h1>
+    <p class="lede">{frontmatter.description}</p>
+    <p class="detail-meta">Paused · Research snapshot: September 27, 2026</p>
+  </header>
+  <nav aria-label="Case study chapters" class="chapter-nav">
+    <ol>
+      {chapters.map((chapter) => (
+        <li>
+          <a
+            href={withBase(`${root}${chapter.slug}/`, base)}
+            aria-current={
+              chapter.slug === Astro.params.chapter ? "page" : undefined
+            }
+          >
+            {chapter.frontmatter.title}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  <div class="prose" data-chapter={Astro.params.chapter}>
+    <Content />
+  </div>
+  <nav aria-label="Continue reading" class="chapter-pagination">
+    {previous ? (
+      <a href={withBase(`${root}${previous.slug}/`, base)}>
+        Previous: {previous.frontmatter.title}
+      </a>
+    ) : (
+      <a href={withBase(root, base)}>Back to overview</a>
+    )}
+    {next && (
+      <a href={withBase(`${root}${next.slug}/`, base)}>
+        Next: {next.frontmatter.title}
+      </a>
+    )}
+  </nav>
+</EditorialLayout>
+
+<style>
+  .prose[data-chapter="tokens"] :global(td:nth-child(2)) {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .chapter-nav {
+    border-block: 1px solid var(--rule);
+    margin: 0 0 36px;
+    padding: 18px 0;
+  }
+  .chapter-nav ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    padding-left: 22px;
+    margin: 0;
+    font-size: 14px;
+  }
+  .chapter-nav a[aria-current="page"] {
+    font-weight: 700;
+    color: var(--rust);
+  }
+  .chapter-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    margin-top: 48px;
+    font-size: 14px;
+  }
+</style>

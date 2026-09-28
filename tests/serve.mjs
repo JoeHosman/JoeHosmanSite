@@ -36,6 +36,14 @@ try {
   await mkdir(join(testRoot, "content/projects"), { recursive: true });
   await mkdir(join(testRoot, "content/career"), { recursive: true });
   await cp("content/about.md", join(testRoot, "content/about.md"));
+  await cp("content/case-studies", join(testRoot, "content/case-studies"), {
+    recursive: true,
+  });
+  await cp(
+    "public/images/projects/struxos-conductor",
+    join(testRoot, "public/images/projects/struxos-conductor"),
+    { recursive: true },
+  );
   await create(
     "content/career/e2e-fixture-draft.md",
     `---

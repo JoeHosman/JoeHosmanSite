@@ -10,45 +10,47 @@ cover: ""
 cover_alt: ""
 ---
 
-## The question
+## How far could the agents take it?
 
-At the beginning of 2026, I wanted to understand how hands-off agentic
-development might work. I gave Codex and Claude an ambitious target: build an
-industry-leading project management tool without my directing each development
-decision.
+At the beginning of 2026, I set Codex and Claude an ambitious challenge: build an
+industry-leading project management tool with as little direction from me as
+possible. I used goal-driven sessions, including `/goals`, and introduced
+YouTube shop-tour transcripts as situations the product should handle.
 
-I used goal-driven sessions, including `/goals`, to explore how much of the
-planning and implementation the agents could carry forward on their own.
+The result was **StruxOs**, a construction and prefab-workflow prototype, and
+**Conductor**, a harness for coordinating continued agent work. The experiment
+is paused. The original ambition frames the investigation; it is not a claim
+that the prototype became an industry leader.
 
-## Giving the agents situations to work against
+## Read the case study
 
-I introduced YouTube video transcripts as source material for situations the
-product should handle. Those situations gave the agents something more concrete
-to validate against than the broad instruction to build a great product.
+1. [What I built](/projects/struxos-conductor/product/) — the application,
+   its shop-to-field operating path, and the orchestration harness.
+2. [How the experiment progressed](/projects/struxos-conductor/development/) —
+   the retained development history, feedback loops, and my interventions.
+3. [From shop tours to executable checks](/projects/struxos-conductor/validation/) —
+   four concrete transcript-to-rule examples, recorded test results, and a
+   saved browser evidence card.
+4. [The token footprint](/projects/struxos-conductor/tokens/) —
+   11.59 billion observed Codex tokens after removing replayed history,
+   the role of cached input, and the missing Claude usage records.
+5. [Evidence and open questions](/projects/struxos-conductor/evidence/) —
+   source notes, limits of the validation, and what a real operator pilot
+   would still need to establish.
 
-The StruxOs project developed into a construction and prefab-workflow prototype.
-Its documented target follows work from project setup and fabrication release
-through materials, station work, quality assurance, loadout, and field receiving.
-The scenarios include disruptions such as missing materials, design revisions,
-quality holds, and damaged deliveries.
+## What the evidence supports
 
-The application uses an ASP.NET Core backend and a Vue/TypeScript frontend,
-with Docker-based development and verification workflows.
+The application implements rules around fabrication release, material readiness,
+station work, quality, and receiving. Retained sessions include successful
+automated checks of specific rules. Later scenarios combine API actions with
+browser assertions of saved results.
 
-## Building the refinement loop
+That is evidence of working parts of a prototype. It does not establish that a
+shop could adopt the whole system without help: no completed external shop
+pilot was found in the reviewed records. The case study separates what was
+implemented, what was tested, and what remains unproven.
 
-As the experiment developed, I had the agents build Conductor, an agentic
-harness for continually refining the project.
-
-Conductor adds a Python execution loop around the workers. It reads queued work,
-routes tasks to workers, and records outcomes in a persistent ledger. Its control
-loop supports pausing, resuming, and tracking cycles across restarts. The design
-also brings together named plans, audit-generated work, and verification gates.
-
-## What the experiment produced
-
-The work produced both a product prototype and a harness for continued agent-led
-development. The original industry-leading target remains the ambition that
-framed the experiment; the project story is about investigating the development
-process and the role of scenarios, goals, and feedback within it. The experiment
-is currently paused.
+The token audit likewise separates observation from inference. **96.39% of the
+recorded Codex input was cached context**, and matching Claude usage logs were
+unavailable. The token count is neither unique generated content nor a complete
+bill for the experiment.

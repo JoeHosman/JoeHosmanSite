@@ -1,0 +1,43 @@
+{
+  "audit_date_utc": "2026-09-28T00:08:58.757262+00:00",
+  "measure": "Observed usage in surviving project-associated logs; not complete consumption or billing",
+  "codex": {
+    "StruxOs": {
+      "sessions": 2438,
+      "sessions_with_usage": 2429,
+      "sessions_missing_usage": 9,
+      "first_usage": "2026-05-24T02:05:08.813Z",
+      "last_usage": "2026-07-05T18:56:28.977Z",
+      "deduplicated_observed_tokens": {
+        "input_tokens": 11559994171,
+        "cached_input_tokens": 11142698496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 32871664,
+        "reasoning_output_tokens": 5325575,
+        "total_tokens": 11592865835
+      }
+    },
+    "Conductor": {
+      "sessions": 2,
+      "sessions_with_usage": 2,
+      "sessions_missing_usage": 0,
+      "first_usage": "2026-06-23T19:06:45.074Z",
+      "last_usage": "2026-06-23T19:06:48.774Z",
+      "deduplicated_observed_tokens": {
+        "input_tokens": 64056,
+        "cached_input_tokens": 9984,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 12,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 64068
+      }
+    }
+  },
+  "claude": {
+    "usage": "unavailable",
+    "history_records": 515,
+    "history_session_ids": 49
+  },
+  "method": "Positive cumulative-counter deltas, deduplicated by preserved turn UUID plus cumulative vector; copied history verified by explicit fork ancestry",
+  "replayed_transitions_removed": 122914
+}
