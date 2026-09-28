@@ -30,14 +30,14 @@ represents one project, whether it is a finished piece or an ongoing experiment.
 | `summary` | A short description for project listings, in quotes. |
 | `date` | The year or date you want displayed: `"2025"` or `"2025-06-15"`. Quote year-only values. |
 | `categories` | One or more categories from the list below. |
-| `status` | `idea`, `in-progress`, `completed`, or `paused`. |
+| `status` | `idea`, `prototype`, `in-progress`, `completed`, or `paused`. Optional for collection pages. `prototype` describes the work without asserting release or current activity. |
 | `featured` | Set to `true` to nominate the project for the homepage. |
 | `draft` | Keep `true` while writing; `false` means ready to publish. |
 | `cover` | Image path, such as `/images/projects/oak-side-table/cover.jpg`, or `""` for none. |
 | `cover_alt` | A required description when a cover is supplied, or `""` when there is no cover. |
 
 Start with these categories: `process-automation`, `machine-learning`,
-`software`, `woodworking`, `mechanical-engineering`, `home-improvement`, and `art`. A project can
+`software`, `game-development`, `woodworking`, `mechanical-engineering`, `home-improvement`, and `art`. A project can
 belong to several categories:
 
 ```yaml
@@ -142,3 +142,16 @@ and previous/next links. These chapters are published directly and have no
 `draft` switch. They do not appear as separate projects in the project listing.
 Update the overview links and the chapter-count browser test if adding chapters.
 Keep raw development sessions and detailed token manifests outside public content.
+
+## Edit the game portfolio
+
+`content/projects/missouri-video-game-company.md` is the studio overview. Each
+game has its own Markdown file in `content/projects/`; the full case study is
+the body of that project entry. All game entries use `game-development` so
+visitors can filter the Projects index. The studio overview links to all 16
+games, and each game links back to it. Ironhaven is covered within Journal RPG.
+
+Use `prototype` until there is a more specific supported status. Dates describe
+the work, not a release. Keep source inspection, test results, and personal
+playtesting distinct when updating the evidence section. Existing screenshots
+should retain captions that identify development builds and test scenes.

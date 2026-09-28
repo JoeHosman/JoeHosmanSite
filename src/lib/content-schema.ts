@@ -36,7 +36,9 @@ export const projectSchema = z
       .array(text)
       .min(1)
       .transform((values) => [...new Set(values)]),
-    status: z.enum(["idea", "in-progress", "completed", "paused"]),
+    status: z
+      .enum(["idea", "prototype", "in-progress", "completed", "paused"])
+      .optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(true),
     cover: z.string().trim().default(""),

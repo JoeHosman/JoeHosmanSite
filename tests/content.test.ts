@@ -64,6 +64,14 @@ test("cover images require descriptions", () => {
     true,
   );
 });
+test("prototypes and collections can avoid unsupported completion claims", () => {
+  assert.equal(
+    projectSchema.safeParse({ ...project, status: "prototype" }).success,
+    true,
+  );
+  const { status, ...collection } = project;
+  assert.equal(projectSchema.safeParse(collection).success, true);
+});
 test("project years retain their precision and sort with exact dates", () => {
   const data = projectSchema.parse({ ...project, date: "2025" });
   assert.equal(data.date, "2025");

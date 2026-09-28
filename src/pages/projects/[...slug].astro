@@ -19,6 +19,7 @@ const { title, summary, date, categories, status, cover, cover_alt, draft } =
   entry.data;
 const statuses = {
   idea: "Idea",
+  prototype: "Prototype",
   "in-progress": "In progress",
   completed: "Completed",
   paused: "Paused",
@@ -46,7 +47,7 @@ const statuses = {
       >
         {formatProjectDate(date)}
       </time>
-      <span>{statuses[status]}</span>
+      {status && <span>{statuses[status]}</span>}
     </div>
   </header>
   {cover && (
