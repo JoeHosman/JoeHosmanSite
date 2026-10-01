@@ -32,10 +32,8 @@ I structured production routing around recipe data. I derive the chain of inputs
 
 Contracts and operating expenses sit in separate modules that observe the world. That separation makes their rules easier to inspect independently of drawing the shop. Weekly expenses include payroll, rent, utilities, and insurance; maintenance and consumable purchases can affect cash as they happen. A busy floor still has to cover its costs.
 
-Workers and equipment add further constraints. Retained source includes machine wear, preventive maintenance, worker morale, training, certifications, injuries, and supply consumption. These systems give the player more variables to manage, while also creating engineering work around consistent state transitions and shared calculations. For example, a common payout function supplies both the contract result and its displayed value.
+I added machine wear and preventive maintenance, along with worker morale, training, certifications, injuries, and supply use. Keeping these systems consistent meant sharing calculations where the same value appears in different places; for example, the contract payout and its displayed quote use the same calculation.
 
 ## Where I left it
 
-During the September 2026 portfolio review, the browser application loaded locally and entered its sandbox without observed page errors. The screenshot comes from that check. It establishes the running shop interface; it does not establish a completed campaign, tuned economy, or public release.
-
-The rest of the implementation is in the source files below. Representative files are `fabgame/src/world.ts`, `fabgame/src/logistics.ts`, `fabgame/src/contracts.ts`, and `fabgame/src/economy.ts`. Development history inspected for this review includes work through July 2026.
+I ran the browser prototype in September 2026 and captured the sandbox screenshot above. The shop interface is working; balancing the economy and completing a campaign are still ahead.

@@ -28,12 +28,10 @@ I also built a Rust server using Axum and Tokio, with PostgreSQL storage and Web
 
 That transaction boundary matters for a system trading serialized items. The listing, payment, and transferred item need to describe the same purchase, even when requests overlap. It is a concrete engineering problem alongside the more experimental crafting mechanics.
 
-I have not finished the server-side validation boundary. Dungeon-run and model-integrity validation functions are placeholders that approve their inputs. The code therefore supports a story about a multiplayer and marketplace prototype, with implemented transaction handling, rather than a completed authoritative game service. Redis also appears in the infrastructure design without establishing a fully integrated runtime cache.
+Server-side validation is still unfinished. Dungeon-run and model-integrity validation functions are placeholders that approve their inputs. The marketplace transaction flow is implemented, but the server is not yet authoritative: run and model validation currently accept every input. Redis is part of the infrastructure plan, but I have not integrated it as a runtime cache.
 
-## What the retained project shows
+## Where I left it
 
-I worked on this from February 17 through March 17, 2026. The repository contains dungeon, combat, crafting, progression, and UI code alongside test sources for network mathematics and game systems. Windows executable and archive artifacts are retained, though their presence alone does not establish a public release or a verified playable build.
+I worked on Neuralnomancer from February 17 through March 17, 2026. Alongside the dungeon, combat, crafting, progression, and UI code, I kept tests for the network math and game systems. I also have Windows builds, but have not prepared a public release.
 
 The part I find most interesting is the connection between a small learning system and ordinary game objects. I implemented enough of the model lifecycle to make training, persistence, combination, and deterioration concrete mechanics to investigate within a larger extraction game.
-
-I implemented the systems described above in `client/scripts/nn/gd_neural_net.gd`, `client/scripts/nn/gd_optimizer.gd`, `game-server/src/marketplace.rs`, and `game-server/src/validation.rs`. I did not rerun the game or tests for this write-up.

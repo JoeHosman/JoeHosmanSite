@@ -32,10 +32,8 @@ A small implementation detail illustrates the value of that boundary. Ship remov
 
 ## What is implemented, and what is recorded
 
-I built this in Godot and GDScript, with configuration targeting Godot 4.3. Retained development history runs from April 25 through April 27, 2026. I implemented procedural land and world generation, persistence, a strategic-map interface, and a substantial collection of subsystem tests, including a world-generation determinism test.
+I built Privateer Manager in Godot and GDScript, targeting Godot 4.3. In a focused stretch from April 25–27, 2026, I added procedural world generation, persistence, a strategic map, and tests for systems including generation determinism.
 
-Web and Linux export presets are present. I also built a browser-based design-document viewer and a log dashboard; those are supporting tools, not evidence of a published browser game. It is still a prototype.
+I also built a browser-based design-document viewer and a log dashboard to support development. The game itself is still a prototype.
 
 I built Privateer Manager this way because I wanted autonomous ships and economic systems without making the simulation opaque. Explicit state and ordered commands give me a place to trace why the world changed, and make it easier to reproduce a surprising outcome.
-
-I used `src/sim/sim_tick.gd`, `src/sim/worldgen.gd`, `src/sim/sim_serialization.gd`, and `tests/test_worldgen_determinism.gd`. I inspected the source and history; I did not run the simulation, exports, or tests.

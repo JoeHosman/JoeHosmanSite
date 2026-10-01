@@ -34,8 +34,8 @@ The worker loop checks whether a trade has missed payroll before allowing its au
 
 The job definitions also distinguish manual failures from automated waste. Simple first-tier manual jobs have no failure chance, while worker output can be reduced by an expected waste rate. Research can change those rates and penalties. This keeps the same job data useful for both hands-on work and continuous production without pretending that the two processes are identical.
 
-## What the review established
+## Where I left it
 
 In the local browser check, I selected Electrical and performed twelve manual actions. The cash ledger increased from zero to twelve dollars, and the page produced no observed errors. That check covers the opening interaction, not the later hiring, research, payroll, or long-term progression loops.
 
-I also implemented hiring, research, and payroll. The engine code is in `fabbing/src/engine/GameEngine.ts`, `fabbing/src/engine/jobs.ts`, `fabbing/src/engine/trades.ts`, and `fabbing/src/engine/payroll.ts`. I only checked the opening interaction in a browser; I have not tested those later systems in play.
+I also implemented hiring, research, and payroll. Those later systems still need playtesting.

@@ -16,13 +16,13 @@ I built RekklessRunning as a procedural runner experiment under [Missouri Video 
 
 The loop has a concrete change at its endpoint. When the runner reaches the finish, the loop manager creates another room, rebuilds the connected chain, increments the completed-loop count, and returns the runner to the start. The next traversal includes the expanded course. Room creation receives the loop count so templates can use progression when generating content.
 
-Following the implementation, a player travels along the connected route, reaches the finish-room exit, and starts again after the new geometry is positioned. The restart waits until the end of a frame before telling the spline follower to begin. That sequence is visible in source; I did not launch the game or assess the pacing and feel of successive runs for this portfolio review.
+When the runner reaches the finish, I add a room, rebuild the chain, and send the runner back to the start. I wait until the end of the frame before restarting the spline follower so the new geometry is in place. I still need to playtest the pacing of successive runs.
 
 ## Connecting procedural rooms
 
 ![Top-down prototype view of a narrow red corridor joining a wider purple room.](/images/projects/rekkless-running/room-connection-prototype.png)
 
-*Retained development capture showing the connection between a narrow, varying-width corridor and a wider room. This geometry view documents the prototype, rather than a newly recorded gameplay session.*
+*A development view of the spline connecting a narrow, variable-width corridor to a wider room.*
 
 I treated room connections as an explicit geometry problem. Each room has neighbors, and creating a room can change those relationships. The stack inserts a new room near the start, reapplies the neighboring template, regenerates the start-room visuals, and rebuilds the chain. The reason for rebuilding is practical: template application can alter socket offsets, so a visually plausible room is not enough unless its entry and exit still meet the adjoining rooms.
 
@@ -30,14 +30,12 @@ Templates are selected by creation index using interval and priority rules, with
 
 The spline generator accounts for the room's shape instead of assuming that every space is a straight rectangle. It samples a centerline, reserves a minimum clear path width, and limits lateral offsets to the remaining space with a safety margin. Entry and exit points align with room sockets, and the shaped-room path incorporates floor height for slopes. A rectangular fallback handles rooms without a shape definition.
 
-Those details connect procedural variety to movement constraints. Wider space permits more lateral variation; narrow space keeps the path centered. Socket alignment lets one room hand the runner to the next. These are source-level constraints, not proof that every possible generated course is traversable.
+Those details connect procedural variety to movement constraints. Wider space permits more lateral variation; narrow space keeps the path centered. Socket alignment lets one room hand the runner to the next. I still need to test generated courses for traversability.
 
 ## Tools for inspecting the course
 
 I also built a Unity editor window for managing room stacks. It exposes start and finish rooms, creation controls, room lists, and scene focus. Putting those operations in an editor interface makes the generated structure inspectable while authoring it. This is a substantial part of the project story because the runtime loop and the authoring tools operate on the same room model.
 
-## Development status and evidence
+## Where I left it
 
-My retained development history spans December 2025 to January 2026. RekklessRunning remains a prototype in this portfolio: the source establishes course generation, connection management, and a growing run loop, while release status and sustained playtesting remain unverified.
-
-I inspected `Assets/Scripts/Runtime/RoomStack.cs`, `Assets/Scripts/Runtime/EndlessRunLoopManager.cs`, `Assets/Scripts/Runtime/Splines/ShapeAwareCenterlineGenerator.cs`, and `Assets/Scripts/Editor/RoomStackEditorWindow.cs`, relative to the SplineTooling Unity project. I have not run the Unity project or its tests.
+I worked on RekklessRunning from December 2025 to January 2026. The prototype generates and connects rooms, then adds to the course after each run. My next design challenge is getting enough variety without breaking the routes.

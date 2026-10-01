@@ -26,12 +26,10 @@ Upgrade definitions change those relationships. Choices can increase damage, sho
 
 I kept the runtime to five scripts covering the main scene, player, enemies, projectiles, and experience gems. The main coordinator owns the world-generation and combat loop, while the player script handles movement, damage, experience, and upgrades. The visual approach uses simple vector-like figures and drawn effects.
 
-I kept this prototype compact. It makes the relationship between a wave, an attack, a pickup, and a level-up easy to locate in the source. It also means the main script carries several responsibilities that a larger game might eventually separate.
+I kept the prototype compact, with the wave, attacks, pickups, and level-ups coordinated in a small set of scripts. That made the loop quick to build, though the main coordinator now has several jobs a larger game would split up.
 
-## What this case study represents
+## Where I left it
 
-The retained Git history is dated May 17, 2026, and the project configuration targets Godot 4.3. It records an initial platformer prototype followed by expansion of the procedural level scale. Those dates describe development evidence, not a release.
+I built this in Godot 4.3, with development work dated May 17, 2026. I started with a platformer, then expanded the procedural level.
 
-This is a separate project from [Forever Stick Fight](/projects/forever-stick-fight/). The similar titles and stick-figure survival themes do not establish that one is a renamed version of the other; the retained repositories have distinct implementations.
-
-I used `docs/CONCEPT.md`, `scripts/main.gd`, `scripts/player.gd`, and `project.godot`. I inspected the code and development history; I did not run the game or tests.
+This is a separate project from [Forever Stick Fight](/projects/forever-stick-fight/). The titles are similar, but these are two different games with separate code and development histories.

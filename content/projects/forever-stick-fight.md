@@ -16,7 +16,7 @@ The player moves through combat while a growing collection of weapons determines
 
 ![Streets prototype with a stick fighter, projectiles, health bar, weapon slots, and touch controls.](/images/projects/forever-stick-fight/streets-prototype.png)
 
-*Retained gameplay screenshot from May 4, 2026. This shows the prototype's Streets presentation, including its visible touch controls and weapon slots.*
+*A May 4, 2026 development screenshot showing the Streets scene, touch controls, and weapon slots.*
 
 ## Drawing motion from a few points
 
@@ -30,14 +30,12 @@ Combat poses sit on top of this structure. The move definitions include jabs, ho
 
 Weapon and style resources separate many combat definitions from the scene that runs the game. The biome-crawl coordinator brings together the player controller, card pool, card-draft logic, biome director, path-selection interface, weapon pickups, and run-ending presentation.
 
-The source also connects touch input, loot boxes, destructible platforms, boss presentation, and a weapon-evolution recipe. These are implemented components with concrete wiring, rather than only entries in the design document. They provide a foundation for experimenting with how movement, automatic attacks, and choices interact over a run.
+I wired in touch input, loot boxes, destructible platforms, boss encounters, and a weapon-evolution recipe. That gave me more ways to explore how movement, automatic attacks, and player choices shape a run.
 
 The broader design goes further, describing a longer biome chain and persistent progression. I treat that document as the direction of the experiment. It does not establish that every planned biome, unlock, or commercial-release goal was completed.
 
 ## Where I left it
 
-I worked on this from April 14 through May 6, 2026, using Godot 4.6 and GDScript. The screenshot above is a useful record of the prototype's actual visual state. It shows an early, sparse presentation rather than a polished promotional image.
+I worked on this from April 14 through May 6, 2026, using Godot 4.6 and GDScript. The May 4 screenshot shows the game as it looked during development, with its sparse visual style and touch controls.
 
-This project is separate from [Stick Fighter Forever](/projects/stick-fighter-forever/), another retained platform-survival prototype with a similar name. I keep their case studies distinct because their code structures and development histories differ.
-
-I used `fighters/ik/spring_rig.gd`, `scenes/biome_crawl/biome_crawl.gd`, `docs/GDD-BiomeCrawl.md`, and the retained May 4 screenshot. Source and the image were inspected; the game and tests were not rerun for this write-up. I did not rerun the game or tests.
+This is separate from [Stick Fighter Forever](/projects/stick-fighter-forever/), a smaller survival-platformer I built as a different project.

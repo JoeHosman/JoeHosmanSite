@@ -32,8 +32,6 @@ Dungeon branches have a similarly explicit generation layer. A generic wave-func
 
 ## Where I left it
 
-Development history spans July 13–20, 2026, using Godot 4.6 and GDScript. I implemented gathering, crafting, relationships, injury, difficulty, and branch-generation systems, together with unit and integration test sources. KayKit assets are present in the project; their inclusion is not a claim of original character artwork.
+I worked on Dungeon Isle from July 13–20, 2026, in Godot 4.6 and GDScript. I built gathering, crafting, relationships, injury, difficulty, and branch-generation systems, with unit and integration tests. I used KayKit assets for characters.
 
-I have more settlement and co-op ideas than this prototype currently supports. What I built here connects persistent resident state to expeditions and turn-based combat.
-
-I used `src/sim/relationship.gd`, `src/sim/battle_sim.gd`, `src/sim/wfc.gd`, and `src/autoload/game_state.gd`. I inspected the source and development history; I did not run the game or tests.
+I have more settlement and co-op ideas for this game. The prototype currently connects persistent resident state to expeditions and turn-based combat.

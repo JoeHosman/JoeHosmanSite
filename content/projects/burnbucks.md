@@ -30,6 +30,6 @@ The visual feedback includes floating earnings, falling bills, and a brief pulse
 
 ## Where I left it
 
-The September 2026 browser review checked twelve clicks and a first auto-burner purchase. The interface showed one dollar per second afterward, without observed page errors. That is the specific progression captured here; later upgrades and long-running balance were not evaluated in that check.
+In September 2026, I checked the opening loop: twelve clicks, then the first auto-burner. The HUD showed one dollar per second after the purchase. Later upgrades and long-term balance still need attention.
 
-BurnBucks is still a prototype, but the small scope let me keep input, rewards, purchases, and automated income close together and easy to follow. I used `BurnBucks/game.js` and `BurnBucks/upgrades.js`.
+BurnBucks is still a prototype, but the small scope let me keep input, rewards, purchases, and automated income close together and easy to follow.

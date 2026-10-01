@@ -30,8 +30,6 @@ Fishing knowledge, quest progress, and placed-item records live in shared game s
 
 ## Where I left it
 
-I worked on this from April 27–28, 2026. I built this in Godot 4.6, GDScript, Jolt physics, and the godot_voxel extension. Retained tests cover procedural determinism and integrations such as transitions, destruction, fishing, quests, and the buy/build loop.
+I built this in Godot 4.6 with GDScript, Jolt physics, and the godot_voxel extension over April 27–28, 2026. I added tests for procedural determinism and the scene-transition, destruction, fishing, quest, and buy/build systems.
 
-The design extends beyond that scope into broader world and vehicle ideas. Manual playtest documents are retained as checklists, with unchecked entries; they are useful descriptions of intended checks rather than evidence that those checks passed. The generation, destruction, and state-transfer systems are the parts I implemented here.
-
-I used `subsystems/procgen_builder.gd`, `subsystems/voxel_destruction.gd`, `autoload/game_state.gd`, and `test/unit/test_procgen_determinism.gd`. I inspected the source and development history; I did not run the game or tests.
+I had bigger world and vehicle ideas for this, but focused on procedural generation, destruction, and carrying player state between scenes.

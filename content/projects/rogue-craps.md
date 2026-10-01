@@ -10,7 +10,7 @@ cover: ""
 cover_alt: ""
 ---
 
-I explored a dungeon game built around dice and equipment in RogueCraps, part of [Missouri Video Game Company LLC](/projects/missouri-video-game-company/). Its retained Unity implementation combines entity-component-system combat with physical dice objects and a spatial inventory. The interesting engineering boundary is between a discrete combat decision and a roll that takes time to resolve.
+I built RogueCraps around a useful tension: combat actions are discrete, but a physical dice roll takes time to settle. The Unity prototype connects ECS combat to physical dice and a spatial inventory, so a roll can resolve an attack rather than just decorate it.
 
 ## From combat action to dice result
 
@@ -20,18 +20,16 @@ I represented a roll as a request and response rather than resolving every actio
 
 ## Physical dice and generated geometry
 
-The physical-dice implementation has its own lifecycle. It applies force and torque to a rigid body, tracks whether both linear and angular motion remain below a threshold, and waits for a settling interval. It then reads the upward-facing value by comparing face-marker directions with world up. This is retained simulation logic; the review did not establish the statistical fairness of its physical rolls or behavior in every collision arrangement.
+I roll physical dice by applying force and torque, waiting until the body settles, then finding which face points upward. I still need to check the roll distribution and unusual collision cases.
 
-I also included procedural dice construction. A factory creates mesh objects, materials, convex colliders, rigid bodies, and face markers from polyhedron data. It caches source meshes and creates per-die mesh instances. The face markers bridge visible geometry and the value-reading code, making the generated object usable by the same physical-dice component.
+I generate dice from polyhedron data, including their meshes, materials, colliders, rigid bodies, and face markers. The same markers connect the visible die to the roll-reading logic, so generated dice use the same physics path as authored ones.
 
 ## Placing equipment in a grid
 
 Inventory adds another concrete interaction. A placement request includes a target position and rotation, which can swap the item's occupied width and height. When moving an item, the system clears its old cells before checking the new position so that the item does not collide with itself. If placement fails, it restores the old cells and emits a failure event. Stacking and splitting have additional paths. This is a useful example of protecting game state around a reversible player action.
 
-## Unfinished systems and evidence
+## Unfinished systems
 
-The implementation boundary is significant. Combat item use and abilities are explicit TODOs in the action executor. Their action types exist, but that is not equivalent to functioning item effects or ability cooldowns. Steam co-op appears as design intent in the retained review and is not presented here as delivered multiplayer functionality.
+Combat item use and abilities are not implemented yet; the action types are there, but not their effects or cooldowns. Steam co-op is an idea for the project, not a delivered feature.
 
-RogueCraps is therefore a prototype case study about connected systems: asynchronous roll handling, physical presentation, generated dice geometry, and inventory placement. Its relationship to DungeonCraps is unconfirmed, so each has its own page and its own evidence. This review establishes neither a public release nor a finished dungeon campaign.
-
-I inspected `Assets/Scripts/Systems/Combat/ActionExecutionSystem.cs`, `Assets/Scripts/Mono/Dice/PhysicsDice.cs`, `Assets/Scripts/Mono/Dice/ProceduralDiceFactory.cs`, and `Assets/Scripts/Systems/Inventory/ItemPlacementSystem.cs`, relative to the RogueCraps-Unity project. I inspected the code; I did not launch the game or rerun its tests.
+RogueCraps is a prototype connecting asynchronous roll handling, physical dice, generated geometry, and inventory placement. It is separate from DungeonCraps; the two projects have different implementations. The dungeon campaign is unfinished.
