@@ -26,6 +26,20 @@ const canonical = Astro.site
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     {canonical && <meta property="og:url" content={canonical} />}
+    {import.meta.env.PROD && (
+      <>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-03JTPR0EMW"
+        ></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-03JTPR0EMW');
+        </script>
+      </>
+    )}
   </head>
   <body>
     <a class="skip-link" href="#content">
