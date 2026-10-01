@@ -28,8 +28,8 @@ I separated upgrade definitions from game behavior. The data file supplies price
 
 The visual feedback includes floating earnings, falling bills, and a brief pulse on the burn pile. Upgrade rendering tracks the values that affect its display, including ownership and affordability. Local storage preserves the balance, click tier, and auto-burner counts, with periodic saves and saves when the page is hidden or closed.
 
-## Prototype evidence
+## Where I left it
 
 The September 2026 browser review checked twelve clicks and a first auto-burner purchase. The interface showed one dollar per second afterward, without observed page errors. That is the specific progression captured here; later upgrades and long-running balance were not evaluated in that check.
 
-The implementation remains a prototype. Its compact scope makes the relationship between input, reward, purchase, and automatic income easy to inspect. Source references are `BurnBucks/game.js` and `BurnBucks/upgrades.js`.
+BurnBucks is still a prototype, but the small scope let me keep input, rewards, purchases, and automated income close together and easy to follow. I used `BurnBucks/game.js` and `BurnBucks/upgrades.js`.

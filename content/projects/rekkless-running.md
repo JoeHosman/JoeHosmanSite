@@ -38,6 +38,6 @@ I also built a Unity editor window for managing room stacks. It exposes start an
 
 ## Development status and evidence
 
-The retained development record reviewed spans December 2025 to January 2026. RekklessRunning remains a prototype in this portfolio: the source establishes course generation, connection management, and a growing run loop, while release status and sustained playtesting remain unverified.
+My retained development history spans December 2025 to January 2026. RekklessRunning remains a prototype in this portfolio: the source establishes course generation, connection management, and a growing run loop, while release status and sustained playtesting remain unverified.
 
-Source notes: I inspected `Assets/Scripts/Runtime/RoomStack.cs`, `Assets/Scripts/Runtime/EndlessRunLoopManager.cs`, `Assets/Scripts/Runtime/Splines/ShapeAwareCenterlineGenerator.cs`, and `Assets/Scripts/Editor/RoomStackEditorWindow.cs`, relative to the SplineTooling Unity project. This account is based on implementation inspection; the Unity project and tests were not rerun.
+I inspected `Assets/Scripts/Runtime/RoomStack.cs`, `Assets/Scripts/Runtime/EndlessRunLoopManager.cs`, `Assets/Scripts/Runtime/Splines/ShapeAwareCenterlineGenerator.cs`, and `Assets/Scripts/Editor/RoomStackEditorWindow.cs`, relative to the SplineTooling Unity project. I have not run the Unity project or its tests.

@@ -14,7 +14,7 @@ I built BooBoo as a small reaction-game experiment under [Missouri Video Game Co
 
 ## Hold, watch, and release
 
-The concrete interaction in the controller is to watch the current image, hold a supported button while a non-puppy image is showing, and release when a puppy arrives. Holding during the wrong image subtracts points. The score is clamped at zero, so an early mistake cannot create an accumulating negative balance. This journey follows the retained source; I did not launch a build or measure reaction difficulty for this case study.
+I made the core interaction continuous: watch the image, hold a button to boo a non-puppy, and let go when a puppy appears. Holding during the wrong image subtracts points. The score is clamped at zero, so an early mistake cannot create an accumulating negative balance. I did not launch a build or test the reaction timing with players.
 
 I used time-based scoring rather than awarding one point per press. The configured defaults add ten points per second for booing a non-puppy and subtract ten per second for booing a puppy. Each update applies the rate using elapsed frame time. The result is that both noticing the image change and releasing promptly matter to the score.
 
@@ -30,4 +30,4 @@ I also included editor actions that load the puppy, non-puppy, and sound collect
 
 BooBoo's scope is deliberately small in this portfolio: one reaction loop, its sequencing rules, and its feedback plumbing. Retained WebGL build artifacts were recorded in the project review, but they were not launched and do not establish a public release or current browser compatibility. I am not claiming authorship of the underlying photos or audio through this case study.
 
-Source notes: the mechanics above come from `BooBoo_Unity/Assets/Scripts/PuppyController.cs`, including its calls into `BooBoo_Unity/Assets/Scripts/BooVisualEffects.cs`. The controller was inspected; the game and tests were not rerun. The latter file identifies the feedback integration rather than independently verified visual behavior.
+I based the mechanics on `BooBoo_Unity/Assets/Scripts/PuppyController.cs`, including its calls into `BooBoo_Unity/Assets/Scripts/BooVisualEffects.cs`. I inspected these files, but did not run the game or tests. The visual-effects file shows the feedback integration; I did not verify it in play.

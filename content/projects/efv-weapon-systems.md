@@ -10,11 +10,11 @@ cover: ""
 cover_alt: ""
 ---
 
-I explored modular weapon configuration in the EFV / WeaponModSystem Unity prototype, part of [Missouri Video Game Company LLC](/projects/missouri-video-game-company/). This case study focuses on the retained WeaponModSystem implementation: how attachment slots, weapon instances, calculated statistics, and an inventory interface fit together.
+I explored modular weapon configuration in the EFV / WeaponModSystem Unity prototype, part of [Missouri Video Game Company LLC](/projects/missouri-video-game-company/). I focused on the WeaponModSystem: how attachment slots, configured weapon instances, calculated statistics, and inventory fit together.
 
 ## Configuring a weapon
 
-The player-facing interaction is a configuration screen. In the inspected code path, opening a weapon populates its slots, attaches an inventory grid, initializes the statistics panel, and displays a weapon preview. Selecting a slot filters the modification list. Equipping or removing an attachment refreshes the display and rebuilds nested slots, because one attachment can introduce places for additional attachments. This is a walkthrough of the interface implementation, not an observed playtest.
+I built the configuration flow around a weapon screen. Opening a weapon fills its attachment slots, connects the inventory grid, and shows stats and a preview. Picking a slot filters the available parts; equipping or removing one refreshes the numbers and rebuilds nested slots, since an attachment can expose more places to configure. I reviewed this path in the code rather than running a playtest.
 
 ## Calculating attachment effects
 
@@ -24,14 +24,14 @@ Folding a weapon also changes the calculation. Stock modifiers can be excluded f
 
 Calculated statistics are cached until invalidated. The calculator exposes an event after recalculation, giving presentation code a point at which to refresh. This keeps the distinction between stored configuration, derived values, and displayed comparisons explicit. It is an implementation approach, not a benchmark claim about runtime performance.
 
-The source also contains an intentionally simplified attachment preview. It adjusts a subset of cached statistics to provide quick feedback and says that a complete recalculation would be more accurate. I preserve that limitation here: an approximate comparison is useful prototype behavior, but it should not be described as exact parity with the final configured weapon.
+I kept the attachment preview intentionally simple. It adjusts a subset of cached statistics to provide quick feedback and says that a complete recalculation would be more accurate. The preview is approximate; a full recalculation would be needed for exact parity with the configured weapon.
 
 ## Inventory interaction
 
-The interface includes undo and redo controls and an inventory operation model. Their presence establishes the structure for reversible editing; this review did not exercise every attachment operation through that history. Similarly, the screen handles returning an unequipped item to inventory and logs placement failure, but source inspection does not establish every full-inventory interaction as finished.
+I added undo and redo controls around an inventory-operation model. Their presence establishes the structure for reversible editing; this review did not exercise every attachment operation through that history. Similarly, the screen handles returning an unequipped item to inventory and logs placement failure, but source inspection does not establish every full-inventory interaction as finished.
 
 ## Prototype scope and evidence
 
 EFV is therefore presented as a systems prototype, with a narrower claim than a released combat game. My portfolio account covers the WeaponModSystem code inspected for this review. Adjacent reference material is not presented as my implementation, and this page makes no claim to original third-party mechanics, assets, or a completed production title.
 
-Source notes: I inspected `Assets/Scripts/WeaponSystem/Stats/WeaponStatCalculator.cs` and `Assets/Scripts/UI/WeaponModding/WeaponModdingScreen.cs`, relative to the WeaponModSystem Unity project. The interface, calculations, and tests were not launched or rerun for this case study. The verified artifact is the retained implementation and its explicit limitations.
+I inspected `Assets/Scripts/WeaponSystem/Stats/WeaponStatCalculator.cs` and `Assets/Scripts/UI/WeaponModding/WeaponModdingScreen.cs`, relative to the WeaponModSystem Unity project. I inspected the interface and calculation code; I did not launch the project or rerun its tests.

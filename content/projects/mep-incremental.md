@@ -10,9 +10,9 @@ cover: ""
 cover_alt: ""
 ---
 
-I built this browser prototype around mechanical, electrical, and plumbing work. The opening action is deliberately small: choose a trade, perform a manual task, and earn the first few dollars. The source extends that beginning into parts purchasing, preparation, installation, workers, research, and the ongoing cost of keeping the operation running.
+I built this browser prototype around mechanical, electrical, and plumbing work. The opening action is deliberately small: choose a trade, perform a manual task, and earn the first few dollars. I extended that opening loop into parts purchasing, preparation, installation, workers, research, and the ongoing cost of keeping the operation running.
 
-The project is called `fabbing` in the source workspace. I use “MEP incremental game” here as a descriptive title. It is a separate React and TypeScript implementation within my [Missouri Video Game Company LLC](/projects/missouri-video-game-company/) work, alongside the spatial shop simulation in Fabrication Empire.
+I called the project `fabbing` in my workspace. I use “MEP incremental game” here as a descriptive title. It is a separate React and TypeScript implementation within my [Missouri Video Game Company LLC](/projects/missouri-video-game-company/) work, alongside the spatial shop simulation in Fabrication Empire.
 
 ![Electrical onboarding screen showing a twelve-dollar cash ledger and the action Drive screws on an outlet.](/images/projects/mep-incremental/onboarding.png)
 
@@ -38,4 +38,4 @@ The job definitions also distinguish manual failures from automated waste. Simpl
 
 In the local browser check, I selected Electrical and performed twelve manual actions. The cash ledger increased from zero to twelve dollars, and the page produced no observed errors. That check covers the opening interaction, not the later hiring, research, payroll, or long-term progression loops.
 
-Those broader systems are represented in the retained implementation. Useful source references are `fabbing/src/engine/GameEngine.ts`, `fabbing/src/engine/jobs.ts`, `fabbing/src/engine/trades.ts`, and `fabbing/src/engine/payroll.ts`. The project remains presented here as a prototype, with the distinction between the observed opening experience and the larger source-defined game kept explicit.
+I also implemented hiring, research, and payroll. The engine code is in `fabbing/src/engine/GameEngine.ts`, `fabbing/src/engine/jobs.ts`, `fabbing/src/engine/trades.ts`, and `fabbing/src/engine/payroll.ts`. I only checked the opening interaction in a browser; I have not tested those later systems in play.

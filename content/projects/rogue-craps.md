@@ -14,7 +14,7 @@ I explored a dungeon game built around dice and equipment in RogueCraps, part of
 
 ## From combat action to dice result
 
-The inspected combat journey starts with a pending action. An attack creates a critical-hit roll request; fleeing creates a different request with its own threshold. Combat enters a waiting phase until responses arrive, then translates those responses into effects. Defending takes a direct path and adds a component representing 50 percent damage reduction. This describes the source-defined flow, not an observed end-to-end dungeon run.
+I start combat actions as pending requests. An attack creates a critical-hit roll request; fleeing creates a different request with its own threshold. Combat enters a waiting phase until responses arrive, then translates those responses into effects. Defending takes a direct path and adds a component representing 50 percent damage reduction. I traced this flow in code; I have not played through a full dungeon run.
 
 I represented a roll as a request and response rather than resolving every action immediately. For attacks, the request preserves base damage and the attack context. When the response returns, the system compares the result against luck and can apply a 1.5-times critical multiplier before creating a physical-damage event. That separates choosing an action, obtaining a result, and applying its consequence.
 
@@ -34,4 +34,4 @@ The implementation boundary is significant. Combat item use and abilities are ex
 
 RogueCraps is therefore a prototype case study about connected systems: asynchronous roll handling, physical presentation, generated dice geometry, and inventory placement. Its relationship to DungeonCraps is unconfirmed, so each has its own page and its own evidence. This review establishes neither a public release nor a finished dungeon campaign.
 
-Source notes: I inspected `Assets/Scripts/Systems/Combat/ActionExecutionSystem.cs`, `Assets/Scripts/Mono/Dice/PhysicsDice.cs`, `Assets/Scripts/Mono/Dice/ProceduralDiceFactory.cs`, and `Assets/Scripts/Systems/Inventory/ItemPlacementSystem.cs`, relative to the RogueCraps-Unity project. The game and its tests were not launched or rerun for this case study.
+I inspected `Assets/Scripts/Systems/Combat/ActionExecutionSystem.cs`, `Assets/Scripts/Mono/Dice/PhysicsDice.cs`, `Assets/Scripts/Mono/Dice/ProceduralDiceFactory.cs`, and `Assets/Scripts/Systems/Inventory/ItemPlacementSystem.cs`, relative to the RogueCraps-Unity project. I inspected the code; I did not launch the game or rerun its tests.

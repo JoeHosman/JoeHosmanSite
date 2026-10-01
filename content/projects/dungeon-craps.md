@@ -10,11 +10,11 @@ cover: ""
 cover_alt: ""
 ---
 
-I explored dice-driven zone progression in DungeonCraps, part of [Missouri Video Game Company LLC](/projects/missouri-video-game-company/). A zone defines which sums are dangerous, while successful rolls build progress toward capture. The prototype combines that simple risk model with dice pools, modifiers, failure prevention, rewards, and re-challenges.
+I built DungeonCraps around a dice question: how do you make the player weigh a dangerous roll against steady progress toward owning a zone? Each zone marks dangerous sums; successful rolls fill its capture meter. Dice pools, modifiers, protection, rewards, and re-challenges all grow out of that central risk loop.
 
 ## Rolling toward zone capture
 
-The source-defined journey begins by selecting a zone and entering the ready-to-roll phase. Rolling evaluates the result against the zone's danger numbers, displays the outcome, and records success or failure. If progress reaches the capture requirement, the game awards capture gold and returns to zone selection. Otherwise, it returns to the roll-ready state. This is an inspection of implemented state transitions, not a completed gameplay session.
+I modeled the round as explicit states: choose a zone, roll, resolve the result, and either keep going or collect the zone and its gold. That keeps the transitions readable as modifiers and protection effects are layered in. I inspected those paths in code; I did not run a full gameplay session for this write-up.
 
 I made the progression phases explicit so that a player cannot change the dice pool while a roll or its result is being presented. Leaving an uncaptured zone follows a separate path that resets its progress. These boundaries make each interaction's consequences legible in the orchestrating code, even as other systems add modifiers to the roll.
 
@@ -30,6 +30,6 @@ Re-challenging a captured zone adds a second progression decision. The game lock
 
 ## Prototype scope and evidence
 
-I present DungeonCraps as a Unity prototype with inspectable probability and progression rules. Its relationship to the separately retained RogueCraps project is not established here. There is no claim of a release, completed balance pass, or verified end-to-end ability and betting experience.
+I left DungeonCraps as a Unity prototype centered on probability and zone progression. Its relationship to the separately retained RogueCraps project is not established here. There is no claim of a release, completed balance pass, or verified end-to-end ability and betting experience.
 
-Source notes: I inspected `Assets/Scripts/Core/GameManager.cs`, `Assets/Scripts/Core/ZoneManager.cs`, and `Assets/Scripts/Utilities/DiceProbability.cs`, relative to DungeonCraps. The Unity game and its tests were not launched or rerun for this case study. The evidence supports the implemented rules and state flow, with the interface limitations stated above.
+I inspected `Assets/Scripts/Core/GameManager.cs`, `Assets/Scripts/Core/ZoneManager.cs`, and `Assets/Scripts/Utilities/DiceProbability.cs`, relative to DungeonCraps. I inspected the Unity code but did not launch the game or rerun the tests. Ability and betting UI remain incomplete, as noted above.

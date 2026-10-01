@@ -12,7 +12,7 @@ cover_alt: ""
 
 I built Journal RPG around characters living through a changing world and recording their experiences. A session produces more than a passage of text: choices can alter personal traits, relationships, faction standing, and story progress. The resulting journal belongs to a world with other people, places, and events.
 
-The application uses Svelte and TypeScript. Ironhaven supplies a world and content template for the same engine, including locations and authored story material. I present them together as one project within [Missouri Video Game Company LLC](/projects/missouri-video-game-company/).
+I built the engine in Svelte and TypeScript. Ironhaven supplies a world and content template for the same engine, including locations and authored story material. I present them together as one project within [Missouri Video Game Company LLC](/projects/missouri-video-game-company/).
 
 ## Choices with persistent consequences
 
@@ -36,8 +36,8 @@ I also added an optional language-model adapter for rewriting narrative passages
 
 The game engine applies the consequences; the adapter supplies prose. Its instructions express the intended rewriting boundary, not a guarantee that every generated sentence will comply.
 
-## Prototype evidence
+## Where I left it
 
-Retained development history inspected for the portfolio reaches April 2026. The source demonstrates the choice, timeline, prose, and persistence systems, while also retaining incomplete areas such as item-based choice preconditions. I am presenting that implemented prototype scope rather than claiming a finished narrative campaign or verified shared-world deployment.
+Retained development history inspected for the portfolio reaches April 2026. I implemented the choice, timeline, prose, and persistence systems, while also retaining incomplete areas such as item-based choice preconditions. I am presenting that implemented prototype scope rather than claiming a finished narrative campaign or verified shared-world deployment.
 
 Representative sources are `ChooseYourOwnAdventure/src/lib/engine/choice-resolver.ts`, `ChooseYourOwnAdventure/src/lib/engine/timeline.ts`, `ChooseYourOwnAdventure/src/lib/engine/llm-adapter.ts`, and `ChooseYourOwnAdventure/src/lib/git/repo-writer.ts`.
