@@ -148,8 +148,13 @@ Keep raw development sessions and detailed token manifests outside public conten
 `content/projects/missouri-video-game-company.md` is the studio overview. Each
 game has its own Markdown file in `content/projects/`; the full case study is
 the body of that project entry. All game entries use `game-development` so
-visitors can filter the Projects index. The studio overview links to all 16
-games, and each game links back to it. Ironhaven is covered within Journal RPG.
+visitors can filter the Projects index. The studio overview links to the games
+and experiments, and each entry links back to it. Ironhaven is covered within Journal RPG.
+
+Runnable browser experiments live in `public/experiments/<project-name>/index.html`.
+Link to them from the project entry and studio overview using
+`/experiments/<project-name>/index.html` so links also work in the development server.
+Surf Track Weaver loads Three.js from external CDNs.
 
 Use `prototype` until there is a more specific supported status. Dates describe
 the work, not a release. Keep source inspection, test results, and personal

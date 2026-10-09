@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Surf Track Weaver</title>
+<meta name="description" content="Build a surf track, inspect the ramp choices, and watch a bot try the route. An MVGC browser experiment.">
+<style>
+:root{
+  --sea:#10273d; --deep:#f4f5f4; --panel:#fff; --line:#ccd1d3;
+  --ink:#253239; --muted:#56636a;
+  --accent:#235f86; --ok:#267360; --bad:#b3363d;
+  --f-body:Arial,Helvetica,sans-serif;
+  --f-mono:ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--deep);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1600px;margin:0 auto;padding:24px clamp(16px,3vw,44px) 48px;display:grid;gap:24px}
+.top{display:grid;gap:8px}
+.back{justify-self:start;color:var(--muted);font-size:13px;text-underline-offset:3px;margin-bottom:6px}
+h1{font:600 clamp(26px,4vw,34px)/1.15 var(--f-body);letter-spacing:-.6px;margin:0}
+.lede{margin:0;max-width:68ch;color:var(--muted)}
+h2{font:600 16px/1.3 var(--f-body);margin:0}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:24px;align-items:start}
+@media (max-width:900px){.app{grid-template-columns:minmax(0,1fr)}}
+.view{position:sticky;top:20px;height:calc(100svh - 210px);max-height:900px;min-height:440px;overflow:hidden;background:var(--sea);border-radius:3px}
+.view canvas{display:block;width:100%;height:100%;touch-action:none}
+@media (max-width:900px){.view{position:relative;top:auto;height:58svh;min-height:360px}}
+.hud{position:absolute;top:10px;left:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.chip{background:rgba(11,29,47,.85);border:1px solid transparent;border-radius:2px;padding:4px 7px;font:12px/1.4 var(--f-body);color:#bdccd9;font-variant-numeric:tabular-nums}
+.chip b{color:#fff;font-weight:500}
+.status{position:absolute;left:10px;bottom:10px;right:10px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;pointer-events:none;font:12px/1.4 var(--f-body);color:#bdccd9}
+.status span{background:rgba(11,29,47,.82);padding:4px 8px;border-radius:4px}
+.panel{display:grid;gap:28px;min-width:0}
+.card{display:grid;gap:12px;min-width:0}
+.card+.card{border-top:1px solid var(--line);padding-top:20px}
+.field{display:grid;gap:4px}
+.field label,.lbl{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+output,.num{font:500 13px var(--f-mono);color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.seedrow{display:flex;gap:8px;align-items:end}
+.seedrow .field{flex:1;min-width:0}
+input[type=text]{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:3px;padding:8px 9px;font:500 14px var(--f-mono);width:100%}
+button{font:500 14px/1 var(--f-body);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:10px 12px;cursor:pointer;min-height:38px}
+button:hover{border-color:var(--muted)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.segs{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.segs label{flex:1;display:flex;justify-content:center;align-items:center;text-align:center;padding:10px 4px;cursor:pointer;font:13px/1.2 var(--f-body);color:var(--muted);position:relative;background:var(--panel)}
+.segs label+label{border-left:1px solid var(--line)}
+.segs input{position:absolute;opacity:0;pointer-events:none}
+.segs label:has(input:checked){background:var(--accent);color:#fff}
+.segs label:has(input:focus-visible){outline:2px solid currentColor;outline-offset:-4px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns .primary{flex:1}
+#watch{width:100%}
+#watch:disabled{opacity:.5;cursor:default}
+#map{width:100%;display:block;border-radius:3px;background:#0b1d2f}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.why{margin:0;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td{padding:5px 4px;border-top:1px solid var(--line);vertical-align:top}
+td:last-child{text-align:right;font-size:12px;color:var(--muted)}
+tr.bad td:last-child{color:var(--bad)}
+tr.pick td{color:var(--accent)}
+tr.pick td:first-child::before{content:"▸ ";}
+.notes{max-width:72ch;display:grid;gap:12px;padding-top:8px}
+.notes p{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="../../projects/surf-track-weaver/">Back to project notes</a>
+    <h1>Surf Track Weaver</h1>
+    <p class="lede">A surf track generator. Try a seed, step through the ramp choices, or watch the bot take a run.</p>
+  </header>
+
+  <main class="app">
+    <div class="view" id="view">
+      <div class="hud">
+        <span class="chip">Pieces <b id="hPieces">0</b></span>
+        <span class="chip">Crossings <b id="hCross">0</b></span>
+        <span class="chip">Min headroom <b id="hHead">—</b></span>
+        <span class="chip">Lowest point <b id="hDrop">0 m</b></span>
+        <span class="chip">Clip brushes <b id="hBrush">0</b></span>
+        <span class="chip" id="botChip">Bot <b id="hBot">—</b></span>
+        <span class="chip" id="speedChip" hidden>Speed <b id="hSpeed">0</b> u/s</span>
+      </div>
+      <div class="status"><span id="statusMsg">Building…</span><span>Drag to orbit · scroll or pinch to zoom</span></div>
+    </div>
+
+    <aside class="panel">
+      <section class="card" aria-label="Generator settings">
+        <div class="seedrow">
+          <div class="field"><label for="seed">Seed</label><input id="seed" type="text" value="0000" spellcheck="false"></div>
+          <button id="newseed" type="button">Random</button>
+        </div>
+        <div class="field"><span class="lbl" id="angleLbl">Ramp angle</span>
+          <div class="segs" role="radiogroup" aria-labelledby="angleLbl">
+            <label><input type="radio" name="angle" id="angle45" value="45">45°</label>
+            <label><input type="radio" name="angle" id="angle51" value="51" checked>51° (5:4)</label>
+            <label><input type="radio" name="angle" id="angle70" value="70">70°</label>
+          </div></div>
+        <div class="field"><span class="lbl" id="viewLbl">Show</span>
+          <div class="segs" role="radiogroup" aria-labelledby="viewLbl">
+            <label><input type="radio" name="view" id="viewVisual" value="visual" checked>Visual</label>
+            <label><input type="radio" name="view" id="viewClip" value="clip">Playerclip</label>
+            <label><input type="radio" name="view" id="viewBoth" value="both">Both</label>
+          </div></div>
+        <div class="field"><label for="turn">Max turn per piece <output id="turnOut">40°</output></label><input id="turn" type="range" min="20" max="70" value="40"></div>
+        <div class="field"><label for="weave">Weave weight <output id="weaveOut">0.60</output></label><input id="weave" type="range" min="0" max="1" step="0.05" value="0.6"></div>
+        <div class="field"><label for="gaps">Air gaps <output id="gapsOut">0.70</output></label><input id="gaps" type="range" min="0" max="1" step="0.05" value="0.7"></div>
+        <div class="field"><label for="maxDrop">Max depth below start <output id="maxDropOut">160 m</output></label><input id="maxDrop" type="range" min="100" max="300" step="10" value="160"></div>
+        <div class="field"><label for="pieces">Track length <output id="piecesOut">60</output></label><input id="pieces" type="range" min="20" max="90" value="60"></div>
+        <div class="btns">
+          <button id="build" class="primary" type="button">Watch it build</button>
+          <button id="pause" type="button">Pause</button>
+          <button id="step" type="button">Step</button>
+        </div>
+        <button id="watch" type="button">Watch the bot run (2×)</button>
+      </section>
+
+      <section class="card" aria-label="Decision inspector">
+        <h2>Ramp choices</h2>
+        <div class="field"><label for="inspect">Inspect piece <output id="inspectOut">—</output></label><input id="inspect" type="range" min="1" max="1" value="1"></div>
+        <canvas id="map" aria-label="Top-down view of the decision"></canvas>
+        <div class="legend">
+          <span><i style="background:#ff7a3d"></i>picked</span>
+          <span><i style="background:#5cc8b0"></i>allowed</span>
+          <span><i style="background:#e5646a"></i>rejected</span>
+          <span><i style="background:#6fb6ff;width:8px;height:8px;border-radius:50%"></i>booster</span>
+          <span>Dashed circle: steering threshold</span>
+        </div>
+        <p class="why" id="why"></p>
+        <table id="cands"></table>
+      </section>
+    </aside>
+  </main>
+
+  <section class="notes" aria-labelledby="notes-title">
+    <h2 id="notes-title">About this experiment</h2>
+    <p>The seed fixes the sequence of choices. The generator checks turns, speed, height, and clearance, then picks from the pieces that fit. More weave weight favors crossings. If the track gets stuck, it backs up and tries another piece.</p>
+    <p>Switch to Playerclip to see the collision wedges. The bot rides these surfaces as the track grows, and failed runs can rule out a piece. Its movement uses a simplified Source-style model; a successful bot run still needs human playtesting.</p>
+    <p>This is a track-building prototype, with no player controls or Hammer export yet. Some seeds and settings stop short of the requested length. Use the ramp inspector to see where the choices ran out.</p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+/*GEN-START*/
+const DEG=Math.PI/180;
+const H=14,L=34,GAP_L=24,LOFT_L=36,SUB=10,HEADROOM=5,MAX_EXTRA=16,BOUND=420,START_Y=380,SEA=0,MIN_R=55,COS_PAR=Math.cos(35*DEG),SEG_DEG=4,CLIMB_CAP=7,LOW_AT=.5;
+const GRAV_M=800*0.01905,V0=6,PUSH=8,V_MIN=20,V_MAX=40;
+const ANGLES={'45':45,'51':Math.atan(5/4)/DEG,'70':70};
+let W=H/(5/4);
+const BOX=[
+  {name:'Straight',turn:0,w:1},
+  {name:'Gentle left',turn:-.5,w:1},{name:'Gentle right',turn:.5,w:1},
+  {name:'Hard left',turn:-1,w:.6},{name:'Hard right',turn:1,w:.6},
+  {name:'Booster',turn:0,w:.8,boost:true},
+  {name:'Launch',turn:0,w:1,launch:true},
+  {name:'Air gap',turn:0,w:1,air:true}
+];
+const SHAPES=[
+  {name:'Level',drop:1.5,bump:0,w:1},
+  {name:'Dip',drop:2,bump:-4,w:1},
+  {name:'Hump',drop:2,bump:3,w:.8},
+  {name:'Plunge',drop:13,bump:0,w:.7},
+  {name:'Climb',drop:-6,bump:0,w:1.5},
+  {name:'Boost climb',drop:-10,bump:0,w:.05,push:10}
+];
+const bell=f=>(1-Math.cos(2*Math.PI*f))/2,sq=f=>f*f,lin=f=>f;
+// target height: dive to the lowest point by mid-track, then climb back so the end zone sits level with the start
+const targetY=(P,i)=>{const ph=i/Math.max(1,P.pieces-1);return START_Y-Math.min(P.maxDrop*.85,P.pieces*2.5)*(ph<LOW_AT?ph/LOW_AT:(1-ph)/(1-LOW_AT))};
+const fast=s=>!!s&&(s.shape==='Plunge'||s.name==='Booster');
+const nSub=turn=>Math.max(SUB,Math.ceil(Math.abs(turn)/(SEG_DEG*DEG)));
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function hashSeed(s){let h=2166136261;for(const c of String(s)){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+
+let S, hooks={seg(){},unseg(){},finish(){},reset(){}};
+function newState(P){
+  W=H/Math.tan((ANGLES[P.angle]||ANGLES['51'])*DEG);
+  S={P,rng:mulberry32(hashSeed(P.seed)),segs:[],samples:[],sx:0,sz:0,n:0,end:{x:0,z:0,y:START_Y,th:0},done:false,why:'',decisions:[],ban:{},botBan:{},backtracks:0,botRejects:0,v2:V0*V0};
+  S.bot=botNew(P);
+  // faces whose normal points more than 0.7 up are floor in Source: no surfing, so the bot just reports the stall
+  S.botGate=Math.cos(Math.atan(H/W))<.7;
+  hooks.reset();
+}
+// speed estimate (v²) carried piece to piece: height lost, landing impacts, crease losses, booster kicks
+function estV2(y){return S.v2+2*GRAV_M*(S.end.y-y)}
+function nextV2(c){
+  const pts=c.pts,a=pts[0],b=pts[pts.length-1];
+  let v2=S.v2;if(c.push)v2=(Math.sqrt(Math.max(0,v2))+c.push)**2;
+  v2+=2*GRAV_M*(a.y-b.y);
+  // landing: a clean landing on the face keeps nearly all the speed gained in the fall
+  if(c.piece.air)v2=c.vh*c.vh+.6*Math.max(0,v2-c.vh*c.vh);
+  else if(c.piece.launch)v2*=.68;
+  else{
+    // energy kept per piece, measured from bot runs: tighter turns and vertical curves bleed speed at the brush seams
+    const tk=Math.abs(c.piece.turn)>.5?2:c.piece.turn?1:0;
+    v2*=({Level:[1,.98,.95],Dip:[.78,.83,.71],Hump:[.88,.87,.84],Plunge:[.87,.82,.81],Climb:[.9,.94,.89],'Boost climb':[.88,.85,.81]}[c.shape]||[.95,.9,.85])[tk];
+  }
+  return Math.max(4,v2);
+}
+function lastRamp(){for(let i=S.segs.length-1;i>=0;i--)if(!S.segs[i].air)return S.segs[i];return null}
+function path(st,turn,len,n,yf){
+  const pts=[];
+  for(let s=0;s<=n;s++){
+    const f=s/n,th=st.th+turn*f;let x,z;
+    if(Math.abs(turn)<1e-6){x=st.x+Math.cos(st.th)*len*f;z=st.z+Math.sin(st.th)*len*f}
+    else{const R=len/turn;x=st.x+R*(Math.sin(th)-Math.sin(st.th));z=st.z-R*(Math.cos(th)-Math.cos(st.th))}
+    pts.push({x,z,y:yf(f),dx:Math.cos(th),dz:Math.sin(th),f});
+  }
+  return pts;
+}
+function scan(pts,wf){
+  // skip the piece we attach to, and the ramp before it if we're landing from a gap
+  let last=S.segs.length-1;if(last>0&&S.segs[last].air)last--;
+  const R=2*W+3,R2=R*R;let need=0,needSeg=-1;const crosses=new Map();
+  for(const p of pts){
+    if(p.f<.05)continue;
+    for(const q of S.samples){
+      if(q.seg>=last)continue;
+      const dx=p.x-q.x,dz=p.z-q.z,d2=dx*dx+dz*dz;
+      if(d2>R2)continue;
+      if(Math.abs(p.dx*q.dx+p.dz*q.dz)>COS_PAR)return{reject:`Runs along #${q.seg+1}`};
+      const under=q.y-H-p.y,over=p.y-H-q.y;
+      if(under<HEADROOM&&over<HEADROOM){const w=wf(p.f),n=w>.02?(HEADROOM-under)/w:1e9;if(n>need){need=n;needSeg=q.seg}}
+      const o=crosses.get(q.seg);if(!o||d2<o.d2)crosses.set(q.seg,{seg:q.seg,d2,p,q});
+    }
+  }
+  return{need,needSeg,crosses};
+}
+// Build the candidate's path. Returns {mk(extra), wf, shape, flat}
+function geometry(piece,shape,turn){
+  const st=S.end,prev=S.segs[S.segs.length-1];
+  if(piece.air){
+    // ballistic: leave the last ramp along its end slope at the estimated speed
+    // gap length scales with speed so flight time stays short and predictable
+    const loft=!!(prev&&prev.launch),pp=prev?prev.pts:null;
+    let slope=0;if(pp){const a=pp[pp.length-2],b=pp[pp.length-1];slope=(b.y-a.y)/Math.hypot(b.x-a.x,b.z-a.z)}
+    let v=Math.sqrt(Math.max(1,S.v2)),vh=v/Math.sqrt(1+slope*slope);
+    // use the bot's real takeoff velocity when it has one
+    const bv=S.botGate&&S.bot.vel;if(bv&&!loft){vh=Math.max(4,Math.hypot(bv[0],bv[2]));slope=Math.max(-1,Math.min(1,bv[1]/vh))}
+    const len=loft?Math.min(LOFT_L,Math.max(12,vh*.9)):Math.min(GAP_L,Math.max(8,vh*.5));
+    return{wf:sq,vh,shape:loft?'Lofted arc':'Falling arc',flat:false,
+      mk:x=>path(st,0,len,SUB,f=>st.y+slope*f*len-.5*GRAV_M*sq(f*len/vh)-x*sq(f))};
+  }
+  if(piece.launch)return{wf:lin,shape:'Kicker',flat:false,mk:x=>path(st,0,L,16,f=>st.y-(4+x)*f+7*f*f*f)};
+  const sh=shape.final||!piece.boost?shape:SHAPES[0],n=Math.max(sh.bump?16:0,nSub(turn));
+  return{wf:lin,shape:sh.name,push:piece.boost?PUSH:sh.push||0,flat:turn===0&&!sh.bump,
+    mk:x=>path(st,turn,L,n,f=>st.y-(sh.drop+x)*f+sh.bump*bell(f))};
+}
+function evaluate(piece,shape,maxTurn,maxExtra){
+  const turn=piece.turn*maxTurn,idx=S.segs.length,prev=S.segs[idx-1],P=S.P;
+  const G=geometry(piece,shape,turn);
+  const base={piece,shape:G.shape,push:G.push||0,flat:G.flat,vh:G.vh,turn,valid:false,extra:0,crosses:[]};
+  let pts=G.mk(0);
+  const no=reason=>({...base,pts,reason});
+  if(piece.air){
+    if(idx===0)return no('Start needs a ramp');
+    if(prev.air)return no('Needs a landing ramp');
+    if(idx>=P.pieces-1)return no('Last piece must be a ramp');
+  }else if(prev&&prev.launch)return no('Launch must fly into a gap');
+  if(piece.launch){
+    if(!prev||prev.air||!fast(prev))return no('Needs speed: plunge or booster first');
+    if(idx>=P.pieces-2)return no('No room to land');
+  }
+  if(piece.boost&&prev&&prev.push)return no('Back-to-back boosters');
+  if(Math.abs(piece.turn)>.5&&/limb|Plunge|Dip/.test(G.shape))return no('Hard turns stay level');
+  if(prev&&prev.air&&/limb|Hump/.test(G.shape))return no('Landing ramps must not rise');
+  // banked-turn limit: the face can only hold a curve of radius v²/(g·tanθ)
+  if(turn){const vs=Math.sqrt(Math.max(S.v2,S.v2+2*GRAV_M*(S.end.y-G.mk(0).at(-1).y))),r=L/Math.abs(turn);
+    if(r<vs*vs/(GRAV_M*(H/W))/1.3)return no(`Too fast for this turn (${Math.round(vs/.01905)} u/s)`);}
+  let c=scan(pts,G.wf);
+  if(c.reject)return no(c.reject);
+  let extra=0;
+  if(c.need>0){
+    extra=c.need+.2;
+    if(extra>maxExtra)return no(`No room near #${c.needSeg+1}`);
+    pts=G.mk(extra);c=scan(pts,G.wf);
+    if(c.reject||c.need>.01)return no(c.reject||'Not enough headroom');
+  }
+  const t=pts[pts.length-1],lo=Math.min(...pts.map(p=>p.y)),hi=Math.max(...pts.map(p=>p.y));
+  const v2c=G.push?(Math.sqrt(Math.max(0,S.v2))+G.push)**2+2*GRAV_M*(S.end.y-hi):estV2(hi);
+  if(!piece.air&&hi>S.end.y+.5&&v2c<49)return no('Not enough speed to climb');
+  if(Math.hypot(t.x,t.z)>BOUND)return no('Leaves the map');
+  if(lo-H<SEA+6)return no('Hits the water');
+  const floor=START_Y-P.maxDrop,rem=P.pieces-idx-1;
+  if(lo<floor)return no('Below height limit');
+  if(t.y>START_Y+.5)return no('Above the start');
+  if(START_Y-t.y>CLIMB_CAP*rem+.5)return no('Too low to climb back');
+  // keep the run inside the speed band where the bot (and players) stay in control
+  const v2e=nextV2({...base,pts});
+  if(v2e>V_MAX*V_MAX)return no(`Too fast after (${Math.round(Math.sqrt(v2e)/.01905)} u/s)`);
+  if(v2e<V_MIN*V_MIN&&idx>1&&idx<P.pieces-1)return no(`Too slow after (${Math.round(Math.sqrt(v2e)/.01905)} u/s)`);
+  return{...base,pts,extra,valid:true,crosses:[...c.crosses.values()]};
+}
+function step(){
+  if(S.done)return false;
+  const P=S.P,maxTurn=P.turn*DEG,e=S.end,idx=S.segs.length,ban=S.ban[idx]||new Set();
+  let com={x:e.x,z:e.z},avg=0;
+  if(S.n){com={x:S.sx/S.n,z:S.sz/S.n};for(const q of S.samples)avg+=Math.hypot(q.x-com.x,q.z-com.z);avg/=S.n}
+  const thr=Math.max(MIN_R,avg*1.1),dist=Math.hypot(e.x-com.x,e.z-com.z);
+  const home=Math.hypot(e.x,e.z)>BOUND*.6,steering=idx>1&&(dist>thr||home);
+  const tgt=home?{x:0,z:0}:com;
+  // roll the vertical shape; spawn always starts with a drop-in plunge
+  const prevRamp=lastRamp();
+  const floor=START_Y-P.maxDrop,last=idx===P.pieces-1,diff=e.y-targetY(P,idx+1);
+  let opts=idx===0?[SHAPES[3]]:last?[{name:'Finish',drop:e.y-START_Y,bump:0,w:1,final:true}]
+    :SHAPES.filter(s=>(!s.fast||fast(prevRamp))&&e.y-s.drop>=floor);
+  if(!opts.length)opts=[SHAPES[0]];
+  // above the target height favors drops, below it favors climbs
+  const vNow=Math.sqrt(S.v2),hot=vNow>32;
+  const sw0=s=>s.push?(diff<-8?2.5:.02):s.w*(diff>8?(s.drop>3?1.6:s.drop<0?.4:1):diff<-8?(s.drop<0?2:s.drop>3?.3:.8):1);
+  const sw=s=>sw0(s)*(hot?(s.drop>3?.15:s.drop<0?2.5:1):1);
+  let r0=S.rng()*opts.reduce((a,s)=>a+sw(s),0),shape=opts[0];
+  for(const s of opts){shape=s;r0-=sw(s);if(r0<=0)break}
+  const box=idx===0?BOX.filter(b=>!b.boost&&!b.launch&&!b.air):last?BOX.filter(b=>!b.launch&&!b.air):BOX;
+  const bb=S.botBan[idx]||{};
+  const judge=maxExtra=>box.map(b=>ban.has(b.name)||bb[b.name]?{piece:b,shape:'',turn:b.turn*maxTurn,valid:false,extra:0,crosses:[],pts:geometry(b,shape,b.turn*maxTurn).mk(0),reason:bb[b.name]?`Bot: ${bb[b.name].toLowerCase()}`:'Dead end, backtracked'}:evaluate(b,shape,maxTurn,maxExtra));
+  let cands=judge(MAX_EXTRA),forced=false;
+  if(!cands.some(c=>c.valid)){const alt=judge(40);if(alt.some(c=>c.valid)){cands=alt;forced=true}}
+  const prev=S.segs[idx-1];
+  let sum=0;
+  for(const c of cands){
+    if(!c.valid){c.score=0;continue}
+    let s=c.piece.air?(prev&&prev.launch?1:P.gaps*3):c.piece.w;
+    if(steering){
+      let diff=Math.atan2(tgt.z-e.z,tgt.x-e.x)-(e.th+c.turn);
+      diff=Math.abs(Math.atan2(Math.sin(diff),Math.cos(diff)));
+      s*=Math.exp(-diff*(home?7:2.5+3*Math.min(1,(dist-thr)/thr)));
+    }
+    if(c.crosses.length)s*=1+P.weave*8;
+    s*=Math.exp(-c.extra/6);
+    c.score=s;sum+=s;
+  }
+  if(sum<=0){
+    if(idx>0&&S.backtracks<800){
+      S.backtracks++;delete S.ban[idx];delete S.botBan[idx];
+      const seg=popSeg();(S.ban[seg.idx]||(S.ban[seg.idx]=new Set())).add(seg.name);
+      return true;
+    }
+    finish(`Stopped at ${idx} pieces: boxed in.`);return false;
+  }
+  for(const c of cands)c.p=c.score/sum;
+  let r=S.rng()*sum,ci=-1;
+  for(let i=0;i<cands.length;i++){if(!cands[i].valid)continue;ci=i;r-=cands[i].score;if(r<=0)break}
+  S.decisions.push({idx,end:{...e},com:tgt,thr,dist:Math.hypot(e.x-tgt.x,e.z-tgt.z),steering,home,forced,shape:shape.name,cands,chosen:ci});
+  const seg=commit(cands[ci]);
+  // the bot rides each new ramp right away; if it falls, the piece is taken back and banned here
+  if(!seg.air&&S.botGate){
+    const fail=botRun(S.bot,S.segs.length>=P.pieces?S.bot.C.length-1:S.bot.C.length-2);
+    if(fail&&S.backtracks<800){S.backtracks++;S.botRejects++;popSeg();(S.botBan[idx]||(S.botBan[idx]={}))[seg.name]=fail;return true}
+    if(fail){S.decisions[idx].botFail=fail;finish(`Stopped at ${idx+1} pieces: bot fell (${fail.toLowerCase()}).`);return false}
+    const v=S.bot.vel;S.v2=v[0]*v[0]+v[1]*v[1]+v[2]*v[2];
+  }
+  if(S.segs.length>=P.pieces)finish(`Done: ${P.pieces} pieces${S.backtracks?`, ${S.backtracks} backtracks`:''}.`);
+  return!S.done;
+}
+function commit(c){
+  const idx=S.segs.length,pts=c.pts,start={...S.end};
+  pts.forEach((p,i)=>{if(i===0&&idx>0)return;S.samples.push({x:p.x,z:p.z,y:p.y,dx:p.dx,dz:p.dz,seg:idx});S.sx+=p.x;S.sz+=p.z;S.n++});
+  const t=pts[pts.length-1];
+  S.end={x:t.x,z:t.z,y:t.y,th:S.end.th+c.turn};
+  const air=!!c.piece.air;
+  const seg={idx,start,name:c.piece.name,air,boost:!!c.push,push:c.push,launch:!!c.piece.launch,shape:c.shape,turn:c.turn,extra:c.extra,pts,
+    brushes:air?0:(c.flat?1:pts.length-1),
+    crosses:c.crosses.map(k=>{const lo=k.p.y<k.q.y?k.p:k.q,hi=lo===k.p?k.q:k.p;return{over:k.seg,lo,hi,head:hi.y-H-lo.y}})};
+  seg.v2Start=S.v2;S.v2=nextV2(c);seg.v2=S.v2;
+  seg.snap=botSnap(S.bot);botAdd(S.bot,seg);
+  S.segs.push(seg);hooks.seg(seg);
+  return seg;
+}
+function popSeg(){
+  const seg=S.segs.pop();S.decisions.pop();
+  const cnt=seg.pts.length-1+(seg.idx===0?1:0);
+  for(const q of S.samples.splice(S.samples.length-cnt)){S.sx-=q.x;S.sz-=q.z;S.n--}
+  S.v2=seg.v2Start;S.end=seg.start;
+  if(seg.snap.Cl===0){S.bot=botNew(S.P)}else botRestore(S.bot,seg.snap);
+  hooks.unseg(seg);return seg;
+}
+function finish(msg){S.done=true;S.why=msg;hooks.finish()}
+/*GEN-END*/
+/*SIM-START*/
+// Source-style movement on the playerclip brushes (1 unit = 0.01905 m).
+// The bot rides along while the track is generated: every ramp is run as soon as it's placed.
+const U=0.01905;
+const GRAV=800*U,AIRACCEL=150,WISHCAP=30*U,MAXSPEED=250*U,MAXVEL=3500*U,FRICTION=5.2,STOPSPEED=80*U,RAD=.5,DT=1/200,DEPTH=.35;
+const v3={sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],
+  cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]]};
+function segBrushes(s){
+  const out=[],pts=s.pts,idx=s.brushes===1?[0,pts.length-1]:pts.map((p,i)=>i);
+  for(let i=0;i<idx.length-1;i++){
+    const a=pts[idx[i]],b=pts[idx[i+1]],cx=b.x-a.x,cz=b.z-a.z,l=Math.hypot(cx,cz),rx=-cz/l,rz=cx/l;
+    const T=p=>[[p.x-rx*W,p.y-H,p.z-rz*W],[p.x,p.y,p.z],[p.x+rx*W,p.y-H,p.z+rz*W]];
+    const[A0,P0,B0]=T(a),[A1,P1,B1]=T(b),V=[A0,P0,B0,A1,P1,B1];
+    const c=[0,1,2].map(k=>V.reduce((s,p)=>s+p[k],0)/6);
+    const plane=(p,q,r,face)=>{let n=v3.cross(v3.sub(q,p),v3.sub(r,p));const m=Math.hypot(...n);n=n.map(x=>x/m);let d=v3.dot(n,p);if(v3.dot(n,c)-d>0){n=n.map(x=>-x);d=-d}return{n,d,face}};
+    const r2=Math.max(...V.map(p=>{const d=v3.sub(p,c);return v3.dot(d,d)}));
+    out.push({seg:s.idx,c,r:Math.sqrt(r2)+RAD+1,planes:[plane(A0,P0,A1,1),plane(P0,B0,B1,1),plane(A0,B0,A1,1),plane(A0,P0,B0,0),plane(A1,P1,B1,0)]});
+  }
+  return out;
+}
+function collide(pos,vel,B){
+  const normals=[];
+  for(let it=0;it<3;it++){
+    let best=null;
+    for(const b of B){
+      const dx=pos[0]-b.c[0],dy=pos[1]-b.c[1],dz=pos[2]-b.c[2];
+      if(dx*dx+dy*dy+dz*dz>b.r*b.r)continue;
+      let inside=true,pen=1e9,pn=null;
+      for(const p of b.planes){
+        const dist=v3.dot(p.n,pos)-p.d;
+        if(p.face){if(dist>=RAD){inside=false;break}const pe=RAD-dist;if(pe<pen){pen=pe;pn=p.n}}
+        else if(dist>=0){inside=false;break}
+      }
+      if(inside&&(!best||pen<best.pen))best={pen,n:pn};
+    }
+    if(!best)break;
+    for(let k=0;k<3;k++)pos[k]+=best.n[k]*(best.pen+1e-4);
+    const vn=v3.dot(vel,best.n);if(vn<0)for(let k=0;k<3;k++)vel[k]-=best.n[k]*vn;
+    normals.push(best.n);
+  }
+  return normals;
+}
+function airAccel(vel,wish){
+  const cur=vel[0]*wish[0]+vel[2]*wish[2],add=WISHCAP-cur;
+  if(add<=0)return;
+  const acc=Math.min(AIRACCEL*MAXSPEED*DT,add);vel[0]+=wish[0]*acc;vel[2]+=wish[2]*acc;
+}
+function botNew(P){return{B:[],C:[],pos:null,vel:null,prog:0,t:0,lastTouch:-1,side:1,grounded:false,stall:0,pushed:[],top:0,trace:[],entry:{},lastSeg:-1,nextRec:0,
+  failY:Math.max(SEA+4,START_Y-P.maxDrop-H-14)}}
+function botAdd(bt,s){
+  if(!s.air)bt.B.push(...segBrushes(s));
+  s.pts.forEach((p,i)=>{if(i===0&&s.idx>0)return;bt.C.push({x:p.x,y:p.y,z:p.z,dx:p.dx,dz:p.dz,f:p.f,seg:s.idx,air:s.air,turn:s.turn})});
+  if(!bt.pos){const q0=bt.C[0],rg=[-q0.dz,q0.dx];bt.side=s.turn<0?-1:1;
+    bt.pos=[q0.x+q0.dx*1.5+rg[0]*bt.side*(DEPTH*W+.8),q0.y-DEPTH*H+.3,q0.z+q0.dz*1.5+rg[1]*bt.side*(DEPTH*W+.8)];bt.vel=[q0.dx*V0,0,q0.dz*V0]}
+}
+function botSnap(bt){if(!bt.pos)return{Cl:0};return{pos:[...bt.pos],vel:[...bt.vel],prog:bt.prog,t:bt.t,lastTouch:bt.lastTouch,side:bt.side,grounded:bt.grounded,stall:bt.stall,
+  pushed:[...bt.pushed],top:bt.top,tl:bt.trace.length,lastSeg:bt.lastSeg,nextRec:bt.nextRec,Bl:bt.B.length,Cl:bt.C.length}}
+function botRestore(bt,sn){
+  bt.trace.length=sn.tl;bt.B.length=sn.Bl;bt.C.length=sn.Cl;
+  for(const k of['pos','vel','prog','t','lastTouch','side','grounded','stall','pushed','top','lastSeg','nextRec'])bt[k]=Array.isArray(sn[k])?[...sn[k]]:sn[k];
+  for(const k in bt.entry)if(+k>bt.lastSeg)delete bt.entry[k];
+}
+// Run the bot until it reaches sample `until`. Returns null, or the reason it failed.
+function botRun(bt,until){
+  const C=bt.C,pos=bt.pos,vel=bt.vel,tEnd=bt.t+40;
+  while(bt.t<tEnd){
+    let bi=bt.prog,bd=1e18;
+    for(let i=Math.max(0,bt.prog-2);i<Math.min(C.length,bt.prog+25);i++){
+      const q=C[i],dx=pos[0]-q.x,dy=pos[1]-(q.y-DEPTH*H),dz=pos[2]-q.z,d=dx*dx+dz*dz+dy*dy*2;
+      if(d<bd){bd=d;bi=i}
+    }
+    bt.prog=bi;const q=C[bi];
+    if(q.seg>bt.lastSeg){bt.entry[q.seg]=Math.hypot(vel[0],vel[2]);bt.lastSeg=q.seg}
+    if(bt.prog>=until)return null;
+    const rg=[-q.dz,q.dx],onRamp=bt.t-bt.lastTouch<.15&&!q.air;
+    let wish=null;
+    if(onRamp){
+      const lat=(pos[0]-q.x)*rg[0]+(pos[2]-q.z)*rg[1];bt.side=Math.sign(lat)||bt.side;
+      if(q.y-pos[1]>DEPTH*H)wish=[-bt.side*rg[0],0,-bt.side*rg[1]];
+    }else{
+      let j=bt.prog+1;while(j<C.length-1&&(C[j].air||C[j].seg===q.seg&&!q.air))j++;
+      if(q.air)j=Math.min(C.length-1,j+3);else j=Math.min(C.length-1,bt.prog+6);
+      const tq=C[j],trg=[-tq.dz,tq.dx],sl=q.air?(Math.abs(tq.turn)>1e-3?Math.sign(tq.turn):bt.side):bt.side;
+      const tx=tq.x+trg[0]*sl*DEPTH*W,tz=tq.z+trg[1]*sl*DEPTH*W,hx=tx-pos[0],hz=tz-pos[2],vh=Math.hypot(vel[0],vel[2]);
+      if(vh>.5){const ang=Math.atan2(vel[0]*hz-vel[2]*hx,vel[0]*hx+vel[2]*hz);
+        if(Math.abs(ang)>.01){const sg=Math.sign(ang);wish=[-vel[2]/vh*sg,0,vel[0]/vh*sg]}}
+      if(q.air)bt.side=sl;
+    }
+    // trigger_push: one kick along the booster's heading
+    const cs=S.segs[q.seg];
+    if(cs&&cs.push&&!bt.pushed.includes(cs.idx)&&q.f>.1&&q.f<.75&&pos[1]>q.y-H){bt.pushed.push(cs.idx);vel[0]+=q.dx*cs.push;vel[2]+=q.dz*cs.push}
+    vel[1]-=GRAV*DT;
+    if(bt.grounded){const sp=Math.hypot(...vel),drop=Math.max(sp,STOPSPEED)*FRICTION*DT,sc=sp>0?Math.max(sp-drop,0)/sp:0;for(let k=0;k<3;k++)vel[k]*=sc}
+    else if(wish)airAccel(vel,wish);
+    for(let k=0;k<3;k++){vel[k]=Math.max(-MAXVEL,Math.min(MAXVEL,vel[k]));pos[k]+=vel[k]*DT}
+    const ns=collide(pos,vel,bt.B);
+    bt.grounded=ns.some(n=>n[1]>=.7);
+    if(ns.length)bt.lastTouch=bt.t;
+    bt.t+=DT;
+    const sp=Math.hypot(...vel);bt.top=Math.max(bt.top,sp);
+    if(bt.t>=bt.nextRec){bt.trace.push([pos[0],pos[1],pos[2],sp,bt.t]);bt.nextRec+=1/30}
+    if(pos[1]<bt.failY)return q.air||!onRamp?'Missed the landing':'Slid off the ramp';
+    bt.stall=Math.hypot(vel[0],vel[2])<2?bt.stall+DT:0;
+    if(bt.stall>1.5)return bt.grounded?'Stalled: the face counts as floor':'Stalled';
+  }
+  return 'Out of time';
+}
+function simulate(){
+  if(!S.botGate){
+    const bt=S.bot=botNew(S.P);for(const s of S.segs)botAdd(bt,s);
+    const fail=bt.C.length?botRun(bt,bt.C.length-1):'No track';
+    return{ok:!fail,reason:fail||'Finished',time:bt.t,failSeg:fail?bt.C[bt.prog].seg:-1,trace:bt.trace.length?bt.trace:[[0,START_Y,0,0,0]],entry:bt.entry,top:bt.top,failY:bt.failY,cleared:fail?bt.C[bt.prog].seg:S.segs.length};
+  }
+  const bt=S.bot,ok=S.done&&S.segs.length===S.P.pieces;
+  return{ok,reason:ok?'Finished':S.why,time:bt.t,failSeg:-1,trace:bt.trace.length?bt.trace:[[0,START_Y,0,0,0]],entry:bt.entry,top:bt.top,failY:bt.failY,cleared:S.segs.length};
+}
+/*SIM-END*/
+
+function params(){return{angle:document.querySelector('input[name=angle]:checked').value,seed:$('seed').value.trim()||'0',turn:+$('turn').value,weave:+$('weave').value,pieces:+$('pieces').value,maxDrop:+$('maxDrop').value,gaps:+$('gaps').value}}
+
+/* ---------- 3D ---------- */
+const view=$('view');
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+view.prepend(renderer.domElement);
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x10273d);
+scene.fog=new THREE.Fog(0x10273d,600,1600);
+const camera=new THREE.PerspectiveCamera(42,1,1,5000);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.maxPolarAngle=Math.PI*.495;
+scene.add(new THREE.HemisphereLight(0xdfe8f5,0x1d3550,.75));
+const sun=new THREE.DirectionalLight(0xfff1d8,.85);sun.position.set(220,420,140);scene.add(sun);
+const ocean=new THREE.Mesh(new THREE.PlaneGeometry(8000,8000),new THREE.MeshLambertMaterial({color:0x1a3d5f}));
+ocean.rotation.x=-Math.PI/2;ocean.position.y=SEA;scene.add(ocean);
+const group=new THREE.Group();scene.add(group);
+
+const matBase=new THREE.MeshLambertMaterial({vertexColors:true,side:THREE.DoubleSide});
+const matHot=new THREE.MeshLambertMaterial({vertexColors:true,side:THREE.DoubleSide,emissive:0xff7a3d,emissiveIntensity:.45});
+const matGrey=new THREE.MeshLambertMaterial({color:0x8d897c});
+const matMark=new THREE.MeshBasicMaterial({color:0xff7a3d});
+const matAir=new THREE.LineDashedMaterial({color:0xece6d6,dashSize:1.6,gapSize:1.6,transparent:true,opacity:.7});
+const matClip=new THREE.MeshLambertMaterial({color:0xc65bd8,transparent:true,opacity:.42,side:THREE.DoubleSide,depthWrite:false});
+const matClipHot=new THREE.MeshLambertMaterial({color:0xff7a3d,transparent:true,opacity:.55,side:THREE.DoubleSide,depthWrite:false});
+const matClipEdge=new THREE.LineBasicMaterial({color:0xf2b8f7});
+const matPush=new THREE.MeshBasicMaterial({color:0x6fb6ff,transparent:true,opacity:.22,depthWrite:false});
+const matPushArrow=new THREE.MeshBasicMaterial({color:0x6fb6ff});
+const zoneMat=c=>new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:.2,depthWrite:false,side:THREE.DoubleSide});
+const matStart=zoneMat(0x5cc8b0),matEnd=zoneMat(0xff7a3d),matFail=zoneMat(0xe5646a);
+const CW=new THREE.Color(0xf0e9d6),CY=new THREE.Color(0xe3b94c),CG=new THREE.Color(0x8a8678);
+const STRIP=[CY,CW,CW,CW,CY,CG];
+const profile=()=>{const k=.55,t=.4;return[[-W,-H],[-W+k*(W-t),-H+k*H],[-t,0],[t,0],[W-k*(W-t),-H+k*H],[W,-H]]};
+
+function geo(pos,col){
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  if(col)g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  g.computeVertexNormals();return g;
+}
+// Visual mesh: one smooth func_brush (never solid)
+function makeRamp(pts){
+  const pos=[],col=[],PROF=profile();
+  const rings=pts.map(p=>{const rx=-p.dz,rz=p.dx;return PROF.map(([o,u])=>[p.x+rx*o,p.y+u,p.z+rz*o])});
+  const tri=(a,b,c,C)=>{pos.push(...a,...b,...c);for(let i=0;i<3;i++)col.push(C.r,C.g,C.b)};
+  for(let i=0;i<rings.length-1;i++){const A=rings[i],B=rings[i+1];
+    for(let j=0;j<6;j++){const j2=(j+1)%6;tri(A[j],B[j],B[j2],STRIP[j]);tri(A[j],B[j2],A[j2],STRIP[j])}}
+  for(const R of[rings[0],rings[rings.length-1]])for(let j=1;j<5;j++)tri(R[0],R[j],R[j+1],CG);
+  return new THREE.Mesh(geo(pos,col),matBase);
+}
+// Playerclip: flat, uncut wedge brushes. Each brush is a straight extrusion along its own chord.
+function makeClip(pts,brushes){
+  const idx=brushes===1?[0,pts.length-1]:pts.map((p,i)=>i);
+  const pos=[],lines=[];
+  for(let i=0;i<idx.length-1;i++){
+    const a=pts[idx[i]],b=pts[idx[i+1]],cx=b.x-a.x,cz=b.z-a.z,l=Math.hypot(cx,cz),rx=-cz/l,rz=cx/l;
+    const T=p=>[[p.x-rx*W,p.y-H,p.z-rz*W],[p.x,p.y,p.z],[p.x+rx*W,p.y-H,p.z+rz*W]];
+    const [A0,P0,B0]=T(a),[A1,P1,B1]=T(b);
+    const q=(p1,p2,p3,p4)=>pos.push(...p1,...p2,...p3,...p1,...p3,...p4);
+    q(A0,P0,P1,A1);q(P0,B0,B1,P1);q(A0,B0,B1,A1);pos.push(...A0,...P0,...B0,...A1,...P1,...B1);
+    for(const[u,v]of[[A0,P0],[P0,B0],[B0,A0],[A1,P1],[P1,B1],[B1,A1],[A0,A1],[P0,P1],[B0,B1]])lines.push(...u,...v);
+  }
+  const g=new THREE.Group();
+  g.add(new THREE.Mesh(geo(pos),matClip));
+  const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lines,3));
+  g.add(new THREE.LineSegments(lg,matClipEdge));
+  return g;
+}
+function makeBooster(pts){
+  const m=pts[Math.floor(pts.length/2)],th=Math.atan2(m.dz,m.dx),g=new THREE.Group();
+  const box=new THREE.Mesh(new THREE.BoxGeometry(L*.55,9,2*W+2),matPush);box.position.y=3;g.add(box);
+  for(let i=-1;i<=1;i++){const c=new THREE.Mesh(new THREE.ConeGeometry(1.6,4,12),matPushArrow);c.rotation.z=-Math.PI/2;c.position.set(i*5,5,0);g.add(c)}
+  g.position.set(m.x,m.y,m.z);g.rotation.y=-th;return g;
+}
+function label(text,color){
+  const cv=document.createElement('canvas');cv.width=512;cv.height=96;const c=cv.getContext('2d');
+  c.font='600 44px "IBM Plex Mono",monospace';c.textAlign='center';c.textBaseline='middle';
+  c.fillStyle='rgba(11,29,47,.8)';const w=c.measureText(text).width+40;c.fillRect(256-w/2,10,w,76);
+  c.fillStyle=color;c.fillText(text,256,50);
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true}));
+  s.scale.set(48,9,1);return s;
+}
+function zone(x,y,z,th,sx,sy,sz,mat){const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat);m.position.set(x,y,z);m.rotation.y=-th;return m}
+function platform(x,y,z,th,sx,sz){const m=zone(x,y,z,th,sx,3,sz,matGrey);group.add(m);return m}
+function dispose(o){o.traverse(c=>{c.geometry&&c.geometry.dispose();if(c.material&&c.material.map)c.material.map.dispose()})}
+let viewMode='visual';
+function applyView(){for(const s of S.segs){if(s.visual)s.visual.visible=viewMode!=='clip';if(s.clip)s.clip.visible=viewMode!=='visual'}}
+hooks.reset=()=>{
+  if(typeof clearBot==='function')clearBot();
+  for(const c of[...group.children]){group.remove(c);dispose(c)}
+  const y=START_Y-H-1.5;
+  platform(-14,y,0,0,30,30);
+  group.add(zone(-14,y+6.5,0,0,28,10,28,matStart));
+  const dest=new THREE.Mesh(new THREE.CylinderGeometry(1.2,1.2,6,12),matMark);dest.position.set(-20,y+4.5,0);group.add(dest);
+  const l=label('start zone · teleport dest','#5cc8b0');l.position.set(-14,y+20,0);group.add(l);
+};
+hooks.seg=seg=>{
+  seg.objs=[];
+  const add=o=>{group.add(o);seg.objs.push(o);return o};
+  if(seg.air){const m=new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg.pts.map(p=>new THREE.Vector3(p.x,p.y+1.5,p.z))),matAir);m.computeLineDistances();add(m)}
+  else{seg.visual=add(makeRamp(seg.pts));seg.clip=add(makeClip(seg.pts,seg.brushes));
+    seg.visual.visible=viewMode!=='clip';seg.clip.visible=viewMode!=='visual';
+    if(seg.boost)add(makeBooster(seg.pts));}
+  for(const c of seg.crosses){
+    const x=(c.lo.x+c.hi.x)/2,z=(c.lo.z+c.hi.z)/2,y0=c.lo.y,len=c.hi.y-H-y0;
+    const cyl=new THREE.Mesh(new THREE.CylinderGeometry(.45,.45,len,6),matMark);
+    cyl.position.set(x,y0+len/2,z);add(cyl);
+  }
+};
+hooks.unseg=seg=>{for(const o of seg.objs){group.remove(o);dispose(o)}};
+hooks.finish=()=>{
+  const e=S.end,x=e.x+Math.cos(e.th)*16,z=e.z+Math.sin(e.th)*16,y=e.y-H-1.5;
+  platform(x,y,z,e.th,30,30);
+  group.add(zone(x,y+6.5,z,e.th,28,10,28,matEnd));
+  const l=label('end zone','#ff7a3d');l.position.set(x,y+20,z);group.add(l);
+  // trigger_teleport: one big volume under everything
+  let a=1e9,b=-1e9,c=1e9,d=-1e9,lo=1e9;
+  for(const q of S.samples){a=Math.min(a,q.x);b=Math.max(b,q.x);c=Math.min(c,q.z);d=Math.max(d,q.z);lo=Math.min(lo,q.y)}
+  const fy=S.bot.failY;
+  group.add(zone((a+b)/2,fy,(c+d)/2,0,b-a+90,2,d-c+90,matFail));
+  const f=label('trigger_teleport · fail zone','#e5646a');f.position.set((a+b)/2,fy+8,d+30);group.add(f);
+};
+
+function frameTrack(){
+  if(!S.samples.length)return;
+  const b=new THREE.Box3(),v=new THREE.Vector3();
+  for(const q of S.samples)b.expandByPoint(v.set(q.x,q.y,q.z));
+  const c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3());
+  const r=s.length()*.5+40;
+  const halfFov=Math.atan(Math.tan(camera.fov*DEG/2)*Math.min(1,camera.aspect));
+  const distance=r/Math.sin(halfFov);
+  controls.target.copy(c);
+  camera.position.copy(new THREE.Vector3(.95,1.05,1.55).normalize().multiplyScalar(distance).add(c));
+  scene.fog.near=distance+r;scene.fog.far=distance+r*4;
+  controls.update();
+}
+function resize(){
+  const w=view.clientWidth,h=view.clientHeight;
+  const halfFov=aspect=>Math.atan(Math.tan(camera.fov*DEG/2)*Math.min(1,aspect));
+  const scale=Math.sin(halfFov(camera.aspect))/Math.sin(halfFov(w/h));
+  // Preserve the current orbit and zoom when the viewport changes shape.
+  camera.position.sub(controls.target).multiplyScalar(scale).add(controls.target);
+  scene.fog.near*=scale;scene.fog.far*=scale;
+  renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
+}
+new ResizeObserver(()=>{resize();drawMap()}).observe(view);
+/* ---------- bot ---------- */
+let RUN=null,ghostT=-1,lastFrame=0;
+const botGroup=new THREE.Group();scene.add(botGroup);
+const matTrace=new THREE.LineBasicMaterial({color:0xff7a3d,transparent:true,opacity:.75});
+const matPass=new THREE.MeshLambertMaterial({vertexColors:true,side:THREE.DoubleSide,emissive:0x2f9e7e,emissiveIntensity:.22});
+const matFailSeg=new THREE.MeshLambertMaterial({vertexColors:true,side:THREE.DoubleSide,emissive:0xe5646a,emissiveIntensity:.75});
+const ghost=new THREE.Mesh(new THREE.SphereGeometry(1.3,16,12),new THREE.MeshBasicMaterial({color:0xff7a3d}));ghost.visible=false;scene.add(ghost);
+const toU=v=>Math.round(v/U).toLocaleString();
+function clearBot(){for(const c of[...botGroup.children]){botGroup.remove(c);dispose(c)}RUN=null;stopGhost()}
+function runBot(){
+  for(const c of[...botGroup.children]){botGroup.remove(c);dispose(c)}
+  RUN=simulate();
+  const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(RUN.trace.map(p=>new THREE.Vector3(p[0],p[1],p[2]))),matTrace);
+  botGroup.add(line);
+}
+function stopGhost(){ghostT=-1;ghost.visible=false;$('speedChip').hidden=true;$('watch').textContent='Watch the bot run (2×)'}
+function ghostAt(t){
+  const tr=RUN.trace,i=Math.min(tr.length-1,Math.floor(t*30)),j=Math.min(tr.length-1,i+1),k=t*30-i;
+  return tr[i].map((v,n)=>v+(tr[j][n]-v)*k);
+}
+$('watch').onclick=()=>{
+  if(ghostT>=0){stopGhost();return}
+  if(!RUN)return;
+  ghostT=0;ghost.visible=true;$('speedChip').hidden=false;$('watch').textContent='Stop';
+  const p=ghostAt(0),d=new THREE.Vector3(p[0],p[1],p[2]).sub(controls.target);
+  controls.target.add(d);camera.position.add(d);
+};
+(function loop(now){
+  requestAnimationFrame(loop);
+  const dt=Math.min(.05,(now-lastFrame)/1000||0);lastFrame=now;
+  if(ghostT>=0&&RUN){
+    ghostT+=dt*2;const end=RUN.trace[RUN.trace.length-1][4];
+    const p=ghostAt(Math.min(ghostT,end));ghost.position.set(p[0],p[1]+.6,p[2]);
+    $('hSpeed').textContent=toU(p[3]);
+    const d=new THREE.Vector3(p[0],p[1],p[2]).sub(controls.target).multiplyScalar(.08);
+    controls.target.add(d);camera.position.add(d);
+    if(ghostT>end+1.5)stopGhost();
+  }
+  controls.update();renderer.render(scene,camera);
+})(0);
+
+/* ---------- UI ---------- */
+let inspectIdx=-1,stepping=false,timer=null;
+const COL={grid:'rgba(151,171,190,.10)',edge:'#0b1d2f',ink:'#ece6d6',accent:'#ff7a3d',ok:'#5cc8b0',bad:'#e5646a',muted:'#97abbe',boost:'#6fb6ff'};
+const LOW=[96,118,140],HIGH=[242,234,214];
+const mix=t=>`rgb(${LOW.map((l,i)=>Math.round(l+(HIGH[i]-l)*t)).join(',')})`;
+
+function updateUI(){
+  const xs=S.segs.flatMap(s=>s.crosses);
+  $('hPieces').textContent=S.segs.length;
+  $('hCross').textContent=xs.length;
+  $('hHead').textContent=xs.length?Math.min(...xs.map(c=>c.head)).toFixed(1)+' m':'—';
+  const low=S.samples.length?Math.min(...S.samples.map(q=>q.y)):START_Y;
+  $('hDrop').textContent=`${(START_Y-low).toFixed(0)} / ${S.P.maxDrop} m below start`+(S.done&&S.segs.length===S.P.pieces?` · ends level`:'');
+  $('statusMsg').textContent=S.done?S.why:(timer?'Building…':'Paused');
+  const ins=$('inspect');ins.max=Math.max(1,S.segs.length);ins.value=inspectIdx+1;
+  $('inspectOut').textContent=inspectIdx>=0?`#${inspectIdx+1}`:'—';
+  if(S.done&&!RUN)runBot();
+  const bot=RUN&&S.done?RUN:null;
+  $('hBot').textContent=!bot?'—':bot.ok?`cleared · ${bot.time.toFixed(1)} s · top ${toU(bot.top)} u/s${S.botRejects?` · ${S.botRejects} piece${S.botRejects>1?'s':''} rejected`:''}`:bot.failSeg>=0?`fell at #${bot.failSeg+1} · ${bot.reason.toLowerCase()}`:bot.reason;
+  $('botChip').style.borderColor=!bot?'':bot.ok?'var(--ok)':'var(--bad)';
+  $('watch').disabled=!bot;
+  for(const sg of S.segs){if(sg.visual)sg.visual.material=sg.idx===inspectIdx?matHot:!bot?matBase:sg.idx===bot.failSeg?matFailSeg:sg.idx<bot.cleared?matPass:matBase;if(sg.clip)sg.clip.children[0].material=sg.idx===inspectIdx?matClipHot:matClip}
+  $('hBrush').textContent=S.segs.reduce((a,sg)=>a+sg.brushes,0);
+  renderDecision();drawMap();
+}
+function renderDecision(){
+  const d=S.decisions[inspectIdx];
+  if(!d){$('why').textContent='No pieces placed yet.';$('cands').innerHTML='';return}
+  let why=d.idx===0?'First piece: no track yet, so nothing to steer around.'
+    :d.home?`End is ${Math.hypot(d.end.x,d.end.z).toFixed(0)} m from the map center, near the edge. Turns toward the middle get heavy weight.`
+    :d.steering?`End is ${d.dist.toFixed(0)} m from the center of mass, past the ${d.thr.toFixed(0)} m threshold. Turns that head back get more weight.`
+    :`End is ${d.dist.toFixed(0)} m from the center of mass, inside the ${d.thr.toFixed(0)} m threshold, so it's free to wander.`;
+  const ch=d.cands[d.chosen],sg=S.segs[d.idx];
+  why+=d.idx===0?' Spawn always starts with a drop-in plunge.':` Shape: ${sg?sg.shape:d.shape}.`;
+  if(sg&&!sg.air)why+=sg.brushes===1?' Built as one uncut playerclip brush.':` Built from ${sg.brushes} playerclip brushes${Math.abs(sg.turn)>0?`, ${(Math.abs(sg.turn)/DEG/sg.brushes).toFixed(1)}° each`:' to follow the vertical curve'}.`;
+  if(sg&&sg.boost)why+=' trigger_push gives speed for a climb or launch next.';
+  if(d.forced)why+=' Nothing normal fit, so a steep drop was allowed.';
+  if(RUN&&S.done){const v=RUN.entry[d.idx];
+    why+=d.idx===RUN.failSeg?` Bot: ${RUN.reason.toLowerCase()} here${v?` (entered at ${toU(v)} u/s)`:''}.`
+      :v!==undefined&&(RUN.ok||d.idx<RUN.failSeg)?` Bot: entered at ${toU(v)} u/s, cleared.`:' Bot never reached this piece.';}
+  $('why').textContent=why;
+  $('cands').innerHTML=d.cands.map((c,i)=>{
+    let out;
+    if(c.valid){out=`${Math.round(c.p*100)}%`;
+      if(c.crosses.length)out+=` · crosses #${c.crosses.map(x=>x.seg+1).join(', #')}`;
+      if(c.extra>0)out+=` · +${c.extra.toFixed(1)} m drop`;}
+    else out=c.reason;
+    return`<tr class="${i===d.chosen?'pick':c.valid?'':'bad'}"><td>${c.piece.name}</td><td>${out}</td></tr>`;
+  }).join('');
+}
+function drawMap(){
+  const cv=$('map'),ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1);
+  const w=cv.clientWidth||300,h=Math.round(w*.85);
+  cv.width=w*dpr;cv.height=h*dpr;cv.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  if(!S||!S.segs.length)return;
+  const d=S.decisions[inspectIdx];
+  let a=1e9,b=-1e9,c=1e9,e=-1e9;const g=(x,z)=>{a=Math.min(a,x);b=Math.max(b,x);c=Math.min(c,z);e=Math.max(e,z)};
+  for(const q of S.samples)g(q.x,q.z);
+  if(d){for(const cd of d.cands)for(const p of cd.pts)g(p.x,p.z);g(d.com.x-d.thr,d.com.z-d.thr);g(d.com.x+d.thr,d.com.z+d.thr)}
+  const pad=14,sc=Math.min((w-2*pad)/(b-a||1),(h-2*pad)/(e-c||1)),ox=(w-(b-a)*sc)/2,oz=(h-(e-c)*sc)/2;
+  const M=(x,z)=>[ox+(x-a)*sc,oz+(z-c)*sc];
+  const path=pts=>{ctx.beginPath();pts.forEach((p,i)=>{const[x,y]=M(p.x,p.z);i?ctx.lineTo(x,y):ctx.moveTo(x,y)})};
+  ctx.strokeStyle=COL.grid;ctx.lineWidth=1;
+  for(let x=Math.ceil(a/25)*25;x<=b;x+=25){const[px]=M(x,0);ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px,h);ctx.stroke()}
+  for(let z=Math.ceil(c/25)*25;z<=e;z+=25){const[,py]=M(0,z);ctx.beginPath();ctx.moveTo(0,py);ctx.lineTo(w,py);ctx.stroke()}
+  const ys=S.segs.map(s=>s.pts[5].y),lo=Math.min(...ys),hi=Math.max(...ys);
+  const lw=Math.max(3,2*W*sc*.7);
+  ctx.lineCap='butt';ctx.lineJoin='round';
+  for(const s of[...S.segs].sort((p,q)=>p.pts[5].y-q.pts[5].y)){
+    ctx.globalAlpha=s.idx>inspectIdx?.18:1;
+    if(s.air){path(s.pts);ctx.setLineDash([3,3]);ctx.strokeStyle=COL.ink;ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([]);continue}
+    path(s.pts);ctx.strokeStyle=COL.edge;ctx.lineWidth=lw+3;ctx.stroke();
+    ctx.strokeStyle=mix((s.pts[5].y-lo)/((hi-lo)||1));ctx.lineWidth=lw;ctx.stroke();
+    if(s.boost||s.launch){const m=s.pts[Math.floor(s.pts.length/2)],[bx,by]=M(m.x,m.z);ctx.fillStyle=s.boost?COL.boost:COL.accent;ctx.beginPath();ctx.arc(bx,by,4,0,7);ctx.fill()}
+  }
+  ctx.globalAlpha=1;
+  ctx.fillStyle=COL.accent;
+  for(const s of S.segs){if(s.idx>inspectIdx)continue;for(const x of s.crosses){const[px,py]=M(x.lo.x,x.lo.z);ctx.beginPath();ctx.arc(px,py,2.6,0,7);ctx.fill()}}
+  if(RUN&&S.done){ctx.strokeStyle=COL.accent;ctx.globalAlpha=.55;ctx.lineWidth=1.2;ctx.beginPath();RUN.trace.forEach((p,i)=>{const[x,y]=M(p[0],p[2]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.globalAlpha=1;
+    if(!RUN.ok){const p=RUN.trace[RUN.trace.length-1],[x,y]=M(p[0],p[2]);ctx.strokeStyle=COL.bad;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-5,y-5);ctx.lineTo(x+5,y+5);ctx.moveTo(x+5,y-5);ctx.lineTo(x-5,y+5);ctx.stroke()}}
+  if(!d)return;
+  const[cx,cy]=M(d.com.x,d.com.z),[ex,ey]=M(d.end.x,d.end.z);
+  ctx.strokeStyle=COL.ink;ctx.lineWidth=1;ctx.setLineDash([4,4]);
+  ctx.beginPath();ctx.arc(cx,cy,d.thr*sc,0,7);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(cx,cy);ctx.stroke();ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(cx-6,cy);ctx.lineTo(cx+6,cy);ctx.moveTo(cx,cy-6);ctx.lineTo(cx,cy+6);ctx.lineWidth=2;ctx.stroke();
+  ctx.font='500 11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  const order=d.cands.map((cd,i)=>i).sort((i,j)=>(i===d.chosen)-(j===d.chosen));
+  for(const i of order){const cd=d.cands[i];
+    path(cd.pts);
+    if(!cd.valid){ctx.setLineDash([3,3]);ctx.strokeStyle=COL.bad;ctx.lineWidth=1.5}
+    else if(i===d.chosen){ctx.strokeStyle=COL.accent;ctx.lineWidth=3.5}
+    else{ctx.strokeStyle=COL.ok;ctx.lineWidth=2}
+    ctx.stroke();ctx.setLineDash([]);
+    const t=cd.pts[cd.pts.length-1],[lx,ly]=M(t.x+t.dx*9,t.z+t.dz*9);
+    const label=cd.valid?Math.round(cd.p*100)+'%':'×';
+    ctx.fillStyle=COL.edge;ctx.fillRect(lx-15,ly-8,30,16);
+    ctx.fillStyle=cd.valid?(i===d.chosen?COL.accent:COL.ok):COL.bad;ctx.fillText(label,lx,ly+.5);
+  }
+  ctx.fillStyle=COL.ink;ctx.beginPath();ctx.arc(ex,ey,3.5,0,7);ctx.fill();
+}
+
+function stop(){clearInterval(timer);timer=null;$('pause').textContent=stepping&&!S.done?'Resume':'Pause'}
+function play(){clearInterval(timer);$('pause').textContent='Pause';
+  timer=setInterval(()=>{const more=step();inspectIdx=S.segs.length-1;if(!more)stop();updateUI()},220);}
+function regenerate(){stop();stepping=false;newState(params());while(step());inspectIdx=S.segs.length-1;frameTrack();updateUI()}
+$('build').onclick=()=>{regenerate();newState(params());stepping=true;inspectIdx=-1;play();updateUI()};
+$('pause').onclick=()=>{if(timer)stop();else if(stepping&&!S.done)play();updateUI()};
+$('step').onclick=()=>{stop();if(!stepping){newState(params());stepping=true}step();inspectIdx=S.segs.length-1;stop();updateUI()};
+$('inspect').oninput=e=>{stop();inspectIdx=+e.target.value-1;updateUI()};
+$('newseed').onclick=()=>{$('seed').value=String(Math.floor(Math.random()*1e6)).padStart(4,'0');regenerate()};
+$('seed').onchange=regenerate;
+for(const r of document.querySelectorAll('input[name=angle]'))r.onchange=regenerate;
+for(const r of document.querySelectorAll('input[name=view]'))r.onchange=()=>{viewMode=r.value;applyView()};
+for(const[id,fmt]of[['turn',v=>v+'°'],['weave',v=>(+v).toFixed(2)],['pieces',v=>v],['gaps',v=>(+v).toFixed(2)],['maxDrop',v=>v+' m']]){
+  $(id).oninput=()=>{$(id+'Out').textContent=fmt($(id).value);regenerate()};
+}
+resize();regenerate();
+</script>
+
+</body></html>

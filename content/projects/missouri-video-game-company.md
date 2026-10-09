@@ -1,6 +1,6 @@
 ---
 title: "Missouri Video Game Company LLC"
-summary: "Sixteen game projects exploring simulation, procedural worlds, multiplayer systems, machine learning, and the smaller mechanics that make a game work."
+summary: "Games and experiments in simulation, procedural worlds, multiplayer systems, machine learning, and movement."
 date: "2026"
 categories: [game-development, software]
 featured: true
@@ -15,7 +15,7 @@ I made these projects through Missouri Video Game Company LLC, working in Unity,
 
 I like game projects because they make systems interact. A factory needs to move material as well as operate machines. A choice in a story should change the world in a way I can still see later. A neural network is more interesting to me when it changes what an item does, rather than living in a demo screen by itself.
 
-The pages below are written from the implementation I have, including its unfinished edges. These are prototypes and experiments, not sixteen released games. I keep the project notes specific so another developer can see what I tried, how I organized it, and where I would take it next.
+These are prototypes and experiments at different stages. The project notes describe what works, what's unfinished, and what I tried along the way.
 
 ## Simulation, industry, and economics
 
@@ -32,6 +32,7 @@ The pages below are written from the implementation I have, including its unfini
 
 ## Procedural worlds and movement
 
+- **[Surf Track Weaver](/projects/surf-track-weaver/)** — A browser tool that builds surf tracks from ramp pieces, checks them with a bot, and shows why each piece was chosen. [Try it](/experiments/surf-track-weaver/index.html).
 - **[RekklessRunning](/projects/rekkless-running/)** — I generated connected rooms and spline paths, then built Unity editor tools to inspect and shape the course.
 - **[DungeonCrossing](/projects/dungeon-crossing/)** — An island and dungeon prototype where seeded voxel spaces can be destroyed and player state follows you between scenes.
 - **[Dungeon Isle](/projects/dungeon-isle/)** — I connected a settlement's residents and relationships to party selection, injuries, supplies, and dungeon expeditions.
