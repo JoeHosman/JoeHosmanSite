@@ -100,6 +100,10 @@ ticket retrieval, and inventory updates. An in-house convolutional neural networ
 handled image recognition within ticket-automation workflows, with a queued
 human-response fallback and worker pause/resume logic.
 
+My [early neural-network and character-recognition write-up](/projects/early-neural-networks/)
+includes the network diagrams, custom image-processing tools, and segmentation
+experiments I kept from this work.
+
 ## Testing changing external systems
 
 I built a Fiddler extension that turned recorded HTTP sessions into test fixtures.

@@ -19,5 +19,9 @@ These were learning experiments. They gave me a way to connect image processing
 to the behavior of a physical machine, alongside the image-recognition work I
 was doing in software.
 
+I've collected diagrams and test screenshots from my
+[early neural-network and character-recognition work](/projects/early-neural-networks/),
+including custom C# image processing, character segmentation, and audio experiments.
+
 I later participated in a [TreVia](/career/trevia-digital-health/) project using
 computer vision to highlight areas of retinal images for human review.
