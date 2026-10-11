@@ -25,3 +25,14 @@ including custom C# image processing, character segmentation, and audio experime
 
 I later participated in a [TreVia](/career/trevia-digital-health/) project using
 computer vision to highlight areas of retinal images for human review.
+
+## Introduction to Artificial Intelligence, 2011
+
+I completed the Advanced Track of the online **Introduction to Artificial
+Intelligence** course taught by Sebastian Thrun and Peter Norvig, with a score
+of **87.4%**. The Statement of Accomplishment is dated December 21, 2011.
+This was non-credit online study.
+
+[![Joe Hosman's Statement of Accomplishment for the Advanced Track of Introduction to Artificial Intelligence, dated December 21, 2011, recording a score of 87.4 percent.](/images/education/introduction-to-ai-2011-statement.webp)](/documents/introduction-to-ai-2011-statement.pdf)
+
+[Open the original Statement of Accomplishment (PDF)](/documents/introduction-to-ai-2011-statement.pdf).

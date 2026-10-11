@@ -104,6 +104,17 @@ My [early neural-network and character-recognition write-up](/projects/early-neu
 includes the network diagrams, custom image-processing tools, and segmentation
 experiments I kept from this work.
 
+## Mapping the ticket-site workflows
+
+The Ticket Release Catcher had to account for different flows at Ticketmaster,
+Tickets.com, eVenue, and Etix. This diagram maps their page sequences, including
+waiting rooms, order pages, security checks, and results. The sites shared some
+steps, but they didn't all move through them in the same way.
+
+[![Ticket Release Catcher workflow diagram comparing the page sequences for Ticketmaster, Tickets.com, eVenue, and Etix.](/images/projects/starsoft-systems/vendor-workflow-releasecatcher.webp)](/images/projects/starsoft-systems/vendor-workflow-releasecatcher.webp)
+
+*The vendor workflow map. Open the diagram to read the individual steps at full size.*
+
 ## Testing changing external systems
 
 I built a Fiddler extension that turned recorded HTTP sessions into test fixtures.

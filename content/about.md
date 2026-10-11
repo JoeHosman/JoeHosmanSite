@@ -66,6 +66,12 @@ machine learning, computer vision, and autonomous driving. I put that interest
 into practice through image-recognition work and
 [camera-guided experiments](/projects/computer-vision-experiments/).
 
+In 2011, I completed the Advanced Track of the online **Introduction to
+Artificial Intelligence** course taught by Sebastian Thrun and Peter Norvig,
+with a score of **87.4%**. My
+[Statement of Accomplishment](/projects/computer-vision-experiments/#introduction-to-artificial-intelligence-2011)
+is dated December 21, 2011. This was non-credit online study.
+
 ## Away from the keyboard
 
 I built a [Gatton CNC machine](/projects/gatton-cnc/) for woodworking, assembled
