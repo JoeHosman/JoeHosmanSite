@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 724" role="img" aria-labelledby="t d">
+  <title id="t">Conductor's work cycle</title>
+  <desc id="d">Six stages in a loop: queue, route, edit in a fresh worktree, fast gate, merge train, land and record. The loop repeats every 30 seconds.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#626657"/>
+    </marker>
+  </defs>
+  <rect width="560" height="724" fill="#f2eee5"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g fill="#fbf9f4" stroke="#c5c5b7" stroke-width="1.5">
+      <rect x="70" y="20" width="470" height="86" rx="6"/>
+      <rect x="70" y="138" width="470" height="86" rx="6"/>
+      <rect x="70" y="256" width="470" height="86" rx="6"/>
+      <rect x="70" y="374" width="470" height="86" rx="6" stroke="#7d492e"/>
+      <rect x="70" y="492" width="470" height="86" rx="6"/>
+      <rect x="70" y="610" width="470" height="86" rx="6"/>
+    </g>
+    <g stroke="#626657" stroke-width="1.5" marker-end="url(#a)">
+      <line x1="305" y1="106" x2="305" y2="136"/>
+      <line x1="305" y1="224" x2="305" y2="254"/>
+      <line x1="305" y1="342" x2="305" y2="372"/>
+      <line x1="305" y1="460" x2="305" y2="490"/>
+      <line x1="305" y1="578" x2="305" y2="608"/>
+      <polyline points="70,653 30,653 30,63 68,63" fill="none"/>
+    </g>
+    <text x="22" y="358" font-size="14" fill="#626657" transform="rotate(-90 22 358)" text-anchor="middle">every 30 seconds</text>
+    <g font-size="18" font-weight="bold" fill="#30372d">
+      <text x="88" y="50">1  Queue</text>
+      <text x="88" y="168">2  Route</text>
+      <text x="88" y="286">3  Edit in a fresh worktree</text>
+      <text x="88" y="404">4  Fast gate</text>
+      <text x="88" y="522">5  Merge train</text>
+      <text x="88" y="640">6  Land and record</text>
+    </g>
+    <g font-size="14.5" fill="#626657">
+      <text x="88" y="74">Markdown todo list. Audit scripts refill it</text>
+      <text x="88" y="94">whenever fewer than 40 tasks remain open.</text>
+      <text x="88" y="192">Codex for code work by default; Claude only</text>
+      <text x="88" y="212">while subscription headroom allows it.</text>
+      <text x="88" y="310">One-shot agent run per task. The agent edits;</text>
+      <text x="88" y="330">Conductor owns commits, merges, and pushes.</text>
+      <text x="88" y="428">Path-scoped tests. If red: up to two repair</text>
+      <text x="88" y="448" fill="#7d492e">passes, then blocked with the failure saved.</text>
+      <text x="88" y="546">Ready branches merged together, then one full</text>
+      <text x="88" y="566">gate: four .NET suites, vue-tsc, and Vitest.</text>
+      <text x="88" y="664">main advances only on green and is pushed;</text>
+      <text x="88" y="684">every outcome is appended to the ledger.</text>
+    </g>
+  </g>
+</svg>

@@ -1,21 +1,26 @@
 ---
 title: "Evidence and open questions"
 description: "Where the account comes from, how strong each kind of evidence is, and what still needs a real operator."
-order: 5
+order: 9
 ---
 
 ## What was reviewed
 
-This case study combines my account of the experiment with the local StruxOs
-repository, selected development sessions, a local transcript collection,
-Conductor's source and design notes, and an audit of retained token records.
-The review took place on September 27, 2026 Central time (September 28 UTC for
-the token-audit export).
+This case study combines my account of the experiment with two reviews of the
+surviving records. The first, on September 27, 2026 Central time (September 28 UTC
+for the token-audit export), covered the local StruxOs repository, selected Codex
+development sessions, a local transcript collection, Conductor's source and design
+notes, and the token audit. The second, on October 11, 2026, added the Claude-side
+records, Conductor's operating history, and the agent tooling inside the repository.
 
-Codex supplied inspectable session content and usage records. Claude history
-metadata confirmed activity, but matching Claude response logs were unavailable.
-The case study therefore does not claim to reconstruct every Claude decision or
-the entire experiment from complete records.
+Codex supplied inspectable session content and usage records. Claude's detailed
+transcripts had already been removed. The first review concluded that Claude's side
+of the work was largely unrecoverable. That was too strong. My prompts to Claude,
+Claude's own memory files, and Claude's commit trailers survive, and they are used in
+the [development](/projects/struxos-conductor/development/),
+[goals](/projects/struxos-conductor/goals/), and
+[harness](/projects/struxos-conductor/harness/) chapters. Claude's token usage
+remains unavailable.
 
 ## Sources behind the chapters
 
@@ -26,6 +31,13 @@ credentials, or private source code.
 | Evidence | Source record | Role in this account |
 | --- | --- | --- |
 | Product architecture | StruxOs `README.md`, application source layout, initial commits beginning May 23 | Establishes the stack and implemented application structure. |
+| Code and test size | Line count of tracked files and count of test attributes, October 11 | Supports the size figures; says nothing about quality. |
+| Commit attribution | Git history: 7,069 commits, identities, Claude co-author trailers, `conductor:` subjects | Supports the per-era chart. Attribution other than Claude's trailer is inferred from identity, subject, and timing. |
+| My direction of the agents | Claude prompt history (515 project entries plus 82 from the Conductor build session) and Codex prompt history (549 entries) | Supports the timeline, the quoted prompts, and the counts of `/goal` and `/loop` use. |
+| Rules and decisions | About forty Claude project memory files, May 24 – July 5 | Records the rules I gave, the reasons, and design decisions with dates. |
+| Unattended loop | Pi scripts, extensions, and control documents in the repository; Pi session logs | Supports the account of the Pi loop and its roughly 3,350 automated prompts. |
+| Goals and situations | The usable-shop goal document, scenario library and verdicts, ten shop simulations, and the pilot script catalog | Supports the goals chapter and the lineage from situations to executable checks. |
+| Architecture enforcement | Architecture tests, the May 31 review, the June 19 advisory, the maintainability ratchet and its history | Supports the architecture chapter. |
 | Pilot operating path | `docs/pilot/one-week-shop-pilot-runbook.md` | Defines the narrow shop-to-field workflow and distinguishes rehearsal from a real pilot. |
 | Early gap assessment | May 31 scenario-library verdicts and shop-floor walkthrough | Records 28 scenario verdicts; explicitly a code/copy review, not a live operator study. |
 | Shop-tour translation | `docs/audits/shop-tour-derived-real-workflows.md`, completed-todo archive, and timed local transcript | Connects an identified shop-tour video to specific backlog rules. |
@@ -33,7 +45,8 @@ credentials, or private source code.
 | Later situation checks | `docs/pilot/script-catalog.md` and `next-situation-proof-demos-docker.spec.ts` | Shows API-driven scenario execution and browser assertions of reopened records. |
 | Screenshot | Saved repeat-family mockup test artifact, with July 6 test data visible | Illustrates a test evidence card. Names, identifiers, and approval data are generated fixtures. |
 | Remaining pilot checks | `docs/audits/pilot-readiness-todo.md` | Lists manual role, lifecycle, restart, and physical-record checks still to perform. |
-| Harness | Conductor's June 20 design and task/cycle implementation | Establishes the intended orchestration and inspected implemented mechanisms. |
+| Harness | Conductor's June 20 design, plans, source, tests, 155 commits, and its append-only task ledger | Supports the harness chapter's mechanisms and its aggregate task figures. |
+| Repository visuals | Git-history plots and a Gource render made on June 20 | Cover the history only through June 20, before the Conductor week. |
 | Token accounting | Local extraction and independent fork-deduplication verification | Produces the published aggregate numbers and documents missing coverage. |
 
 The June 27 API result is a filtered aggregate of **41 passes** across several
@@ -78,6 +91,11 @@ I built a substantial prototype and an agent-work harness. The records demonstra
 specific operational rules, recorded automated runs, and a progression toward
 more realistic scenario checks. They also demonstrate the need for human course
 corrections and stronger tests of usability.
+
+The process records also support a second conclusion: most of the leverage I had
+over the agents came from goals, definitions of done, and gates, not from reviewing
+their code. The [lessons chapter](/projects/struxos-conductor/lessons/) sets out what
+I would carry forward.
 
 The project remains paused. “Industry-leading” describes the original ambition;
 it is not a verified market position, customer outcome, or production-readiness claim.

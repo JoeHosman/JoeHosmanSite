@@ -1,7 +1,7 @@
 ---
 title: "The token footprint"
 description: "11.59 billion observed Codex tokens, mostly cached input—and why the accounting needed a session-history audit."
-order: 4
+order: 7
 ---
 
 ## What the surviving logs can tell us
@@ -62,14 +62,34 @@ with StruxOs. A counter transition is not asserted to equal one API request.
 ## The missing Claude side
 
 Claude history retains **515 project-associated entries across 49 session IDs**,
-from May 24 through July 6 UTC. That confirms Claude activity. However, none of
-the 325 available Claude response-transcript files matched the project working
-directories. The exact StruxOs project folder retained notes rather than those
-response logs.
+from May 24 through July 6 UTC, plus 82 entries from the home-directory session in
+which Conductor was designed and built. None of the 325 available Claude
+response-transcript files matched the project working directories; the detailed
+Claude transcripts had already been removed by the time of the review.
 
 Consequently, **Claude token consumption is unavailable, not zero**. It cannot
 be recovered by treating history entries as requests or by borrowing Codex's
 usage patterns. The combined cost of the experiment is unknown from these records.
+
+The absence of transcripts does not mean the absence of Claude's work. The first
+version of this case study leaned on Codex because Codex left the more complete
+logs. A second review found three Claude-side records that do survive: my own
+prompts, the memory files Claude wrote while it worked (about forty notes recording
+rules, decisions, and failures), and 1,265 StruxOs commits that carry a Claude
+co-author trailer. Those records support the account of the work in the other
+chapters. They cannot support a token count.
+
+## Where the Codex tokens went
+
+Two further records help explain the Codex total without changing it:
+
+- Of the 2,438 StruxOs Codex sessions, **2,346 were headless runs**, and about 2,300
+  of those were started by Conductor between June 21 and June 27. Most of the
+  session count, and much of the cached-context processing, comes from a harness
+  that started each task in a fresh session by design.
+- Codex records the cost of individual `/goal` runs. The largest, a goal to write a
+  persona document and screenshot audit for each shop role, ran for about 45 hours
+  and recorded 50.9 million tokens before it hit a usage limit.
 
 ## What this says about the experiment
 

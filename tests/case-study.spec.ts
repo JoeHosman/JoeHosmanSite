@@ -17,7 +17,7 @@ test("case study chapters stay connected and readable under the deployment base"
         href: item.getAttribute("href")!,
       })),
     );
-  expect(links).toHaveLength(5);
+  expect(links).toHaveLength(9);
   for (const link of links) {
     expect(link.href.startsWith(new URL(baseURL!).pathname)).toBe(true);
     const response = await page.goto(new URL(link.href, baseURL).href);
@@ -42,4 +42,21 @@ test("case study chapters stay connected and readable under the deployment base"
       (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
     ),
   ).toBe(true);
+
+  for (const [path, name] of [
+    ["projects/struxos-conductor/harness/", /Diagram of Conductor's cycle/],
+    ["projects/struxos-conductor/development/", /Stacked bar chart of daily StruxOs commits/],
+  ] as const) {
+    await page.goto(path);
+    const figure = page.getByRole("img", { name }).first();
+    await figure.scrollIntoViewIfNeeded();
+    await expect(figure).toBeVisible();
+    await expect
+      .poll(() =>
+        figure.evaluate(
+          (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+  }
 });
