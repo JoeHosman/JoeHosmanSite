@@ -6,6 +6,22 @@ categories: [woodworking, electronics, mechanical-engineering]
 status: completed
 featured: false
 draft: false
+cover: "/images/projects/temperature-controlled-kegerator/finished-wood-case.webp"
+cover_alt: "Finished wooden kegerator cabinet with a brass tap tower beside the windows."
+cover_caption: "The finished wooden case, top, and brass tap tower."
+media:
+  - type: image
+    src: "/images/projects/temperature-controlled-kegerator/temperature-controller.webp"
+    alt: "Rear of the kegerator showing the freezer, controller wiring, and a meter during circuit work."
+    caption: "The temperature-control circuit and wiring behind the wooden facade."
+    width: 902
+    height: 1600
+  - type: image
+    src: "/images/projects/temperature-controlled-kegerator/wood-case-detail.webp"
+    alt: "Closer view of the kegerator woodwork, polished top, drip tray, and brass tower."
+    caption: "A closer view of the wood case and finished top."
+    width: 1600
+    height: 902
 ---
 
 ## Reusing a working freezer

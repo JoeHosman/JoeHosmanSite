@@ -59,6 +59,24 @@ This career draft must not be published.
   );
   if (!process.env.E2E_EMPTY) {
     await mkdir(join(testRoot, "public/images"), { recursive: true });
+    await mkdir(join(testRoot, "public/media"), { recursive: true });
+    await cp(
+      "public/media/projects/gatton-cnc/cnc-planing.mp4",
+      join(testRoot, "public/media/e2e-fixture.mp4"),
+    );
+    const media = `media:
+  - type: image
+    src: /images/e2e-fixture.svg
+    alt: "Gallery process photograph."
+    caption: "An embedded build photograph."
+    width: 160
+    height: 240
+  - type: video
+    src: /media/e2e-fixture.mp4
+    poster: /images/e2e-fixture.svg
+    caption: "An embedded CNC planing clip."
+    width: 960
+    height: 1280`;
     await create(
       "public/images/e2e-fixture.svg",
       '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="240"><rect width="160" height="240" fill="#bbbba3"/><text x="12" y="45" fill="#30372d">Test image</text></svg>',
@@ -73,6 +91,7 @@ end: "2022-09"
 summary: "Test career summary."
 draft: false
 featured: true
+${media}
 ---
 ## The work
 
@@ -91,6 +110,7 @@ draft: false
 featured: true
 cover: /images/e2e-fixture.svg
 cover_alt: "A portrait-format test image."
+${media}
 ---
 ## The idea
 

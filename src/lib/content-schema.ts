@@ -2,6 +2,18 @@ import { z } from "zod";
 import { careerDateBounds } from "./dates.ts";
 
 const text = z.string().trim().min(1);
+const mediaFields = {
+  src: text,
+  caption: text,
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+};
+const mediaItemSchema = z.discriminatedUnion("type", [
+  z.object({ ...mediaFields, type: z.literal("image"), alt: text }),
+  z.object({ ...mediaFields, type: z.literal("video"), poster: text }),
+]);
+export type MediaItem = z.infer<typeof mediaItemSchema>;
+const media = z.array(mediaItemSchema).default([]);
 const careerDate = z.string().refine((value) => {
   if (value === "unknown") return true;
   try {
@@ -48,6 +60,8 @@ export const projectSchema = z
     draft: z.boolean().default(true),
     cover: z.string().trim().default(""),
     cover_alt: z.string().trim().default(""),
+    cover_caption: z.string().trim().default(""),
+    media,
   })
   .refine((entry) => !entry.cover || Boolean(entry.cover_alt), {
     message: "Describe the cover image in cover_alt.",
@@ -63,6 +77,7 @@ export const careerSchema = z
     end: z.union([z.literal(""), careerDate]).default(""),
     featured: z.boolean().default(false),
     draft: z.boolean().default(true),
+    media,
   })
   .refine(
     (entry) => {

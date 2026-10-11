@@ -35,6 +35,7 @@ represents one project, whether it is a finished piece or an ongoing experiment.
 | `draft` | Keep `true` while writing; `false` means ready to publish. |
 | `cover` | Image path, such as `/images/projects/oak-side-table/cover.jpg`, or `""` for none. |
 | `cover_alt` | A required description when a cover is supplied, or `""` when there is no cover. |
+| `cover_caption` | Optional caption displayed below the cover photo. |
 
 Start with these categories: `process-automation`, `machine-learning`,
 `software`, `game-development`, `woodworking`, `mechanical-engineering`, `home-improvement`, and `art`. A project can
@@ -89,6 +90,42 @@ adding them; public images are served as supplied.
 
 Small entries are welcome. A paragraph and a photo can be enough; longer
 projects can include process notes, galleries, code samples, and lessons.
+
+## Embed a photo gallery or video
+
+Project and career entries can have a `media` list in their frontmatter. The
+gallery appears after the story, with photos and playable videos embedded in
+the page. Photos can also be opened larger. Captions should identify proposals,
+work in progress, and finished builds accurately.
+
+```yaml
+media:
+  - type: image
+    src: /images/projects/your-project/process.webp
+    alt: "The workpiece clamped under the router."
+    caption: "Planing the board before finishing."
+    width: 1200
+    height: 1600
+  - type: video
+    src: /media/projects/your-project/movement-test.mp4
+    poster: /images/projects/your-project/movement-test-poster.webp
+    caption: "The first movement test."
+    width: 720
+    height: 1280
+```
+
+Use the actual pixel dimensions of each web copy. Convert HEIC/HEIF photos to
+WebP or JPEG, and phone videos to H.264 MP4 with AAC audio. Apply the correct
+orientation to the video itself, and move its playback metadata to the start
+of the file (`faststart`). Supply a poster image for each video. The embedded
+players have controls, support inline phone playback, and do not autoplay or
+preload the video. Image loading is deferred until near the viewport.
+
+Keep original files outside the repository. Publish resized copies with camera
+metadata removed. For this gallery, photos use a maximum 1600-pixel long edge;
+small originals are not enlarged. Put video files in `public/media/projects/`
+and reference them with `/media/projects/`. Both paths receive the configured
+site base automatically.
 
 ## Choose what appears on the homepage
 

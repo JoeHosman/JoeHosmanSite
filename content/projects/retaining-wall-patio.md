@@ -6,8 +6,58 @@ categories: [home-improvement, landscaping, mechanical-engineering]
 status: completed
 featured: true
 draft: false
-cover: ""
-cover_alt: ""
+cover: "/images/projects/retaining-wall-patio/flagstone-in-progress.webp"
+cover_alt: "Backyard patio beside the lake with flagstones being placed and an unfinished central area."
+cover_caption: "The retaining wall and firepit area during flagstone placement."
+media:
+  - type: image
+    src: "/images/projects/retaining-wall-patio/backyard-plan-overhead.webp"
+    alt: "Overhead landscape rendering of a proposed curved path, retaining wall, planting, and circular firepit patio."
+    caption: "An overhead rendering of what the backyard wall and patio could become; this is a proposed design."
+    width: 1200
+    height: 1600
+  - type: image
+    src: "/images/projects/retaining-wall-patio/backyard-plan-perspective.webp"
+    alt: "Perspective landscape rendering of a proposed stone wall, planting beds, and circular patio beside the house."
+    caption: "A perspective rendering of the proposed backyard design."
+    width: 1600
+    height: 1200
+  - type: image
+    src: "/images/projects/retaining-wall-patio/backyard-survey.webp"
+    alt: "Gray 3D terrain model of the backyard with colored planning lines and measurements."
+    caption: "LiDAR output of the backyard work in progress, with layout measurements over the terrain model."
+    width: 823
+    height: 761
+  - type: image
+    src: "/images/projects/retaining-wall-patio/wall-excavation.webp"
+    alt: "Mini-excavator working beside the exposed slope behind the house."
+    caption: "Excavating the backyard for the retaining wall."
+    width: 1600
+    height: 1200
+  - type: image
+    src: "/images/projects/retaining-wall-patio/limestone-delivery.webp"
+    alt: "Large limestone blocks stacked on steel plates beside the driveway."
+    caption: "Limestone blocks delivered for the backyard wall."
+    width: 1600
+    height: 1200
+  - type: image
+    src: "/images/projects/retaining-wall-patio/gravel-delivery.webp"
+    alt: "A large pile of gravel delivered at the front of the house."
+    caption: "Gravel delivery for the backyard work."
+    width: 1600
+    height: 1200
+  - type: image
+    src: "/images/projects/retaining-wall-patio/bobcat-skid-steer.webp"
+    alt: "White Bobcat skid steer with a wide bucket parked on the grass."
+    caption: "My Bobcat skid steer, used to move material for the wall and patio."
+    width: 565
+    height: 450
+  - type: image
+    src: "/images/projects/retaining-wall-patio/skid-steer-engine.webp"
+    alt: "Open rear engine compartment of the Bobcat skid steer."
+    caption: "The skid steer engine, one of the mechanical projects that came with the wall build."
+    width: 1600
+    height: 1200
 ---
 
 ## The project

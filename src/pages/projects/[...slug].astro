@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import MediaGallery from "../../components/MediaGallery.astro";
 import { visibleEntries, categoryLabel } from "../../lib/content";
 import { formatProjectDate } from "../../lib/dates";
 import { withBase } from "../../lib/urls.mjs";
@@ -56,10 +57,19 @@ const statuses = {
   </header>
   {cover && (
     <figure class="cover-figure">
-      <img src={withBase(cover, import.meta.env.BASE_URL)} alt={cover_alt} />
+      <a
+        href={withBase(cover, import.meta.env.BASE_URL)}
+        aria-label={`Open full photo: ${cover_alt}`}
+      >
+        <img src={withBase(cover, import.meta.env.BASE_URL)} alt={cover_alt} />
+      </a>
+      {entry.data.cover_caption && (
+        <figcaption>{entry.data.cover_caption}</figcaption>
+      )}
     </figure>
   )}
   <div class="prose">
     <Content />
+    <MediaGallery items={entry.data.media} />
   </div>
 </EditorialLayout>

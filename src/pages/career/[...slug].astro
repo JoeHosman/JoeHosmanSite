@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import MediaGallery from "../../components/MediaGallery.astro";
 import { visibleEntries } from "../../lib/content";
 import { formatCareerDate } from "../../lib/dates";
 import { withBase } from "../../lib/urls.mjs";
@@ -38,5 +39,6 @@ const { company, role, start, end, summary, draft } = entry.data;
   </header>
   <div class="prose">
     <Content />
+    <MediaGallery items={entry.data.media} />
   </div>
 </EditorialLayout>

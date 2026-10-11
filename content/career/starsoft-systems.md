@@ -6,6 +6,37 @@ end: "2014"
 summary: "Creating Ticket Attendant and owning the technology operation of a distributed SaaS business serving about 500 customers."
 featured: true
 draft: false
+media:
+  - type: image
+    src: "/images/projects/starsoft-systems/ticket-company-server-rack.webp"
+    alt: "A tall equipment rack filled with the ticket company servers."
+    caption: "The ticket company server rack."
+    width: 230
+    height: 408
+  - type: image
+    src: "/images/projects/starsoft-systems/mlb-sweepstakes-servers.webp"
+    alt: "A stack of Dell rack servers in a wooden support frame."
+    caption: "The servers used for the MLB sweepstakes robot."
+    width: 1200
+    height: 1600
+  - type: image
+    src: "/images/projects/starsoft-systems/proxy-lab-workbench.webp"
+    alt: "Networking hardware, modems, cables, and a monitor on the proxy-server lab workbench."
+    caption: "The experimental DSL-modem proxy-server lab on the workbench."
+    width: 1600
+    height: 902
+  - type: image
+    src: "/images/projects/starsoft-systems/proxy-lab-network-diagram.webp"
+    alt: "Network diagram linking a switch, test PC, Ubuntu server, VLANs, and two 4G connections."
+    caption: "A network diagram from the proxy lab, showing VLANs, an Ubuntu server, a test PC, and 4G connections."
+    width: 1600
+    height: 902
+  - type: video
+    src: "/media/projects/starsoft-systems/ticket-robot.mp4"
+    poster: "/images/projects/starsoft-systems/ticket-robot-poster.webp"
+    caption: "The ticket robot running, recorded from the screen."
+    width: 480
+    height: 800
 ---
 
 ## Turning an inventory problem into a product

@@ -1,0 +1,60 @@
+---
+import type { MediaItem } from "../lib/content-schema";
+import { withBase } from "../lib/urls.mjs";
+
+interface Props {
+  items: MediaItem[];
+}
+const { items } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+{items.length > 0 && (
+  <section class="project-media" aria-label="Project media">
+    <h2>
+      {items.some((item) => item.type === "video")
+        ? "Photos and video"
+        : "Photos"}
+    </h2>
+    <div class="media-gallery">
+      {items.map((item) => (
+        <figure
+          class:list={[
+            "media-figure",
+            { "media-video": item.type === "video" },
+          ]}
+        >
+          {item.type === "video" ? (
+            <video
+              controls
+              playsinline
+              preload="none"
+              width={item.width}
+              height={item.height}
+              poster={withBase(item.poster, base)}
+              aria-label={item.caption}
+            >
+              <source src={withBase(item.src, base)} type="video/mp4" />
+              <a href={withBase(item.src, base)}>Download this video</a>
+            </video>
+          ) : (
+            <a
+              href={withBase(item.src, base)}
+              aria-label={`Open full photo: ${item.alt}`}
+            >
+              <img
+                src={withBase(item.src, base)}
+                alt={item.alt}
+                width={item.width}
+                height={item.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          )}
+          <figcaption>{item.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+)}

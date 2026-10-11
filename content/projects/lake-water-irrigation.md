@@ -6,8 +6,9 @@ categories: [home-improvement, irrigation, controls]
 status: in-progress
 featured: true
 draft: false
-cover: ""
-cover_alt: ""
+cover: "/images/projects/lake-water-irrigation/outdoor-pump-controls.webp"
+cover_alt: "Outdoor electrical enclosures and a GFI outlet mounted beside the stone wall."
+cover_caption: "The outdoor electrical junction: a 220 V disconnect, a 110 V GFI outlet, and a Hunter 220 V relay."
 ---
 
 ## The project
@@ -29,3 +30,6 @@ vegetable garden, and the [front waterfall](/projects/garden-waterfall/).
 I used OpenSprinkler for control and installed the pump wiring and PVC plumbing
 myself. The elevation difference made pump selection and water distribution a
 substantial part of the project.
+
+The outdoor electrical junction brings together a 220 V disconnect, a 110 V
+GFI outlet, and a Hunter 220 V relay.
