@@ -104,6 +104,20 @@ My [early neural-network and character-recognition write-up](/projects/early-neu
 includes the network diagrams, custom image-processing tools, and segmentation
 experiments I kept from this work.
 
+## Checking thousands of inboxes
+
+I built a mass email checker for roughly 12,000 Gmail accounts, looking for
+specific ticket-registration messages and extracting the relevant information
+into a list for my boss.
+
+My [PostOffice requirements and interface mockups](/projects/postoffice-email-checker/)
+document a 2008 design for a new version supporting Gmail and Yahoo. It proposed
+a central coordinator, remote workers, scheduled and on-demand checks,
+duplicate-message detection, and email or SMS alerts. The administration
+screens covered account imports, worker assignments, queue status, and check
+times. The mockups use example data and describe the intended features of
+that version.
+
 ## Mapping the ticket-site workflows
 
 The Ticket Release Catcher had to account for different flows at Ticketmaster,
