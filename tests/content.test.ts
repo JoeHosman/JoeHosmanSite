@@ -29,6 +29,53 @@ test("career date display retains original precision", () => {
   assert.equal(formatCareerDate("2020-09"), "Sep 2020");
   assert.equal(formatCareerDate(""), "Present");
 });
+test("unknown dates are accepted without implying a current role", () => {
+  assert.equal(
+    projectSchema.parse({ ...project, date: "unknown" }).date,
+    "unknown",
+  );
+  for (const dates of [
+    { start: "unknown", end: "unknown" },
+    { start: "2020", end: "unknown" },
+    { start: "unknown", end: "2024" },
+  ]) {
+    assert.equal(careerSchema.safeParse({ ...career, ...dates }).success, true);
+  }
+  assert.equal(formatCareerDate("unknown"), "Unknown");
+  assert.equal(formatProjectDate("unknown"), "Unknown");
+  assert.equal(
+    projectSchema.safeParse({ ...project, date: "whenever" }).success,
+    false,
+  );
+  assert.equal(
+    careerSchema.safeParse({ ...career, start: "whenever" }).success,
+    false,
+  );
+});
+test("unknown career dates sort last with stable ordering", () => {
+  const entries = [
+    { id: "z-unknown", data: { start: "unknown" } },
+    { id: "older", data: { start: "2006" } },
+    { id: "a-unknown", data: { start: "unknown" } },
+    { id: "newer", data: { start: "2025" } },
+  ];
+  assert.deepEqual(
+    sortCareer(entries).map((entry) => entry.id),
+    ["newer", "older", "a-unknown", "z-unknown"],
+  );
+});
+test("unknown project dates sort last with stable ordering", () => {
+  const entries = [
+    { id: "z-unknown", data: { date: "unknown" } },
+    { id: "older", data: { date: "2007" } },
+    { id: "a-unknown", data: { date: "unknown" } },
+    { id: "newer", data: { date: new Date("2025-01-01") } },
+  ];
+  assert.deepEqual(
+    sortProjects(entries).map((entry) => entry.id),
+    ["newer", "older", "a-unknown", "z-unknown"],
+  );
+});
 test("project validation rejects impossible dates, empty categories, and undocumented statuses", () => {
   assert.equal(projectSchema.safeParse(project).success, true);
   for (const value of [

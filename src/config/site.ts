@@ -2,6 +2,6 @@ export const site = {
   name: "Joe Hosman",
   tagline: "Engineer. Maker. Always curious.",
   description:
-    "Thirty years of industry experience, with projects and experiments spanning software, machines, materials, and art.",
+    "Joe Hosman's work in software architecture, engineering leadership, and automation, alongside projects in electronics, woodworking, and machinery.",
   links: [] as { label: string; url: string }[],
 };

@@ -3,13 +3,14 @@ import { careerDateBounds } from "./dates.ts";
 
 const text = z.string().trim().min(1);
 const careerDate = z.string().refine((value) => {
+  if (value === "unknown") return true;
   try {
     careerDateBounds(value);
     return true;
   } catch {
     return false;
   }
-}, "Use a valid quoted year (2020) or year-month (2020-09).");
+}, 'Use a valid quoted year (2020), year-month (2020-09), or "unknown".');
 const projectDate = z
   .union([z.date(), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)])
   .transform((value, ctx) => {
@@ -31,7 +32,11 @@ export const projectSchema = z
   .object({
     title: text,
     summary: text,
-    date: z.union([z.string().regex(/^[1-9]\d{3}$/), projectDate]),
+    date: z.union([
+      z.literal("unknown"),
+      z.string().regex(/^[1-9]\d{3}$/),
+      projectDate,
+    ]),
     categories: z
       .array(text)
       .min(1)
@@ -61,7 +66,8 @@ export const careerSchema = z
   })
   .refine(
     (entry) => {
-      if (!entry.end) return true;
+      if (!entry.end || entry.start === "unknown" || entry.end === "unknown")
+        return true;
       // Field refinements report malformed dates; range checks must not throw first.
       try {
         return (

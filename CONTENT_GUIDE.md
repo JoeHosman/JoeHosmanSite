@@ -28,7 +28,7 @@ represents one project, whether it is a finished piece or an ongoing experiment.
 | --- | --- |
 | `title` | Project name, in quotes. |
 | `summary` | A short description for project listings, in quotes. |
-| `date` | The year or date you want displayed: `"2025"` or `"2025-06-15"`. Quote year-only values. |
+| `date` | The year or date you want displayed: `"2025"` or `"2025-06-15"`. Use `"unknown"` until you know the date. Quote all values. |
 | `categories` | One or more categories from the list below. |
 | `status` | `idea`, `prototype`, `in-progress`, `completed`, or `paused`. Optional for collection pages. `prototype` describes the work without asserting release or current activity. |
 | `featured` | Set to `true` to nominate the project for the homepage. |
@@ -59,8 +59,9 @@ Copy `templates/career.md` to `content/career/company-role.md`. Fill in the
 company, role, summary, and dates, then write the relevant experience below.
 Use one file per role so multiple roles at the same company can stand alone.
 
-Dates can be `"2020"` or `"2020-01"`, depending on the precision you know. Keep
-them in quotes. Leave `end: ""` for a current role. Set `featured: true` for an
+Dates can be `"2020"`, `"2020-01"`, or `"unknown"`, depending on what you know. Keep
+them in quotes. Use `end: "unknown"` for an uncertain end date; leave `end: ""`
+only for a current role. Set `featured: true` for an
 experience you want highlighted and `draft: false` when it is ready to publish.
 Delete optional sections rather than filling them with unnecessary text.
 
@@ -95,6 +96,8 @@ Career appears first, then projects. Mark entries with `featured: true` to
 highlight them. Each section shows at most three, newest first. If none are
 featured, it uses the newest published entries. Career sorts by start date;
 projects sort by their displayed date. Equal dates sort by filename.
+Entries with unknown dates sort after dated entries, then by filename. Replace
+`"unknown"` in an entry's settings when you have the year or date.
 
 ## Drafts and examples
 

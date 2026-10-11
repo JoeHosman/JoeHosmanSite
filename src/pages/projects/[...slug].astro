@@ -40,13 +40,17 @@ const statuses = {
     <h1>{title}</h1>
     <p class="lede">{summary}</p>
     <div class="detail-meta">
-      <time
-        datetime={
-          typeof date === "string" ? date : date.toISOString().slice(0, 10)
-        }
-      >
-        {formatProjectDate(date)}
-      </time>
+      {date === "unknown" ? (
+        <span>Date unknown</span>
+      ) : (
+        <time
+          datetime={
+            typeof date === "string" ? date : date.toISOString().slice(0, 10)
+          }
+        >
+          {formatProjectDate(date)}
+        </time>
+      )}
       {status && <span>{statuses[status]}</span>}
     </div>
   </header>

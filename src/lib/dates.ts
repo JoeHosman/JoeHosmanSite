@@ -20,6 +20,7 @@ export function careerDateBounds(value: string): {
 
 export function formatCareerDate(value: string): string {
   if (!value) return "Present";
+  if (value === "unknown") return "Unknown";
   const { first } = careerDateBounds(value);
   if (value.length === 4) return value;
   return new Intl.DateTimeFormat("en-US", {
@@ -30,6 +31,7 @@ export function formatCareerDate(value: string): string {
 }
 
 export function formatProjectDate(value: Date | string): string {
+  if (value === "unknown") return "Unknown";
   if (typeof value === "string") return value;
   return new Intl.DateTimeFormat("en-US", {
     month: "long",

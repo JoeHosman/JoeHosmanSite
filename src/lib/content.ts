@@ -18,8 +18,12 @@ export function sortCareer<T extends { id: string; data: { start: string } }>(
 ): T[] {
   return [...entries].sort(
     (a, b) =>
-      careerDateBounds(b.data.start).first -
-        careerDateBounds(a.data.start).first || a.id.localeCompare(b.id),
+      (b.data.start === "unknown"
+        ? -Infinity
+        : careerDateBounds(b.data.start).first) -
+        (a.data.start === "unknown"
+          ? -Infinity
+          : careerDateBounds(a.data.start).first) || a.id.localeCompare(b.id),
   );
 }
 export function sortProjects<
@@ -27,8 +31,12 @@ export function sortProjects<
 >(entries: T[]): T[] {
   return [...entries].sort(
     (a, b) =>
-      new Date(b.data.date).getTime() - new Date(a.data.date).getTime() ||
-      a.id.localeCompare(b.id),
+      (b.data.date === "unknown"
+        ? -Infinity
+        : new Date(b.data.date).getTime()) -
+        (a.data.date === "unknown"
+          ? -Infinity
+          : new Date(a.data.date).getTime()) || a.id.localeCompare(b.id),
   );
 }
 export function categoryLabel(category: string): string {

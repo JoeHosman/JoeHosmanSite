@@ -47,10 +47,11 @@ npm run build
 npm run preview
 ```
 
-The production preview excludes drafts. The career section contains six roles
-from 2006–2026, adapted from Joe's master resume. The project section includes
-home-improvement builds, lake-water irrigation, and freight-bidding workflow
-automation delivered through Hosman Solutions LLC.
+The production preview excludes drafts. The career section covers roles from
+2006–2026 and independent ventures, drawing on Joe's master resume and personal
+accounts. The project section includes software, electronics, woodworking,
+home-improvement builds, and consulting work through Hosman Solutions LLC.
+Entries with dates still to fill in use `"unknown"` and sort after dated work.
 
 Browser tests use isolated test-site copies, never your real content. On a local
 machine they use installed Google Chrome. CI uses Playwright Chromium:

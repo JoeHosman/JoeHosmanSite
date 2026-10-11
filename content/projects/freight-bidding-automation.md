@@ -18,8 +18,13 @@ The client supplied the requirements for the process they wanted automated.
 
 ## The software
 
-I built a Python web application with a web user interface to carry out that
-process. I delivered the application as a Docker container image.
+I built the automation in Python with Selenium and added a web user interface.
+It logged into the bidding site, carried out the client's calculation workflow,
+and placed the resulting bids. I delivered the application as a Docker container
+image so the interface and automation could run together.
 
 The project brought together the client's operational requirements, a web
 interface, and the automation behind it in a single software delivery.
+
+The calculations and implementation were proprietary to the client. This is one
+example of the work I took on through [Hosman Solutions](/career/hosman-solutions/).

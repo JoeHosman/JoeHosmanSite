@@ -20,3 +20,12 @@ to my flower beds and yard. The project is still in progress.
 I ran the plumbing and electrical and handled the controls. The work spans the
 water supply, the pipework that carries it, and the power and controls that
 operate the system.
+
+The front yard is roughly 45 feet above the lake, so the pump has to lift the
+water and still provide enough pressure for the sprinklers. A three-inch main
+line feeds the sprinkler valves and branches out to the yard, flower beds,
+vegetable garden, and the [front waterfall](/projects/garden-waterfall/).
+
+I used OpenSprinkler for control and installed the pump wiring and PVC plumbing
+myself. The elevation difference made pump selection and water distribution a
+substantial part of the project.
