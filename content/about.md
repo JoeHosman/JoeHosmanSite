@@ -54,7 +54,7 @@ I later returned to help judge student programming competitions. A friend and I
 also organized technology fundraisers for Summit Tech; I handled much of the
 publicity, sponsorship, and event operations.
 
-I earned a BS in Electrical Engineering from DeVry University. While in college,
+I earned a BS in Electronics Engineering Technology from DeVry University. While in college,
 I built a web application for a construction company to replace large, copied
 Excel estimating sheets with searchable assemblies, parts, and packages. My
 senior project, built with a classmate, was a
