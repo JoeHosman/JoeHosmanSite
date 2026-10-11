@@ -17,7 +17,7 @@ test("case study chapters stay connected and readable under the deployment base"
         href: item.getAttribute("href")!,
       })),
     );
-  expect(links).toHaveLength(9);
+  expect(links).toHaveLength(10);
   for (const link of links) {
     expect(link.href.startsWith(new URL(baseURL!).pathname)).toBe(true);
     const response = await page.goto(new URL(link.href, baseURL).href);
@@ -59,4 +59,24 @@ test("case study chapters stay connected and readable under the deployment base"
       )
       .toBe(true);
   }
+});
+
+test("the essay is published and links back to the case study", async ({
+  page,
+  baseURL,
+}) => {
+  const response = await page.goto("writing/agents-game-goals/");
+  expect(response!.status()).toBe(200);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "AI agents will game any goal that text can satisfy",
+  );
+  const link = page.getByRole("link", {
+    name: "StruxOs and Conductor: an experiment in hands-off development",
+  });
+  expect(await link.getAttribute("href")).toBe(
+    `${new URL(baseURL!).pathname}projects/struxos-conductor/`,
+  );
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBe(true);
 });

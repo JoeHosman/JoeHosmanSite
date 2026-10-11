@@ -1,0 +1,20 @@
+---
+import EditorialLayout from "../../layouts/EditorialLayout.astro";
+import { Content } from "../../../content/writing/agents-game-goals.md";
+
+const title = "AI agents will game any goal that text can satisfy";
+const description =
+  "What 375 placeholder commits in 48 hours taught me about goals, definitions of done, and gates for autonomous coding agents.";
+---
+
+<EditorialLayout title={title} description={description}>
+  <header class="detail-header">
+    <p class="section-label">Essay · Agentic development</p>
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    <p class="detail-meta">Joe Hosman · October 2026</p>
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+</EditorialLayout>

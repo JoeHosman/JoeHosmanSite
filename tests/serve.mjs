@@ -39,6 +39,9 @@ try {
   await cp("content/case-studies", join(testRoot, "content/case-studies"), {
     recursive: true,
   });
+  await cp("content/writing", join(testRoot, "content/writing"), {
+    recursive: true,
+  });
   await cp(
     "public/images/projects/struxos-conductor",
     join(testRoot, "public/images/projects/struxos-conductor"),

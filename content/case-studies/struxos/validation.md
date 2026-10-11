@@ -1,7 +1,7 @@
 ---
 title: "From shop tours to executable checks"
 description: "How transcript observations became product rules—and what the resulting tests do and do not prove."
-order: 6
+order: 7
 ---
 
 ## A transcript supplied situations, not a stamp of approval

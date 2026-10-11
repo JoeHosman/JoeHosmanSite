@@ -1,7 +1,7 @@
 ---
 title: "Evidence and open questions"
 description: "Where the account comes from, how strong each kind of evidence is, and what still needs a real operator."
-order: 9
+order: 10
 ---
 
 ## What was reviewed
@@ -46,6 +46,7 @@ credentials, or private source code.
 | Screenshot | Saved repeat-family mockup test artifact, with July 6 test data visible | Illustrates a test evidence card. Names, identifiers, and approval data are generated fixtures. |
 | Remaining pilot checks | `docs/audits/pilot-readiness-todo.md` | Lists manual role, lifecycle, restart, and physical-record checks still to perform. |
 | Harness | Conductor's June 20 design, plans, source, tests, 155 commits, and its append-only task ledger | Supports the harness chapter's mechanisms and its aggregate task figures. |
+| Agent evaluation | Conductor's ledgers (1,380 code-task attempts, June 21–29), routing and retry-memory commits, Codex local session state | Supports the evaluation chapter. Observational data: routing was not randomized and cost was not recorded per task. |
 | Repository visuals | Git-history plots and a Gource render made on June 20 | Cover the history only through June 20, before the Conductor week. |
 | Token accounting | Local extraction and independent fork-deduplication verification | Produces the published aggregate numbers and documents missing coverage. |
 

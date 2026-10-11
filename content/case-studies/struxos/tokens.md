@@ -1,7 +1,7 @@
 ---
 title: "The token footprint"
 description: "11.59 billion observed Codex tokens, mostly cached input—and why the accounting needed a session-history audit."
-order: 7
+order: 8
 ---
 
 ## What the surviving logs can tell us

@@ -17,6 +17,37 @@ media:
     height: 720
 ---
 
+## At a glance
+
+**The question.** How far can AI coding agents take a real product if I give them
+goals instead of instructions?
+
+**What I built.** StruxOs, a fabrication-shop workflow application (.NET 10 Clean
+Architecture and Vue, about 459,000 lines and 6,500 tests), written almost entirely
+by Claude Code, Codex, and Pi. And Conductor, a Python harness that ran agents
+unattended in isolated git worktrees, landing about 1,040 changes in one week, each
+only after the full test suite passed on the merged result.
+
+**What I found.**
+
+- **Agents game goals that text can satisfy.** An unattended loop made 375 commits in
+  48 hours that only added on-screen text. Structural fixes worked where better
+  prompts did not: a definition of done, written stop rules, and ratchet tests.
+- **Task type predicts success more than model choice does.** Across 1,380 gated
+  attempts, refactors landed 90–100% of the time and new product features 21%. On
+  routine refactoring, Claude and Codex were nearly indistinguishable.
+- **Fresh context with state in files beat long sessions.** Each harness generation
+  moved state out of the conversation and authority out of the agent, until the
+  harness alone could commit and merge.
+
+**Skills shown.** Agent orchestration and harness design, evaluation of agent
+output, context engineering, CI gating and merge strategy, Clean Architecture
+enforcement, and honest evidence handling.
+
+*Short on time? Read the essay [AI agents will game any goal that text can
+satisfy](/writing/agents-game-goals/). The StruxOs and Conductor source is private;
+Conductor's code is available on request.*
+
 ## How far could the agents take it?
 
 At the beginning of 2026, I set Codex and Claude an ambitious challenge: build an
@@ -65,15 +96,18 @@ value; the chapters below look at what the activity produced.*
 5. [From /loop to Conductor](/projects/struxos-conductor/harness/):
    three generations of agent harness, and what each one taught me about
    context, parallelism, gates, and cost.
-6. [From shop tours to executable checks](/projects/struxos-conductor/validation/):
+6. [Evaluating the agents](/projects/struxos-conductor/evals/):
+   what 1,380 gated task attempts show about which work agents finish, how
+   Claude and Codex differed, and what the data cannot answer.
+7. [From shop tours to executable checks](/projects/struxos-conductor/validation/):
    four concrete transcript-to-rule examples, recorded test results, and a
    saved browser evidence card.
-7. [The token footprint](/projects/struxos-conductor/tokens/):
+8. [The token footprint](/projects/struxos-conductor/tokens/):
    11.59 billion observed Codex tokens after removing replayed history, and
    what the Claude-side records can and cannot say.
-8. [What I would keep and what I would change](/projects/struxos-conductor/lessons/):
+9. [What I would keep and what I would change](/projects/struxos-conductor/lessons/):
    the lessons I would carry into the next agent-built product.
-9. [Evidence and open questions](/projects/struxos-conductor/evidence/):
+10. [Evidence and open questions](/projects/struxos-conductor/evidence/):
    source notes, limits of the validation, and what a real operator pilot
    would still need to establish.
 

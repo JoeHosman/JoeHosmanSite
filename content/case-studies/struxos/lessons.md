@@ -1,7 +1,7 @@
 ---
 title: "What I would keep and what I would change"
 description: "The practices that earned their place, the ones I would drop, and how I would start the next agent-built product."
-order: 8
+order: 9
 ---
 
 ## What I would keep
