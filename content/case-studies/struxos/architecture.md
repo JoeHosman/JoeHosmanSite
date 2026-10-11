@@ -103,7 +103,8 @@ Two enforcement gaps are visible in the history:
 
 - A pre-push hook that ran the fast test suite was committed on May 29 but never
   activated, because the repository was not configured to use the committed hooks
-  directory. Nothing told me.
+  directory. The post-project review caught it; nothing during the
+  project did.
 - Conductor's first merge gate ran only the Domain and Application tests. The
   Infrastructure and Api tests quietly rotted until June 24, when adding them to the
   gate surfaced one real bug and about eighteen stale tests.

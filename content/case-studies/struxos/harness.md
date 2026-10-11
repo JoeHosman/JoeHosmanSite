@@ -150,11 +150,12 @@ On June 28 main went red. The repair task failed three times; one attempt touche
 client files before failing the gate. The task generators were then disabled, and
 Conductor stopped doing code work after June 29.
 
-The loop itself kept running its 30-minute health check against the red branch for
-months, recording more than 4,600 failed checks. It never escalated. The alert
-webhook had never been configured, and health-check cycles did not count toward the
-circuit breaker that was supposed to pause the system. A harness that can detect a
-failure but cannot get a person's attention is not unattended; nobody is watching it.
+The postmortem found a design gap worth more than any single fix. Conductor could
+*detect* a red main, but it could not *escalate* one: health-check cycles did not
+count toward the circuit breaker that pauses the system, and the alert channel had
+never been wired to a real destination. Detection without escalation is only half of
+an unattended system. Any harness I build next treats "can it reach a person, and does
+it know when to stop?" as a requirement with its own test.
 
 ## Was I building something that already existed?
 

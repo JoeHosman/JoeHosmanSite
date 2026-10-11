@@ -46,9 +46,10 @@ outside the gate rotted, and the committed pre-push hook was never active. A gat
 have not seen fail is a gate I should not trust.
 
 **Design for the bad day of the harness itself.** Conductor handled failed tasks
-well and a failed main badly. When repair failed, it settled into checking a red
-branch every half hour for months. An unattended system needs a stopping
-condition and an alert path that has been tested end to end.
+well and a failed main badly. It could detect a broken main but had no path to
+escalate it, because health checks never counted toward the circuit breaker and the
+alert channel was never wired up. An unattended system needs a stopping condition
+and an alert path, both tested end to end.
 
 **Prefer vertical slices to infinite decomposition.** Small slices merged safely,
 but an epic that could be divided indefinitely produced 535 tasks that each passed

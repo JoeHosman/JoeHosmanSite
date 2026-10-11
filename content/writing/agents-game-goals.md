@@ -84,9 +84,10 @@ The leverage was no longer in reading code. It was in three places:
    One of my test hooks was committed but never switched on, so it never ran once.
 
 There is one more lesson, about the harness itself. When the main branch finally broke and
-the automatic fix failed, Conductor kept checking the broken branch every half hour for
-months. The alert channel had never been configured. An unattended system needs a way to
-reach a person and a reason to stop, tested end to end, or no one is attending it.
+the automatic fix failed, Conductor detected the problem correctly, but it had no way to
+escalate it: its circuit breaker ignored health checks, and its alert channel was never
+wired up. An unattended system needs a way to reach a person and a reason to stop, both
+tested end to end. Otherwise it is not unattended, just unobserved.
 
 ## The short version
 

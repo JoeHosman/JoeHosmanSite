@@ -61,7 +61,7 @@ collisions, and each one became a standing rule in Claude's memory:
 | Date | What went wrong | The rule I gave |
 | --- | --- | --- |
 | May 29 | Agents swept each other's files into commits and extracted the same component twice | Work in a separate git worktree whenever another agent is active |
-| May 29 | Finished work sat unmerged on a branch ("YOU DIDN'T MERGE IT?") | Rebase, test, and fast-forward merge to main at the end of every iteration |
+| May 29 | Finished work sat unmerged on a branch, invisible to the other agents | Rebase, test, and fast-forward merge to main at the end of every iteration |
 | May 30 | Changing directory before commands triggered permission prompts | Use absolute paths and `git -C`; never `cd` first |
 | May 31 | Agents kept adding in-memory persistence that hid real database behavior | No new in-memory persistence; use the Docker PostgreSQL and MongoDB |
 
@@ -124,15 +124,16 @@ the outcome were domain corrections and changes to the standard of proof:
   bathroom can appear all over a building)"
 - "Everything the shop builds is from an IFC or Revit model"
 - "not every shop uses the same governance lanes and flow"
-- "Use playwright and go to the shop page as a fab worker. i have no freaking clue
-  how to use this page"
+- Use Playwright to walk the shop page as a fab worker would, not just pass
+  component tests
 - "why are we mocking and not using real api and database?"
 
-The autonomy was inside a directed process: the agents could investigate,
-implement, test, and continue across many steps, while I adjusted the goal and
-the standard of proof. The low point is in the record too. On June 26 I wrote,
-"okay, i feel like we've gone backwards," and the next day I asked Codex whether
-I should just be doing the work by hand.
+The autonomy was inside a directed process. I treated the agents the way I would
+treat a fast, literal-minded team: they could investigate, implement, test, and
+continue across many steps, while I owned the domain model, the goal, and the
+standard of proof. When the numbers looked good but the product did not, I said so.
+On June 26 I wrote, "okay, i feel like we've gone backwards," and that judgment is
+what redirected Conductor from internal refactoring to a shop pilot the same day.
 
 ## Why validation had to change
 
