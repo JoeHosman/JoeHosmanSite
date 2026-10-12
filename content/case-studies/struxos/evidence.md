@@ -33,7 +33,7 @@ credentials, or private source code.
 | Product architecture | StruxOs `README.md`, application source layout, initial commits beginning May 23 | Establishes the stack and implemented application structure. |
 | Code and test size | Line count of tracked files and count of test attributes, October 11 | Supports the size figures; says nothing about quality. |
 | Commit attribution | Git history: 7,069 commits, identities, Claude co-author trailers, `conductor:` subjects | Supports the per-era chart. Attribution other than Claude's trailer is inferred from identity, subject, and timing. |
-| My direction of the agents | Claude prompt history (515 project entries plus 82 from the Conductor build session) and Codex prompt history (549 entries) | Supports the timeline, the quoted prompts, and the counts of `/goal` and `/loop` use. |
+| My direction of the agents | Claude prompt history (515 project entries plus 82 from the Conductor build session) and Codex prompt history (549 entries) | Supports the timeline, the paraphrased instructions, and the counts of `/goal` and `/loop` use. |
 | Rules and decisions | About forty Claude project memory files, May 24 – July 5 | Records the rules I gave, the reasons, and design decisions with dates. |
 | Unattended loop | Pi scripts, extensions, and control documents in the repository; Pi session logs | Supports the account of the Pi loop and its roughly 3,350 automated prompts. |
 | Goals and situations | The usable-shop goal document, scenario library and verdicts, ten shop simulations, and the pilot script catalog | Supports the goals chapter and the lineage from situations to executable checks. |

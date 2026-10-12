@@ -31,9 +31,9 @@ What it taught me:
   domain. Two lessons came with it: a sub-agent merged its own work despite being
   told not to, and another rebuilt files that already existed because its branch
   started from a stale base.
-- **I was still the scheduler.** Prompts such as "codex is on break until monday,
-  you have free access" show that ownership of the code was negotiated by me,
-  one message at a time.
+- **I was still the scheduler.** My prompts regularly told one agent that another
+  had paused or finished, so it could take over the main branch. Ownership of the
+  code was negotiated by me, one message at a time.
 
 ## Generation 2: a scripted loop around Pi (June 9–21)
 
@@ -44,18 +44,18 @@ tmux. That one went no further.
 
 The loop itself went through three versions in a week:
 
-1. A Pi extension that re-injected a continue prompt whenever the agent's answer
-   ended with "Recommended next step: continue." It required patching the installed
+1. A Pi extension that re-injected a follow-up prompt whenever the agent's answer
+   ended with a fixed closing line saying more work remained. It required patching the installed
    Pi runtime.
 2. An Expect script that watched Pi's terminal, stripped the live token counter
-   so it could tell whether output had changed, and typed the continue message
+   so it could tell whether output had changed, and sent the follow-up prompt
    after two minutes of silence.
 3. A shell loop that started **one fresh, non-interactive Pi session per batch**.
    Nothing carried over in the conversation; "repo/control docs carry state." A
    priority file, stop rules, a slice template, and grouped todo files told each new
    session what to do and when to stop.
 
-![Side-by-side diagram. Before: one long Pi session kept alive by an Expect script typing "continue", with the goal and turns piling up in context until they are compacted; state lives in the conversation and a crash or compaction loses it. After: three fresh batch sessions, each reading and then updating control documents in the repository; state lives in files and any batch can fail without losing it.](/images/projects/struxos-conductor/session-vs-files.svg)
+![Side-by-side diagram. Before: one long Pi session kept alive by an Expect script re-prompting it, with the goal and turns piling up in context until they are compacted; state lives in the conversation and a crash or compaction loses it. After: three fresh batch sessions, each reading and then updating control documents in the repository; state lives in files and any batch can fail without losing it.](/images/projects/struxos-conductor/session-vs-files.svg)
 
 *The change between the second and third versions of the loop. Moving state out
 of the conversation and into the repository is the idea every later design kept.*
@@ -73,17 +73,12 @@ but nothing in it could tell good work from busy work.
 
 ## Generation 3: Conductor (June 20–29)
 
-On June 20 I described what I wanted to Claude in a home-directory session:
-
-> I have todo .md files, audit scripts, that I want the agent... to run
-> continuously without my input.
-
-> i want this to reopen new sessions to keep session context down, i want this to
-> commit early and often, i want this to work parallel when possible.
-
-Further requirements followed in the same session: run plans and cycles, show
-progress in a web console, update the system while it is running, and "no work in
-the todos means fire off the audit scripts." Claude wrote a design specification and
+On June 20 I set out the requirements to Claude in a single session. Agents should
+work through my todo files and audit scripts continuously without my input; start
+new sessions often to keep context small; commit early and often; and work in
+parallel where possible. Further requirements followed: run plans in cycles, show
+progress in a web console, update the system while it is running, and run the audit
+scripts to generate new work whenever the todo list is empty. Claude wrote a design specification and
 then implemented it as five test-driven plans, with sub-agents doing the work and
 reviewers checking each task. The specification was fully implemented by 1:39 a.m.,
 about nine hours after it was written. Over the following week Conductor reached 155
@@ -130,7 +125,8 @@ Each of these appears in the commit history as a problem followed by a fix:
   9,000-line Vue component, so edits to it were forced through one at a time.
 - **Retries need memory.** Workers are one-shot and worktrees are deleted, so a retry
   started blind. Conductor began saving the failed diff and gate output and
-  prefacing the retry with "YOUR PREVIOUS ATTEMPT AT THIS EXACT TASK FAILED."
+  giving them to the retry, with an explicit warning that the previous attempt at the
+  same task had failed.
 - **Cost needs a hard cap, not a guideline.** A usage analysis found one Claude
   session that had retried 1,048 times, roughly $1,500 at API list prices (I was on
   a subscription, so this was not an actual bill). Every Claude worker got a
@@ -159,14 +155,15 @@ it know when to stop?" as a requirement with its own test.
 
 ## Was I building something that already existed?
 
-On June 27 I asked both Claude and Codex to "search github for a project like the
-conductor. are we building something that already exists?" They compared it with
+On June 27 I asked both Claude and Codex to search GitHub for projects like
+Conductor, to check whether I was rebuilding something that already existed. They
+compared it with
 several open-source orchestrators, and I started adopting one project's runner
 abstraction. The honest answer was partly yes. The parts specific to my situation,
 such as the merge train, the hot-file locks, the headroom routing, and the audit
 generators, were what made it work on this repository.
 
-*Quotations from my prompts keep my wording, with spelling corrected. Evidence:
+*Evidence:
 Claude's project memory; my Claude and Codex prompt history; the Pi scripts,
 extensions, and control documents in the StruxOs repository; Conductor's design,
 plans, source, tests, commit history, and ledger. See the

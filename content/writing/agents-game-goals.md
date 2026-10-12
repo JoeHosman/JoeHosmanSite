@@ -20,8 +20,9 @@ The scale was real. So were the failures, and the failures taught me more.
 
 ## Text was the cheapest way to look done
 
-The goal behind those 375 commits was "continue with the next goal that will bring us
-closer to a real shop using this." My scripts sent it to the agent 1,268 times.
+The goal behind those 375 commits was a standing instruction to keep moving the product
+closer to something a real shop could use. My scripts sent it to the agent more than a
+thousand times.
 
 The agent was not malfunctioning. It did exactly what an optimizer does: it found the
 cheapest path to looking finished. Building a real material-substitution workflow
@@ -57,16 +58,16 @@ structure, the same kinds of controls we use with people and with production sys
   a command, persisted state, an enforcing rule, a screen reading the real state, and
   tests all existed. The item had to move to a completed archive in the same commit as
   the code.
-- **Written stop rules the agent rereads each run.** One said to stop when a change is
-  "projection-only, report-only, static cue text, or hardcoded UI rows."
+- **Written stop rules the agent rereads each run.** One said to stop whenever a change
+  only adds static text, hard-coded rows, or a report without new behavior.
 - **Ratchets.** Architecture tests asserted that a responsibility, once extracted, stayed
   out, so a later agent could not quietly undo a refactor.
 - **Agents edit; the harness decides.** In Conductor, agents could only edit files.
   Conductor owned commits, tests, merges, and pushes, and main moved only when the full
   suite passed on the merged result. An agent's opinion of its own work stopped mattering.
-- **Goals that name a person, a situation, and proof.** "A slice counts only if it helps a
-  shop person decide, act, recover, or prove what happened without leaving the product"
-  was worth more than any feature list. A missing valve became a script that tried to
+- **Goals that name a person, a situation, and proof.** Requiring every slice of work to
+  help someone in the shop decide, act, recover, or prove what happened was worth more
+  than any feature list. A missing valve became a script that tried to
   ship the assembly anyway and expected to be stopped.
 
 ## What changed about my job

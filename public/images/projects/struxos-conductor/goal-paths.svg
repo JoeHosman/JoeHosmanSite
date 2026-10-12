@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 372" role="img" aria-labelledby="t d">
   <title id="t">Two kinds of goal</title>
-  <desc id="d">Top: a goal to get closer to a real shop leads the agent to add static cue text, which looks done in the commit log; a stop rule now blocks that path. Bottom: a goal that names a situation becomes a rule with a command, stored state, a gate, and tests, then a script that tries the situation and saves proof; the todo item closes only when all of these exist, in the same commit as the code.</desc>
+  <desc id="d">Top: a vague, open-ended goal leads the agent to add static cue text, which looks done in the commit log; a stop rule now blocks that path. Bottom: a goal that names a situation becomes a rule with a command, stored state, a gate, and tests, then a script that tries the situation and saves proof; the todo item closes only when all of these exist, in the same commit as the code.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0 0 10 5 0 10z" fill="#626657"/>
@@ -46,7 +46,7 @@
       <text x="475" y="228">Script</text>
     </g>
     <g font-size="13.5" fill="#626657" text-anchor="middle">
-      <text x="85" y="92">"closer to a shop"</text>
+      <text x="85" y="92">open-ended</text>
       <text x="280" y="92">no new behavior</text>
       <text x="475" y="92">in the commit log</text>
       <text x="85" y="250">a valve is missing</text>

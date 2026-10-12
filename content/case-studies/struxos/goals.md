@@ -13,16 +13,16 @@ Claude Code's `/goal` command (55 uses) and Codex's equivalent (52 uses) were th
 mechanism. A goal keeps the agent working across many turns and checks after each
 one whether the objective has been reached.
 
-The shape stabilized quickly. On May 30 a typical goal read:
+The shape stabilized quickly. A typical goal at the end of May named one milestone,
+then added the working constraints: use a separate worktree, merge into main in
+small slices because another agent is working in parallel, and keep to Clean
+Architecture.
 
-> /goal complete the m5 slice (on a worktree) and merge into main. Do it in small
-> slices (there's a parallel agent working). uncle bob's clean architecture is a must!
-
-Once a milestone list existed, the goals shrank to pointers into it: "/goal m8",
-"/goal continue m26 to m30", "/goal continue to m175", and finally "/goal keep
-trucking to m250". Claude's memory records the milestone chain reaching M250 on
-May 31. The goal named a tracked artifact rather than
-the work itself, which let a short prompt carry a large amount of intent.
+Once a milestone list existed, the goals shrank to pointers into it: a single
+milestone, then a range, then simply the next stretch of the list. Claude's memory
+records the milestone chain reaching M250 on May 31. The goal named a tracked
+artifact rather than the work itself, which let a short prompt carry a large amount
+of intent.
 
 ## Four kinds of goal
 
@@ -31,24 +31,21 @@ The records show four forms, which I adopted roughly in this order:
 1. **Milestone pointers.** A planning document (Claude's spec-and-plan workflow
    produced about 35 milestone specs on May 30 alone) defined the work; the goal
    said how far to go.
-2. **Goal files.** A whole document became the goal. The largest,
-   *Make StruxOS Usable In A Real MEP Prefab Shop*, ran 867 lines and was edited
-   148 times in two days as the agent updated its own progress section. Two lines
-   from it became the project's thesis:
-   > The shop is the test. The role is only a witness. The pilot is the proof.
-   >
-   > A slice counts only if it helps a shop person decide, act, recover, or prove
-   > what happened without leaving the product.
+2. **Goal files.** A whole document became the goal. The largest, a goal to make
+   StruxOs usable in a real shop, ran 867 lines and was edited
+   148 times in two days as the agent updated its own progress section. Its central
+   idea became the project's thesis: the shop is the test, and a slice of work counts
+   only if it helps someone in the shop decide, act, recover, or prove what happened
+   without leaving the product.
 3. **Persona audits.** I asked agents to inspect StruxOs as a specific shop role
    and to approach it as a newcomer who had never seen the software, not as the
-   agent that built it. The complaints went straight back in as goals ("/goal review and fix the audit
-   complaints").
+   agent that built it. The complaints went straight back in as goals.
 4. **Situations.** Rather than features, I described things that go wrong in a
    real shop and asked whether the software would help. These are described below.
 
-I also used the agents to write goals for each other. Several Codex prompts are
-some version of "give me a goal to give to claude," followed by pasting Claude's
-completion report back with "claude is ready for the next goal."
+I also used the agents to write goals for each other. Several times I asked Codex
+to draft Claude's next goal, then passed Claude's completion report back to Codex
+to draft the one after.
 
 ## Situations as the source of goals
 
@@ -71,23 +68,24 @@ follows four of those rules through to recorded test results.
 Between June 11 and June 14 the unattended Pi loop produced hundreds of commits
 with subjects like "show label reprint cue" and "show restart tomorrow driver
 wakeup contact rows." Each added static text or hard-coded rows to a screen.
-Each looked, in a commit log, like progress toward "a real shop using this."
+Each looked, in a commit log, like progress toward the loop's goal of a product
+a real shop could use.
 None changed what the system did. A later audit counted 375 of them in 48 hours.
 
 The loop was not malfunctioning. It was optimizing the goal it had been given,
 and on-screen text was the cheapest way to make a screen appear to address a
 situation. Better wording in the prompt did not fix it. Three structural changes did:
 
-- **Stop rules** in a control document the loop read every batch, including:
-  stop "when the change is projection-only, report-only, static cue text, or
-  hardcoded UI rows."
+- **Stop rules** in a control document the loop read every batch, including a rule
+  to stop whenever a change only adds static text, hard-coded rows, or a report
+  without new behavior.
 - **A definition of "workflow-complete"**: a command, persisted state, a gate
   that enforces it, an API and screen that read the real state, and tests. A todo
   item could be closed only when all of these existed.
 - **An archive rule**: a completed item had to be moved out of the active todo
   file in the same commit as its implementation. 530 commits touch that archive.
 
-![Two-lane diagram. Top lane: a goal to get "closer to a shop" leads the agent to add static cue text with no new behavior, which looks done in the commit log; a stop rule now blocks that path. Bottom lane: a situation such as a missing valve becomes a rule with a command, state, a gate, and tests, which is scripted as a check that tries the situation and saves proof; the todo item closes only when all of these exist, in the same commit.](/images/projects/struxos-conductor/goal-paths.svg)
+![Two-lane diagram. Top lane: a vague goal to get closer to real shop use leads the agent to add static cue text with no new behavior, which looks done in the commit log; a stop rule now blocks that path. Bottom lane: a situation such as a missing valve becomes a rule with a command, state, a gate, and tests, which is scripted as a check that tries the situation and saves proof; the todo item closes only when all of these exist, in the same commit.](/images/projects/struxos-conductor/goal-paths.svg)
 
 *The same intent, two goal shapes. The top path was the cheapest way to satisfy
 the goal, so the loop took it hundreds of times until a stop rule closed it.*
@@ -102,8 +100,9 @@ refactoring epic into the smallest safe slices it could find, and kept going. On
 epic produced 535 tasks, ending in items like adding a single method that combines
 two existing checks. Every task passed its tests. On June 26 the epic was retired as
 "exhausted," with the explanation that the remaining internal refactors "don't move
-the product toward a usable pilot," and new tasks had to be "a COMPLETE vertical
-capability (persistence+endpoint+types+UI+tests), not a per-layer micro-slice."
+the product toward a usable pilot." New tasks had to deliver a complete vertical
+capability, from storage through the endpoint, types, screen, and tests, rather than
+one layer at a time.
 
 Taken together, the two failures mark out the useful range. If a goal can be
 satisfied with text, it invites theater. If it can be divided indefinitely, it

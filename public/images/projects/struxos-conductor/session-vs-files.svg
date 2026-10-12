@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" role="img" aria-labelledby="t d">
   <title id="t">Where the loop kept its state</title>
-  <desc id="d">Before: one long Pi session kept alive by an Expect script typing continue; the goal and history pile up in the context until they are compacted, so the state lives in the conversation and a crash or compaction loses it. After: each batch is a fresh session that reads and then updates control documents in the repository, so the state lives in files and any batch can fail without losing it.</desc>
+  <desc id="d">Before: one long Pi session kept alive by an Expect script re-prompting it; the goal and history pile up in the context until they are compacted, so the state lives in the conversation and a crash or compaction loses it. After: each batch is a fresh session that reads and then updates control documents in the repository, so the state lives in files and any batch can fail without losing it.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 10 5 0 10z" fill="#626657"/>
@@ -28,7 +28,7 @@
       <text x="140" y="138" fill="#7d492e">compacted summary</text>
     </g>
     <line x1="60" y1="44" x2="60" y2="76" stroke="#626657" stroke-width="1.5" marker-end="url(#a)"/>
-    <text x="68" y="62" font-size="13" fill="#626657">Expect types "continue"</text>
+    <text x="68" y="62" font-size="13" fill="#626657">Expect script re-prompts</text>
     <g font-size="13.5" fill="#626657">
       <text x="20" y="296">State lives in the conversation.</text>
       <text x="20" y="316">A crash or compaction loses it.</text>

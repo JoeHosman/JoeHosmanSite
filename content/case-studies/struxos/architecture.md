@@ -6,8 +6,8 @@ order: 4
 
 ## Why insist on Clean Architecture?
 
-I required Clean Architecture from the first scaffold, and repeated it in goals
-("uncle bob's clean architecture is a must!"). The reasoning was practical. Agents
+I required Clean Architecture from the first scaffold, and made it an explicit
+constraint in nearly every goal. The reasoning was practical. Agents
 work best on code they can understand in a small context: a use case that
 depends only on domain rules and a port can be changed and tested without loading
 the whole system. Clear boundaries were meant to keep each agent's change local,
@@ -29,7 +29,7 @@ Each layer has its own test project.
 The most reused review prompt in the project was a persona: Claude, asked to
 review the code as Robert C. Martin might. The persona was a prompting device;
 he had no involvement. It ran on a timer in the first week,
-in numbered passes on particular concerns ("pass 5 on concurrency and locking"),
+in numbered passes on particular concerns such as concurrency and locking,
 and again whenever I suspected the work had drifted. On June 19 I asked for a full
 advisory review in that voice, split across parallel sub-agents, with an explicit
 request for a candid verdict on whether the tests reflected real behavior.
@@ -122,8 +122,7 @@ now cite a live file, a line range, and the command used to verify it. With that
 rule in place the accepted findings list read "None yet." I count that as the
 system working: the rule caught a plausible review with nothing behind it.
 
-*Quotations from my prompts keep my wording, with spelling corrected.
-Evidence: project references and architecture tests; the May 31 review and the
+*Evidence: project references and architecture tests; the May 31 review and the
 June 19 advisory; the maintainability ratchet baseline and its history; Conductor's
 gate configuration and commit history; a line count of current files. See the
 [evidence notes](/projects/struxos-conductor/evidence/).*

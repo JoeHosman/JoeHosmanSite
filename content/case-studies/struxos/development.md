@@ -27,7 +27,7 @@ Three kinds of agent wrote the code, and the mix changed as I changed the harnes
 "StruxOs Auto Pi" git identity, so that colour also contains a few later
 interactive commits.*
 
-![Diagram in three stages. Late May: Claude's review findings go to me, and I paste them into Codex as prompts; Codex commits to main. Mid-June: a loop script sends "continue" to a fresh Pi session that reads and updates control documents I write, and commits to main after a test script. Late June: I write the plan; Conductor sends one task to a Codex or Claude worker, receives a diff, and merges to main only if the gate is green.](/images/projects/struxos-conductor/who-relays-the-work.svg)
+![Diagram in three stages. Late May: Claude's review findings go to me, and I paste them into Codex as prompts; Codex commits to main. Mid-June: a loop script prompts a fresh Pi session that reads and updates control documents I write, and commits to main after a test script. Late June: I write the plan; Conductor sends one task to a Codex or Claude worker, receives a diff, and merges to main only if the gate is green.](/images/projects/struxos-conductor/who-relays-the-work.svg)
 
 *Where I sat in each era. The project's real progression was not the agents
 getting smarter; it was the relay between them moving from me, to a script, to
@@ -38,12 +38,12 @@ a harness that could refuse a change.*
 Codex built the first Clean Architecture scaffold with me in conversational
 slices: identity administration, organizations and projects, .NET 10, a
 TypeScript client, and the first fabrication and logistics screens. On May 24 I
-brought Claude in as a reviewer. My first request was for it to "act as Uncle Bob
-and do code review for Clean Architecture on this project every 15-30 minutes"
-on a `/loop`, and I pasted its findings into Codex by hand.
+brought Claude in as a reviewer: on a `/loop`, it reviewed the code for Clean
+Architecture in the voice of Robert C. Martin ("Uncle Bob") every 15 to 30 minutes,
+and I relayed its findings to Codex by hand.
 
-Within a day I had asked Claude to skip me: "at the end of each result; call
-codex directly with what to do." I also asked Codex whether there was a way to
+Within a day I had asked Claude to skip me and send its findings to Codex directly
+at the end of each review. I also asked Codex whether there was a way to
 have it keep looping. The goal of removing myself from the relay was there from
 the start.
 
@@ -52,7 +52,7 @@ the start.
 This was the peak of my direct involvement: 192 prompts to Claude and 153 to Codex
 in a single week, and 2,071 commits. Two to four Claude sessions ran at once
 alongside Codex. My prompts moved from `/loop` to `/goal`, and the goals became
-short pointers into a milestone list ("/goal keep trucking to m250"). The
+short pointers into a milestone list. The
 [goals chapter](/projects/struxos-conductor/goals/) describes that pattern.
 
 Running agents in parallel in one working tree produced a fast series of
@@ -77,12 +77,12 @@ Claude sub-agent; almost all merged within an hour.*
 ## Era 3: the unattended Pi loop (June 9–21)
 
 To keep work going without me, I switched to Pi and drove it with scripts. The
-first version was an Expect script that watched Pi's terminal and typed a
-"continue" message when output went stale. The second ran one fresh,
+first version was an Expect script that watched Pi's terminal and sent a
+follow-up prompt when output went stale. The second ran one fresh,
 non-interactive Pi session per batch inside tmux, and left all state in
-repository control documents. Over 13 days the scripts sent about 3,350 prompts;
-the most common, sent 1,268 times, was "continue with the next goal that will
-bring us closer to a real shop using this."
+repository control documents. Over 13 days the scripts sent about 3,350 prompts,
+most of them the same standing instruction to take the next step toward a product
+a real shop could use.
 
 This era produced the experiment's clearest failure: hundreds of commits that
 added static on-screen "cues" which looked like features but changed no
@@ -91,9 +91,9 @@ behavior. It also produced the fix: written stop rules, a definition of
 
 ## Era 4: Conductor (June 20–29)
 
-On June 20 I asked Claude to help me build "our own agentic automation" that
-would take my todo files and audit scripts and "run continuously without my
-input." The design and five implementation plans were complete about nine hours
+On June 20 I asked Claude to help me build my own agent automation: a system that
+would take my todo files and audit scripts and keep agents working continuously
+without my input. The design and five implementation plans were complete about nine hours
 later. Conductor then landed about 1,040 tasks in a week, peaking at 299 in one
 day. On June 26 I redirected it from internal refactoring toward a concrete
 product target: a fabrication shop using StruxOs for a week on a small project.
@@ -104,8 +104,8 @@ what happened in detail.
 ## Era 5: situation scripts and cleanup (June 28 – July 6)
 
 The last stretch was interactive again. With Codex I turned the one-week pilot
-runbook into Playwright runs I could watch, then ran a loop of "audit for gaps,
-fix those, iterate until no more gaps" across a catalog of shop situations. With
+runbook into Playwright runs I could watch, then ran a goal loop that audited for gaps, fixed them, and repeated until none
+remained, across a catalog of shop situations. With
 Claude I treated the interface as a design problem in its own right: built quickly
 without UX direction, it had grown into long scrolling pages. The final commits introduced a "control room, not scroll"
 layout doctrine and viewport-height budgets; for example, one receiving
@@ -116,13 +116,13 @@ July 6.
 
 The records do not support a story in which I gave one prompt and never
 intervened again. Across the project I typed 597 prompts to Claude and 549 to
-Codex. Many were nudges ("continue," "do next thing"), but the ones that changed
+Codex. Many were short nudges to keep going, but the ones that changed
 the outcome were domain corrections and changes to the standard of proof:
 
-- "this enforcement should be configurable by company"
+- Make workflow enforcement configurable per company
 - Build the real capability behind each integration point inside StruxOs,
   rather than connecting placeholders
-- "not every shop uses the same governance lanes and flow"
+- Do not assume every shop follows the same approval steps and flow
 - Use Playwright to walk the shop page as a fab worker would, not just pass
   component tests
 - Test against the real API and databases instead of mocks
@@ -154,7 +154,7 @@ not a count of screens, commits, or tokens. The records support that distinction
 even where they do not settle the product's readiness for a real shop.
 
 *Evidence: repository commit history and trailers; my Claude and Codex prompt
-history (quotations keep my wording, with spelling corrected); Claude's project
+history; Claude's project
 memory files; Pi session logs; Conductor's ledger. Dates
 and source boundaries are documented in the
 [evidence notes](/projects/struxos-conductor/evidence/).*

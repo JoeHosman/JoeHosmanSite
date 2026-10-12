@@ -70,7 +70,7 @@ investigation; it is not a claim that the prototype became an industry leader.
 | Code today | about 459,000 lines of C#, TypeScript, and Vue |
 | Automated tests | 3,864 .NET test methods and about 2,660 client tests |
 | Prompts I typed | 597 to Claude, 549 to Codex |
-| Prompts sent by my scripts | about 3,350 "continue" prompts to Pi |
+| Prompts sent by my scripts | about 3,350 automated follow-up prompts to Pi |
 | Tasks landed by Conductor | about 1,040 in one week, each behind a full test gate |
 
 ![Stacked bar chart of daily StruxOs commits from May 23 to July 6, 2026, coloured by source: interactive Codex and Pi sessions in late May and mid-June, Claude Code bursts at the end of May and early June, the Auto Pi identity from June 14 to 21, and Conductor's Codex workers dominating June 21 to 27 with a peak near 600 commits on June 22.](/images/projects/struxos-conductor/commits-by-harness.webp)

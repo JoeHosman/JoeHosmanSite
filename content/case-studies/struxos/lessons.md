@@ -17,9 +17,9 @@ work, they sometimes merged too early, merged against instructions, or did not m
 at all. When Conductor owned commits, gates, merges, and pushes, an agent's opinion
 of its work stopped mattering. Only the gate's result did.
 
-**Goals that name a user, a situation, and proof.** "A slice counts only if it helps
-a shop person decide, act, recover, or prove what happened without leaving the
-product" was a better instruction than any feature list. Situations from real shop
+**Goals that name a user, a situation, and proof.** Requiring every slice of work to
+help someone in the shop decide, act, recover, or prove what happened was a better
+instruction than any feature list. Situations from real shop
 work gave the agents something to fail against.
 
 **Adversarial review with receipts.** An "Uncle Bob" persona asked for a candid verdict
