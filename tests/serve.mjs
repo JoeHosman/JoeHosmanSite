@@ -47,6 +47,12 @@ try {
     join(testRoot, "public/images/projects/struxos-conductor"),
     { recursive: true },
   );
+  for (const path of [
+    "public/evidence/conductor",
+    "public/media/projects/struxos-conductor",
+  ]) {
+    await cp(path, join(testRoot, path), { recursive: true });
+  }
   await create(
     "content/career/e2e-fixture-draft.md",
     `---

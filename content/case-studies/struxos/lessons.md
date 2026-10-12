@@ -51,6 +51,9 @@ escalate it, because health checks never counted toward the circuit breaker and 
 alert channel was never wired up. An unattended system needs a stopping condition
 and an alert path, both tested end to end.
 
+The October follow-up [implements and demonstrates that recovery path](/projects/struxos-conductor/recovery/)
+on small fixtures, including an undelivered external alert and restart persistence.
+
 **Prefer vertical slices to infinite decomposition.** Small slices merged safely,
 but an epic that could be divided indefinitely produced 535 tasks that each passed
 and together added little. Each task should change what a user can do.

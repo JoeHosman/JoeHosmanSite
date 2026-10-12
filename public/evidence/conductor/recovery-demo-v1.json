@@ -1,0 +1,121 @@
+{
+  "kind": "controlled fault injection with live-model repairs",
+  "excluded_from_benchmark": true,
+  "raw_trace_sha256": "368402256e74c984c55f4f98112a21262e16c59925a629086c2fc554631d6efd",
+  "events": [
+    {
+      "at": "2026-10-12T00:08:03.195616+00:00",
+      "event": "demo_started"
+    },
+    {
+      "at": "2026-10-12T00:08:03.211886+00:00",
+      "event": "task_assigned",
+      "task": "Revision-specific approval",
+      "starting_commit": "aea4a9b893fc119f28cc4b7ccf11d573ed9170c3"
+    },
+    {
+      "at": "2026-10-12T00:08:03.217196+00:00",
+      "event": "bad_edit_injected"
+    },
+    {
+      "at": "2026-10-12T00:08:03.282987+00:00",
+      "event": "gate_rejected_and_repair_started",
+      "repair_attempt": 1
+    },
+    {
+      "at": "2026-10-12T00:08:14.386304+00:00",
+      "event": "repair_verified_and_merged",
+      "verified_commit": "21255c524037081c42e24eb8314db5fb65ce4dac",
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-12T00:08:14.415209+00:00",
+      "event": "worker_terminated",
+      "signal": "SIGTERM",
+      "exit_code": -15
+    },
+    {
+      "at": "2026-10-12T00:08:14.422967+00:00",
+      "event": "retry_memory_persisted",
+      "diff_sha256": "3b86b1878b34cf8b3367bd32c960360a7542f6c506419d9faa7e81594d040cde"
+    },
+    {
+      "at": "2026-10-12T00:08:14.464570+00:00",
+      "event": "fresh_process_loaded_memory",
+      "diff_sha256": "3b86b1878b34cf8b3367bd32c960360a7542f6c506419d9faa7e81594d040cde"
+    },
+    {
+      "at": "2026-10-12T00:08:37.098525+00:00",
+      "event": "interrupted_task_recovered",
+      "verified_commit": "50d9c26f674b43259ccd88704ad8217d1f1e30aa",
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-12T00:08:37.175081+00:00",
+      "event": "red_main_halted",
+      "external_delivery": "not_delivered",
+      "local_alert": true
+    },
+    {
+      "at": "2026-10-12T00:08:37.194131+00:00",
+      "event": "restart_still_halted",
+      "dispatches": 0
+    },
+    {
+      "at": "2026-10-12T00:08:37.279632+00:00",
+      "event": "red_recovery_rejected",
+      "receipt": {
+        "outcome": "rejected",
+        "verified_commit": null,
+        "recovered": false
+      }
+    },
+    {
+      "at": "2026-10-12T00:08:37.323000+00:00",
+      "event": "green_recovery_verified",
+      "operator_action": "restore previous verified commit; require fresh full gate",
+      "receipt": {
+        "outcome": "verified",
+        "verified_commit": "21255c524037081c42e24eb8314db5fb65ce4dac",
+        "recovered": true
+      }
+    },
+    {
+      "at": "2026-10-12T00:08:37.323058+00:00",
+      "event": "demo_finished",
+      "all_assertions_passed": true
+    }
+  ]
+}

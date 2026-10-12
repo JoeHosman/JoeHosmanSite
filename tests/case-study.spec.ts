@@ -17,7 +17,7 @@ test("case study chapters stay connected and readable under the deployment base"
         href: item.getAttribute("href")!,
       })),
     );
-  expect(links).toHaveLength(10);
+  expect(links).toHaveLength(12);
   for (const link of links) {
     expect(link.href.startsWith(new URL(baseURL!).pathname)).toBe(true);
     const response = await page.goto(new URL(link.href, baseURL).href);
@@ -59,6 +59,32 @@ test("case study chapters stay connected and readable under the deployment base"
       )
       .toBe(true);
   }
+});
+
+test("benchmark receipts and recovery video are inspectable", async ({ page, request, baseURL }) => {
+  await page.goto("projects/struxos-conductor/benchmark/");
+  const receiptLink = page.getByRole("link", { name: "Download all 40 run receipts as JSON" });
+  const url = new URL((await receiptLink.getAttribute("href"))!, baseURL);
+  const response = await request.get(url.href);
+  expect(response.ok()).toBe(true);
+  const receipts = await response.json();
+  expect(receipts.results).toHaveLength(40);
+  for (const arm of ["basic", "conductor"]) {
+    const runs = receipts.results.filter((r: { arm: string }) => r.arm === arm);
+    expect(runs).toHaveLength(20);
+    expect(runs.filter((r: { correct: boolean }) => r.correct).length).toBe(receipts.aggregate[arm].correct);
+  }
+  await page.goto("projects/struxos-conductor/recovery/");
+  const video = page.getByLabel("Conductor failure and recovery: two-minute recorded evidence replay");
+  await video.scrollIntoViewIfNeeded();
+  await expect(video).toBeVisible();
+  const base = new URL(baseURL!).pathname;
+  await expect(video.locator("track")).toHaveAttribute("src", `${base}media/projects/struxos-conductor/failure-recovery.vtt`);
+  await video.evaluate((v: HTMLVideoElement) => v.play());
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentTime)).toBeGreaterThan(0.15);
+  expect(await video.evaluate((v: HTMLVideoElement) => v.duration)).toBeCloseTo(120, 0);
+  await video.evaluate((v: HTMLVideoElement) => v.pause());
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test("the essay is published and links back to the case study", async ({

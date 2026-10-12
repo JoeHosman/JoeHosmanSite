@@ -1,6 +1,7 @@
 ---
 import EditorialLayout from "../../../layouts/EditorialLayout.astro";
 import { withBase } from "../../../lib/urls.mjs";
+import ConductorRecoveryDemo from "../../../components/ConductorRecoveryDemo.astro";
 
 type Chapter = {
   frontmatter: { title: string; description: string; order: number };
@@ -70,6 +71,7 @@ const next = chapters[current + 1];
     </ol>
   </nav>
   <div class="prose" data-chapter={Astro.params.chapter}>
+    {Astro.params.chapter === "recovery" && <ConductorRecoveryDemo />}
     <Content />
   </div>
   <nav aria-label="Continue reading" class="chapter-pagination">

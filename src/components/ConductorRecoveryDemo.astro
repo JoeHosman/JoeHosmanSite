@@ -1,0 +1,26 @@
+---
+import { withBase } from "../lib/urls.mjs";
+const base = import.meta.env.BASE_URL;
+---
+
+<figure class="media-figure media-video" id="recovery-demo">
+  <video
+    controls
+    playsinline
+    preload="none"
+    width="1280"
+    height="720"
+    poster={withBase("/images/projects/struxos-conductor/recovery-demo-poster.webp", base)}
+    aria-label="Conductor failure and recovery: two-minute recorded evidence replay"
+  >
+    <source src={withBase("/media/projects/struxos-conductor/failure-recovery.mp4", base)} type="video/mp4" />
+    <track kind="captions" src={withBase("/media/projects/struxos-conductor/failure-recovery.vtt", base)} srclang="en" label="English" />
+    <a href={withBase("/media/projects/struxos-conductor/failure-recovery.mp4", base)}>Download the recovery video</a>
+  </video>
+  <figcaption>
+    Two-minute captioned replay of a recorded run. Faults are deliberately injected;
+    repairs use a live model. The Git operations, gate results, worker termination,
+    restart, and recovery receipts are real.
+    <a href={withBase("/projects/struxos-conductor/recovery/", base)}>Read the transcript and verification details</a>.
+  </figcaption>
+</figure>

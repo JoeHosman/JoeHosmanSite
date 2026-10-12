@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:12.000
+Conductor: failure and recovery. A coding agent makes changes. The harness decides whether they land. Controlled fault injection; live GPT-6.1 Sol repairs. This is a captioned replay of actual event receipts.
+
+00:00:12.000 --> 00:00:24.000
+01  Assign a release-rule task. A shop package needs an approval for its current revision before release. Fixed starting files. The worker edits; Conductor owns the gate and merge.
+
+00:00:24.000 --> 00:00:36.000
+02  Introduce a bad change. For this demonstration, a scripted worker approves every revision. The fault is deliberate. It is excluded from the model benchmark.
+
+00:00:36.000 --> 00:00:48.000
+03  The gate rejects it. The visible check catches an old approval being accepted for a new revision. Conductor sends the failing check and current diff to a live model. Main has not advanced.
+
+00:00:48.000 --> 00:01:00.000
+04  Verify, then merge. The repair passes the gate and all six independent checks for this fixture. Conductor verifies the merged result before advancing main. The repair was made by the live model.
+
+00:01:00.000 --> 00:01:12.000
+05  Interrupt another worker. A real subprocess saves a partial material-reservation edit. We send SIGTERM. The improved interruption path persists the failure reason and diff before cleaning the worktree.
+
+00:01:12.000 --> 00:01:24.000
+06  Recover in a fresh process. A new process reads the same saved diff and failure record. A live model completes the task. The saved and loaded diff hashes match. The recovered change passes all six fixture checks and merges.
+
+00:01:24.000 --> 00:01:36.000
+07  Break main deliberately. A red-main check creates a durable stop and a local alert receipt. No external notification is delivered in this test. That delivery failure is recorded; the stop still works.
+
+00:01:36.000 --> 00:01:48.000
+08  Restart cannot bypass the stop. A new process still sees the incident. Recovery while the gate is red is rejected. The operator restores the prior verified commit. Conductor must run the gate again before clearing the stop.
+
+00:01:48.000 --> 00:02:00.000
+09  Verify recovery. Fresh verification passes at an unchanged main commit. The durable stop is cleared. Real Git operations, real gate commands, persisted receipts. Small fixtures demonstrate the recovery mechanism; no shop pilot is claimed.

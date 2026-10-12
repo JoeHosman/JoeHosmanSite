@@ -1,6 +1,6 @@
 ---
 title: "StruxOs and Conductor: an experiment in hands-off development"
-summary: "Six weeks, 7,069 commits, and three generations of agent harness: what happened when I let Claude, Codex, and Pi build a fabrication-shop product from goals instead of instructions."
+summary: "A coding-agent harness with isolated workspaces, verified merges, and durable recovery. A controlled comparison, a failure demo, and what I learned building StruxOs."
 date: "2026"
 categories: [agentic-development, software, process-automation]
 status: paused
@@ -17,36 +17,23 @@ media:
     height: 720
 ---
 
-## At a glance
+## My decisions
 
-**The question.** How far can AI coding agents take a real product if I give them
-goals instead of instructions?
+I moved authority out of the agent and into the harness: isolated worktrees,
+harness-owned commits, checks on the merged result, and a record of each outcome.
+I moved working state out of long conversations and into files a fresh session
+could read. And I changed goals that rewarded activity into conditions that
+required observable behavior.
 
-**What I built.** StruxOs, a fabrication-shop workflow application (.NET 10 Clean
-Architecture and Vue, about 459,000 lines and 6,500 tests), written almost entirely
-by Claude Code, Codex, and Pi. And Conductor, a Python harness that ran agents
-unattended in isolated git worktrees, landing about 1,040 changes in one week, each
-only after the full test suite passed on the merged result.
+The October follow-up adds measured comparisons and deliberate fault tests. With
+Codex assisting on implementation, I added a durable stop for red main, a local
+alert receipt that survives missing external delivery, explicit verified recovery,
+and preservation of an interrupted worker's partial diff. Those are tested on
+small fixtures; the original StruxOs product remains paused.
 
-**What I found.**
-
-- **Agents game goals that text can satisfy.** An unattended loop made 375 commits in
-  48 hours that only added on-screen text. Structural fixes worked where better
-  prompts did not: a definition of done, written stop rules, and ratchet tests.
-- **Task type predicts success more than model choice does.** Across 1,380 gated
-  attempts, refactors landed 90–100% of the time and new product features 21%. On
-  routine refactoring, Claude and Codex were nearly indistinguishable.
-- **Fresh context with state in files beat long sessions.** Each harness generation
-  moved state out of the conversation and authority out of the agent, until the
-  harness alone could commit and merge.
-
-**Skills shown.** Agent orchestration and harness design, evaluation of agent
-output, context engineering, CI gating and merge strategy, Clean Architecture
-enforcement, and honest evidence handling.
-
-*Short on time? Read the essay [AI agents will game any goal that text can
-satisfy](/writing/agents-game-goals/). The StruxOs and Conductor source is private;
-Conductor's code is available on request.*
+The source is private. Conductor's code and the detailed run artifacts are
+available on request. For the longer story, start with the essay
+[AI agents will game any goal that text can satisfy](/writing/agents-game-goals/).
 
 ## How far could the agents take it?
 
@@ -60,25 +47,6 @@ The result was **StruxOs**, a fabrication-shop workflow prototype, and
 **Conductor**, a harness I built so agents could keep working on it without me in
 the loop. The experiment is paused. The original ambition frames the
 investigation; it is not a claim that the prototype became an industry leader.
-
-## The experiment in numbers
-
-| Measure | Value |
-| --- | --- |
-| Calendar span of the repository | May 23 – July 6, 2026 (45 days) |
-| Commits to StruxOs | 7,069 |
-| Code today | about 459,000 lines of C#, TypeScript, and Vue |
-| Automated tests | 3,864 .NET test methods and about 2,660 client tests |
-| Prompts I typed | 597 to Claude, 549 to Codex |
-| Prompts sent by my scripts | about 3,350 automated follow-up prompts to Pi |
-| Tasks landed by Conductor | about 1,040 in one week, each behind a full test gate |
-
-![Stacked bar chart of daily StruxOs commits from May 23 to July 6, 2026, coloured by source: interactive Codex and Pi sessions in late May and mid-June, Claude Code bursts at the end of May and early June, the Auto Pi identity from June 14 to 21, and Conductor's Codex workers dominating June 21 to 27 with a peak near 600 commits on June 22.](/images/projects/struxos-conductor/commits-by-harness.webp)
-
-*Commits per day, attributed by commit trailer, git identity, and subject prefix.
-Claude Code is the only tool that signs its commits, so the other categories are
-inferred from how and when the work ran. A commit count measures activity, not
-value; the chapters below look at what the activity produced.*
 
 ## Read the case study
 
@@ -99,15 +67,19 @@ value; the chapters below look at what the activity produced.*
 6. [Evaluating the agents](/projects/struxos-conductor/evals/):
    what 1,380 gated task attempts show about which work agents finish, how
    Claude and Codex differed, and what the data cannot answer.
-7. [From shop tours to executable checks](/projects/struxos-conductor/validation/):
+7. [Controlled benchmark](/projects/struxos-conductor/benchmark/): twenty fixed
+   tasks, forty real model runs, held-out checks, and complete per-run receipts.
+8. [Failure and recovery](/projects/struxos-conductor/recovery/): a bad edit,
+   a terminated worker, and a red-main incident, with an embedded two-minute replay.
+9. [From shop tours to executable checks](/projects/struxos-conductor/validation/):
    four concrete transcript-to-rule examples, recorded test results, and a
    saved browser evidence card.
-8. [The token footprint](/projects/struxos-conductor/tokens/):
+10. [The token footprint](/projects/struxos-conductor/tokens/):
    11.59 billion observed Codex tokens after removing replayed history, and
    what the Claude-side records can and cannot say.
-9. [What I would keep and what I would change](/projects/struxos-conductor/lessons/):
+11. [What I would keep and what I would change](/projects/struxos-conductor/lessons/):
    the lessons I would carry into the next agent-built product.
-10. [Evidence and open questions](/projects/struxos-conductor/evidence/):
+12. [Evidence and open questions](/projects/struxos-conductor/evidence/):
    source notes, limits of the validation, and what a real operator pilot
    would still need to establish.
 
@@ -134,3 +106,22 @@ The token audit likewise separates observation from inference. **96.39% of the
 recorded Codex input was cached context**, and Claude's token usage was not
 retained. The token count is neither unique generated content nor a complete
 bill for the experiment.
+
+## Historical scale, May–July 2026
+
+| Measure | Value |
+| --- | --- |
+| Calendar span of the repository | May 23 – July 6, 2026 (45 days) |
+| Commits to StruxOs | 7,069 |
+| Code today | about 459,000 lines of C#, TypeScript, and Vue |
+| Automated tests | 3,864 .NET test methods and about 2,660 client tests |
+| Prompts I typed | 597 to Claude, 549 to Codex |
+| Prompts sent by my scripts | about 3,350 automated follow-up prompts to Pi |
+| Tasks landed by Conductor | about 1,040 in one week, each behind a full test gate |
+
+![Stacked bar chart of daily StruxOs commits from May 23 to July 6, 2026, coloured by source: interactive Codex and Pi sessions in late May and mid-June, Claude Code bursts at the end of May and early June, the Auto Pi identity from June 14 to 21, and Conductor's Codex workers dominating June 21 to 27 with a peak near 600 commits on June 22.](/images/projects/struxos-conductor/commits-by-harness.webp)
+
+*Commits per day, attributed by commit trailer, git identity, and subject prefix.
+Claude Code is the only tool that signs its commits, so the other categories are
+inferred from how and when the work ran. A commit count measures activity, not
+value; the chapters below look at what the activity produced.*

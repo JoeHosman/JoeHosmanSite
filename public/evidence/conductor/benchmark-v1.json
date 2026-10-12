@@ -1,0 +1,2444 @@
+{
+  "title": "Conductor paired microbenchmark v1",
+  "date_local": "2026-10-11",
+  "timezone": "America/Chicago",
+  "frozen_at": "2026-10-12T00:01:28.214000+00:00",
+  "manifest_sha256": "c0dfb2e5eb57356f4bf0a452ba9af34f37672f4b52a74e64eebdb62f3205c0a7",
+  "source_hashes": {
+    "PROTOCOL.md": "b1e863cd8d6e1d27d763161d1d51129245da77ebf39919777eb98b8c2d2ceb36",
+    "benchmark/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "benchmark/catalog.py": "336c782b2437bf1e25702eceba24ed1c976e1d97abad731a65949aeeedbaa4dc",
+    "benchmark/evaluate.py": "fc74bd60935c6914ee88454533d42c8f8e0a6870cc3482991a87837a07be9fbf",
+    "benchmark/run.py": "0a61003e0589bad760bc089b7ea715d885f832890eeac6bd24df927091ea7ee6",
+    "benchmark/worker.py": "999e5df8644e0baa9fed17f14df052a2e5672c5ec4a730ac9de3588a8aed1fa3",
+    "conductor/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "conductor/admin_config.py": "ba6570e22a91719e8edaf0934e578372ab4fbf8b501f1d87df6b6cfc350b976b",
+    "conductor/batch.py": "c3762d2c3fb85bcfc61e642dac10cedeeef2fc949e5358ea3ecfaab85eae3fc9",
+    "conductor/branch_actions.py": "e0c590ceade38bfebd94c14e66de3ed9c112d2d38aa293bab4504f358805593a",
+    "conductor/branch_cards.py": "562bbc25ec957444a789835a53257a0136291c6222c9678838764ef2a15d6c18",
+    "conductor/breaker.py": "447dacd8ce49626fcdd7524d16474d01135bed42e4420a4af119a13d0697df8c",
+    "conductor/cli.py": "c5f3c281a06d4130508bc2a5082d3cd9b50bb4c0f7d7b4c4bcbfd2373500c50e",
+    "conductor/codeedit.py": "0f1ea8427cdd0382285f976ae28d99af58ca7b324c4087180fabbf3791d20796",
+    "conductor/codex_health.py": "452d7b0896f05964d94a5d10e5778267891d7c840577da125fae0572c297f3ae",
+    "conductor/control.py": "cc0568dcc733e4a64f9b8f50bda66870317e53f9c3ef18bedf9abc38057bf81f",
+    "conductor/deploy.py": "d07ade5fc58293e49c1cc4b529cd4ee62bcabc6aae4a7dfeb357a6b96b19f414",
+    "conductor/doctor.py": "587812ca0eb6b9a7af79f2a9bb620c14e5814966bedbb42b8ab4d05111641e2a",
+    "conductor/engine.py": "ba6531971c07f274164ad3bacc59d9b26282b9a83bef97600041a3d32f1c626c",
+    "conductor/flows.py": "90dd12c8a4f92d350cc4a47e9469bb46c718f63dc7c9520bfb4085c3df3d8a90",
+    "conductor/gatecheck.py": "36fc3898c9504a45ae10a667d340e1c4b94a5f1db27880572cc25ef8382af605",
+    "conductor/generators.py": "e37d5b840b802a36d4779f7ce94837a0839b5d5277f4f6f677d6f57aabcdb20e",
+    "conductor/git_ops.py": "0777949e29ace1ede678f9f9a9a7838f1a96b36f6b015adb820ba4b8e89a2116",
+    "conductor/heartbeat.py": "5aed69297f5c4b66a35108d3e7ec57703aa89ead47b5ecbc0396c2a96577dc8b",
+    "conductor/ledger.py": "52a5220cb79997b0e5a9885ffc073699ff394698bbe336afa2d86ae041af583e",
+    "conductor/limits.py": "750f5ec5098ea53aba0e2388d1e582c0ddf6522120d1fde434f5ba9a09aa2848",
+    "conductor/loop.py": "f66a155765152649ef2cbb5849425a10886719596a58c5fdd3dff3fe329ce03e",
+    "conductor/mcp_control.py": "873625fbb7ae49afa1df652bcdd7849ca19a2b0a42dec53695b6274a72b9e680",
+    "conductor/mcp_server.py": "ba261a659894b0ba53a082fdd93c2b610c2b7359bfed5e40467de9eac09ea740",
+    "conductor/notify.py": "ac5b192f285a9148bfa31e4512870ee6c8a1f611013a7cabae000f28e8e9750f",
+    "conductor/plan.py": "da4e9030f03b8858c4e081b27a1c9987f49bd2570ad53c0b613652d4683fa1f3",
+    "conductor/procwatch.py": "28bed7f0f90b90f409abafa48c6ff3251eabbac8f3c720e2e9f40bdef7d78535",
+    "conductor/reload.py": "96ec431371fbb9c3c81a475de656601d807c9bf325c12af9c1829f1b7b816748",
+    "conductor/retry_memory.py": "562e2f70846be63073590ed4dd95d152fbca7495ece06aa3d8a331ac29aab1dc",
+    "conductor/router.py": "ace213658c60fd1e94d86a6480bb2729e22ce80b0e834edb5f1f5524dfc5f53b",
+    "conductor/run.py": "9441905151ed99e2063c7dbcf83551e293b1b3e4085dc8ba5313e9fb53b54af4",
+    "conductor/run_records.py": "34c4a3a3979179e1d5124c41c1037742ad38e0910d9486c52cd2a8b6f23ad011",
+    "conductor/runners.py": "5830dedc26f999d98195dea3689ecfdaca4b38080c904afbedb0fa4e207dc67a",
+    "conductor/task_controls.py": "e7842558e528432025d2ffdffb0b8ef1d20aeb7d5aaf686ee4eb707711e8609c",
+    "conductor/task_sources.py": "9cb768b13d9f0c4834eeea7eea1d3c00b76d37ffc33c0e6e1f12c1f8d2d9815f",
+    "conductor/tmux_worker.py": "7ba377056c12dc9cc0cf3f96f5fafd738f1a40a1128cb1a124f139954f36e186",
+    "conductor/webapp.py": "c35dbc24ba961477222fb7bdf55542611b48545d2afc69f93e039583017ec4a0",
+    "conductor/webserver.py": "8af3651d72c04c8e70ade80f0078335c0b94758b97cadfcc91fb9f61252a117a",
+    "conductor/webstate.py": "16cadf3d87345f25e9d80cf9ba3bcce837258a03c5440d52af7c5223e6e81a09",
+    "conductor/worksource.py": "c28a249089b3283ec71e6973ea7b5666f3e455e2e202c3437ae029bcaaae6aee"
+  },
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "codex_version": "codex-cli 0.162.1",
+  "worker_seconds_per_run": 180,
+  "price_source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+  "api_equivalent_rates_per_million": {
+    "input": 2.0,
+    "cached": 0.1,
+    "cache_write": 2.5,
+    "output": 10.0
+  },
+  "cost_basis": "standard API list-price equivalent; not measured subscription billing",
+  "limitations": [
+    "20 synthetic single-file microtasks; not full StruxOs tasks",
+    "one observation per arm per task; no statistical superiority claim",
+    "same model alias requested; provider snapshot not independently pinned",
+    "host execution; held-out tests separated by layout and instructions, not a security boundary",
+    "wall time includes variable host and provider load",
+    "no external shop pilot"
+  ],
+  "schedule": [
+    {
+      "task": "03",
+      "arm": "conductor"
+    },
+    {
+      "task": "03",
+      "arm": "basic"
+    },
+    {
+      "task": "10",
+      "arm": "conductor"
+    },
+    {
+      "task": "10",
+      "arm": "basic"
+    },
+    {
+      "task": "19",
+      "arm": "conductor"
+    },
+    {
+      "task": "19",
+      "arm": "basic"
+    },
+    {
+      "task": "02",
+      "arm": "conductor"
+    },
+    {
+      "task": "02",
+      "arm": "basic"
+    },
+    {
+      "task": "07",
+      "arm": "conductor"
+    },
+    {
+      "task": "07",
+      "arm": "basic"
+    },
+    {
+      "task": "05",
+      "arm": "basic"
+    },
+    {
+      "task": "05",
+      "arm": "conductor"
+    },
+    {
+      "task": "18",
+      "arm": "basic"
+    },
+    {
+      "task": "18",
+      "arm": "conductor"
+    },
+    {
+      "task": "04",
+      "arm": "basic"
+    },
+    {
+      "task": "04",
+      "arm": "conductor"
+    },
+    {
+      "task": "13",
+      "arm": "conductor"
+    },
+    {
+      "task": "13",
+      "arm": "basic"
+    },
+    {
+      "task": "17",
+      "arm": "conductor"
+    },
+    {
+      "task": "17",
+      "arm": "basic"
+    },
+    {
+      "task": "14",
+      "arm": "basic"
+    },
+    {
+      "task": "14",
+      "arm": "conductor"
+    },
+    {
+      "task": "08",
+      "arm": "basic"
+    },
+    {
+      "task": "08",
+      "arm": "conductor"
+    },
+    {
+      "task": "06",
+      "arm": "basic"
+    },
+    {
+      "task": "06",
+      "arm": "conductor"
+    },
+    {
+      "task": "15",
+      "arm": "conductor"
+    },
+    {
+      "task": "15",
+      "arm": "basic"
+    },
+    {
+      "task": "01",
+      "arm": "basic"
+    },
+    {
+      "task": "01",
+      "arm": "conductor"
+    },
+    {
+      "task": "09",
+      "arm": "conductor"
+    },
+    {
+      "task": "09",
+      "arm": "basic"
+    },
+    {
+      "task": "11",
+      "arm": "basic"
+    },
+    {
+      "task": "11",
+      "arm": "conductor"
+    },
+    {
+      "task": "20",
+      "arm": "conductor"
+    },
+    {
+      "task": "20",
+      "arm": "basic"
+    },
+    {
+      "task": "12",
+      "arm": "conductor"
+    },
+    {
+      "task": "12",
+      "arm": "basic"
+    },
+    {
+      "task": "16",
+      "arm": "basic"
+    },
+    {
+      "task": "16",
+      "arm": "conductor"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "01",
+      "title": "Tenant-scoped inventory",
+      "category": "data isolation",
+      "contract": "available(rows, tenant, sku) sums quantity minus reserved for matching tenant AND sku. Ignore other rows; empty result is zero. Do not mutate rows."
+    },
+    {
+      "id": "02",
+      "title": "Revision-specific approval",
+      "category": "release rules",
+      "contract": "can_release(revision, approvals, shortage) is true only if shortage is zero and at least one approved record has exactly the requested revision. Rejected or old approvals never qualify."
+    },
+    {
+      "id": "03",
+      "title": "Exact stock arithmetic",
+      "category": "numeric correctness",
+      "contract": "remaining(stock, issued) accepts decimal strings and returns a fixed two-decimal string using decimal arithmetic and ROUND_HALF_UP. Raise ValueError for negative inputs or issued greater than stock."
+    },
+    {
+      "id": "04",
+      "title": "QR identity round trip",
+      "category": "serialization",
+      "contract": "encode(parts) and decode(text) round-trip a list of arbitrary strings, including delimiters, Unicode, empty strings and leading zeros. Encoded form must be compact JSON (ensure_ascii=False, separators comma/colon). decode accepts only a JSON list of strings, otherwise ValueError."
+    },
+    {
+      "id": "05",
+      "title": "Latest event per entity",
+      "category": "event processing",
+      "contract": "latest(events) returns one event per (tenant,id), highest integer version wins; a tie keeps the first occurrence. Preserve order of each key's first appearance and return copies so editing results cannot alter inputs."
+    },
+    {
+      "id": "06",
+      "title": "Independent package copies",
+      "category": "state management",
+      "contract": "clone_package(package, new_id) returns a deep independent copy with id replaced, status=\"draft\", and approvals=[]. Preserve every other field; never mutate input."
+    },
+    {
+      "id": "07",
+      "title": "Stable dependency ordering",
+      "category": "scheduling",
+      "contract": "schedule(tasks) returns task ids in topological order. Each task has id and deps. Repeatedly choose the first currently eligible task in original input order (restart the scan after each choice). Missing dependencies, duplicate ids, or cycles raise ValueError. Do not mutate input."
+    },
+    {
+      "id": "08",
+      "title": "Quoted material CSV",
+      "category": "import pipeline",
+      "contract": "parse_csv(text) reads header-based CSV columns sku and quantity, returns list of {sku:str, quantity:int}. Support quoted commas, CRLF and reordered headers. Strip surrounding sku whitespace. Skip blank rows; reject empty sku or nonpositive quantity with ValueError."
+    },
+    {
+      "id": "09",
+      "title": "Millimetres to cut length",
+      "category": "numeric correctness",
+      "contract": "inches(mm) converts a nonnegative decimal string in mm to inches at exactly four decimal places with ROUND_HALF_UP. Use exact divisor 25.4. Negative values raise ValueError."
+    },
+    {
+      "id": "10",
+      "title": "Atomic material reservation",
+      "category": "transactions",
+      "contract": "reserve(stock, requests) validates all requests then subtracts quantities from stock IN PLACE. Each request is {sku,qty}; qty must be positive, duplicate sku requests accumulate. Missing sku or insufficient quantity raises ValueError and leaves stock unchanged. Return stock."
+    },
+    {
+      "id": "11",
+      "title": "UTC overdue checks",
+      "category": "time handling",
+      "contract": "overdue(due, now) parses ISO8601 timestamps (Z or explicit offset); naive timestamps are interpreted as UTC. Return true only when now is strictly later than due. Invalid strings raise ValueError."
+    },
+    {
+      "id": "12",
+      "title": "Bounded retry delay",
+      "category": "harness reliability",
+      "contract": "retry_delay(attempt, base, cap) returns min(cap, base*2**attempt) for nonnegative integer attempt and nonnegative base/cap. Negative arguments raise ValueError. It must handle a billionth attempt promptly without constructing huge integers. base=0 returns zero."
+    },
+    {
+      "id": "13",
+      "title": "Scoped idempotency keys",
+      "category": "data isolation",
+      "contract": "key(tenant, operation, request_id) returns compact JSON encoding of the three strings in that order (ensure_ascii=False). It must be unambiguous even when fields contain colons or Unicode, and distinguish different tenants/operations."
+    },
+    {
+      "id": "14",
+      "title": "Tie-safe pagination",
+      "category": "API contracts",
+      "contract": "page(rows, after, limit) sorts by (created,id) ascending, filters strictly after the optional (created,id) cursor, and returns at most limit rows. limit <=0 raises ValueError. Preserve input order/data. created values are integers; ids strings."
+    },
+    {
+      "id": "15",
+      "title": "Numeric revision sorting",
+      "category": "document control",
+      "contract": "sort_revisions(values) sorts dot-separated nonnegative integer revision strings numerically. Missing trailing components compare as zero (1 == 1.0); equivalent revisions retain original order. Preserve original strings. Invalid components raise ValueError."
+    },
+    {
+      "id": "16",
+      "title": "Partial receiving status",
+      "category": "workflow state",
+      "contract": "receiving_status(expected, receipts) sums nonnegative receipt quantities. Reject expected<=0, negative quantities, or total>expected with ValueError. Return pending if zero received, complete if exactly expected, otherwise partial."
+    },
+    {
+      "id": "17",
+      "title": "Latest QA decision",
+      "category": "quality rules",
+      "contract": "qa_passed(records, revision) selects records for the exact revision, chooses largest sequence, and returns its passed bool. Equal sequence ties use last input record. No matching record is false; ignore decisions for other revisions."
+    },
+    {
+      "id": "18",
+      "title": "Required station completion",
+      "category": "workflow state",
+      "contract": "complete(required, events) returns true only if required is nonempty and every required station's last event has status done. Later reopened/failed events override done. Unknown stations do not affect the result. Events contain station and status."
+    },
+    {
+      "id": "19",
+      "title": "Import validation errors",
+      "category": "API contracts",
+      "contract": "validate(rows) returns ALL errors as {row:1-based index,field:sku or qty,message:required or positive integer}. sku must be nonempty after stripping. qty must have exact type int (bool is invalid) and be >0. Order errors by input row then sku before qty. Do not mutate rows."
+    },
+    {
+      "id": "20",
+      "title": "Cached-token accounting",
+      "category": "harness reliability",
+      "contract": "cost(usage) returns API-equivalent dollars using input_tokens (INCLUDES cached_input_tokens), cached_input_tokens, output_tokens. Rates per million: 0.75 uncached, 0.075 cached, 4.5 output. Missing fields mean zero. Reject negative counts or cached>input with ValueError; never count cached input twice."
+    }
+  ],
+  "aggregate": {
+    "basic": {
+      "scheduled": 20,
+      "correct": 20,
+      "failures": 0,
+      "gate_escapes": 0,
+      "regression_escapes": 0,
+      "human_interventions": 0,
+      "total_elapsed_seconds": 418.1499435339647,
+      "median_success_seconds": 21.116815876004694,
+      "elapsed_seconds_per_success": 20.907497176698236,
+      "usage_complete": true,
+      "api_equivalent_total_usd": 0.5076632,
+      "api_equivalent_usd_per_success": 0.02538316,
+      "sessions": 20,
+      "usage": {
+        "input_tokens": 1191051,
+        "cached_input_tokens": 1060352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14023
+      }
+    },
+    "conductor": {
+      "scheduled": 20,
+      "correct": 20,
+      "failures": 0,
+      "gate_escapes": 0,
+      "regression_escapes": 0,
+      "human_interventions": 0,
+      "total_elapsed_seconds": 534.6571437889943,
+      "median_success_seconds": 25.028975423498196,
+      "elapsed_seconds_per_success": 26.732857189449714,
+      "usage_complete": true,
+      "api_equivalent_total_usd": 0.6549604,
+      "api_equivalent_usd_per_success": 0.03274802,
+      "sessions": 20,
+      "usage": {
+        "input_tokens": 1518887,
+        "cached_input_tokens": 1346944,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17638
+      }
+    }
+  },
+  "results": [
+    {
+      "run_id": "01-basic",
+      "task": "01",
+      "title": "Tenant-scoped inventory",
+      "category": "data isolation",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:07:06.840514+00:00",
+      "starting_commit": "485dc586e8031e1bf4ae5be7dd341fa8b0b9584e",
+      "starting_source_sha256": "83a41b5ab6e84c0eb2f698dde9a5b7fd07dafcb5d58960df8f13a4ac858998c8",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 16.18694871700427,
+      "worker_seconds": 16.186499493996962,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.022827200000000002,
+      "final_source_sha256": "e755ec9396c579f6735b64931028cb2761f638978c770666c8ad6d5f89385589",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53629,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 531
+      }
+    },
+    {
+      "run_id": "01-conductor",
+      "task": "01",
+      "title": "Tenant-scoped inventory",
+      "category": "data isolation",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:07:16.503038+00:00",
+      "starting_commit": "485dc586e8031e1bf4ae5be7dd341fa8b0b9584e",
+      "starting_source_sha256": "83a41b5ab6e84c0eb2f698dde9a5b7fd07dafcb5d58960df8f13a4ac858998c8",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.803164775003097,
+      "worker_seconds": 20.744774509992567,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.037973599999999996,
+      "final_source_sha256": "e755ec9396c579f6735b64931028cb2761f638978c770666c8ad6d5f89385589",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72639,
+        "cached_input_tokens": 59776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 627
+      }
+    },
+    {
+      "run_id": "02-basic",
+      "task": "02",
+      "title": "Revision-specific approval",
+      "category": "release rules",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:03:03.297093+00:00",
+      "starting_commit": "aea4a9b893fc119f28cc4b7ccf11d573ed9170c3",
+      "starting_source_sha256": "b8d91bb975ed90e143e88a6cbafc131c57a805483e7af17548b5f4efbb1033bd",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 16.033988448994933,
+      "worker_seconds": 16.033523375997902,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0222584,
+      "final_source_sha256": "8b725d43c73a9b15a2730a9416dc4a30c5a7c3d775a2c1d1cb90556bcc2a952d",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53418,
+        "cached_input_tokens": 47104,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 492
+      }
+    },
+    {
+      "run_id": "02-conductor",
+      "task": "02",
+      "title": "Revision-specific approval",
+      "category": "release rules",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:02:58.475405+00:00",
+      "starting_commit": "aea4a9b893fc119f28cc4b7ccf11d573ed9170c3",
+      "starting_source_sha256": "b8d91bb975ed90e143e88a6cbafc131c57a805483e7af17548b5f4efbb1033bd",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.795646523998585,
+      "worker_seconds": 20.738862576996326,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0297548,
+      "final_source_sha256": "8b725d43c73a9b15a2730a9416dc4a30c5a7c3d775a2c1d1cb90556bcc2a952d",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 90679,
+        "cached_input_tokens": 83328,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 672
+      }
+    },
+    {
+      "run_id": "03-basic",
+      "task": "03",
+      "title": "Exact stock arithmetic",
+      "category": "numeric correctness",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:01:39.245898+00:00",
+      "starting_commit": "20c70e335c8bbea0edc09fe2cb0b6b3029877445",
+      "starting_source_sha256": "a20cd83a410045bf2f8a233e972ff0d38f2bb2c6c6a034451af0611117a81a31",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 34.012607434997335,
+      "worker_seconds": 34.01212222299364,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.035024400000000004,
+      "final_source_sha256": "0b03f666896c91b66807193c16bf04233946fb9a2e8630ad6ccf3762c7b7e831",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73348,
+        "cached_input_tokens": 65664,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1309
+      }
+    },
+    {
+      "run_id": "03-conductor",
+      "task": "03",
+      "title": "Exact stock arithmetic",
+      "category": "numeric correctness",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:01:39.246344+00:00",
+      "starting_commit": "20c70e335c8bbea0edc09fe2cb0b6b3029877445",
+      "starting_source_sha256": "a20cd83a410045bf2f8a233e972ff0d38f2bb2c6c6a034451af0611117a81a31",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 33.465365968004335,
+      "worker_seconds": 33.40658975900442,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.03281,
+      "final_source_sha256": "334bd7632404d6e029d033650ad40fc70459e49ee58dc8b104936ba4a9f7aa69",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73479,
+        "cached_input_tokens": 65920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1110
+      }
+    },
+    {
+      "run_id": "04-basic",
+      "task": "04",
+      "title": "QR identity round trip",
+      "category": "serialization",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:04:18.703357+00:00",
+      "starting_commit": "ada6ea6e8d90cf65770bdeb23cb5ec1c51f26926",
+      "starting_source_sha256": "209c0825912b56efe6a3c77110d368f6a37b6b2fbb05ce5515e8aee35f68395b",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 25.454513798991684,
+      "worker_seconds": 25.454003916005604,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.028272400000000003,
+      "final_source_sha256": "ee662cc8b1fdac268d48351e7332704ab802c97d25b1bc175b6d24c331dbd8c7",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72054,
+        "cached_input_tokens": 65024,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 771
+      }
+    },
+    {
+      "run_id": "04-conductor",
+      "task": "04",
+      "title": "QR identity round trip",
+      "category": "serialization",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:04:44.272228+00:00",
+      "starting_commit": "ada6ea6e8d90cf65770bdeb23cb5ec1c51f26926",
+      "starting_source_sha256": "209c0825912b56efe6a3c77110d368f6a37b6b2fbb05ce5515e8aee35f68395b",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.906196850992274,
+      "worker_seconds": 21.844231615992612,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.026225599999999998,
+      "final_source_sha256": "ee662cc8b1fdac268d48351e7332704ab802c97d25b1bc175b6d24c331dbd8c7",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 54408,
+        "cached_input_tokens": 47616,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 788
+      }
+    },
+    {
+      "run_id": "05-basic",
+      "task": "05",
+      "title": "Latest event per entity",
+      "category": "event processing",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:03:40.525040+00:00",
+      "starting_commit": "3e351f44de3ef85fbdad9d218415e68a33812514",
+      "starting_source_sha256": "3bc0302c178c330bf8c0615764bafbcab29e8ef32172158a21882913e292bf1a",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 19.541338896000525,
+      "worker_seconds": 19.54084315300861,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0240352,
+      "final_source_sha256": "a597ff23d12e500a67918436ee08b0453bab651967bdd56221a49b7c47e0a727",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53618,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 654
+      }
+    },
+    {
+      "run_id": "05-conductor",
+      "task": "05",
+      "title": "Latest event per entity",
+      "category": "event processing",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:03:46.580383+00:00",
+      "starting_commit": "3e351f44de3ef85fbdad9d218415e68a33812514",
+      "starting_source_sha256": "3bc0302c178c330bf8c0615764bafbcab29e8ef32172158a21882913e292bf1a",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 28.1659264209884,
+      "worker_seconds": 28.108057017991086,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0331184,
+      "final_source_sha256": "3d228bdcefdaa92c918f91ff6a61c84f61181bc966ad9660275b7f9d21f167b0",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 91847,
+        "cached_input_tokens": 84224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 945
+      }
+    },
+    {
+      "run_id": "06-basic",
+      "task": "06",
+      "title": "Independent package copies",
+      "category": "state management",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:06:26.117864+00:00",
+      "starting_commit": "c5cc41d2b2eea89f7e579627c8571b05bf014a2e",
+      "starting_source_sha256": "73df89d4759de24b4fcfb99915d499ab9d7c0faf64c56ca84ac5fae7073db149",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 16.53733722899051,
+      "worker_seconds": 16.53684296600113,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0227872,
+      "final_source_sha256": "9ecb14e988f5c8704b1106655fc26463dec0f515169209bb2bbc8052d84c1e2f",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53614,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 530
+      }
+    },
+    {
+      "run_id": "06-conductor",
+      "task": "06",
+      "title": "Independent package copies",
+      "category": "state management",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:06:32.533370+00:00",
+      "starting_commit": "c5cc41d2b2eea89f7e579627c8571b05bf014a2e",
+      "starting_source_sha256": "73df89d4759de24b4fcfb99915d499ab9d7c0faf64c56ca84ac5fae7073db149",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.906044920004206,
+      "worker_seconds": 21.84583249600837,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.027473599999999997,
+      "final_source_sha256": "9ecb14e988f5c8704b1106655fc26463dec0f515169209bb2bbc8052d84c1e2f",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72611,
+        "cached_input_tokens": 65536,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 677
+      }
+    },
+    {
+      "run_id": "07-basic",
+      "task": "07",
+      "title": "Stable dependency ordering",
+      "category": "scheduling",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:03:19.420897+00:00",
+      "starting_commit": "4467f66d41a5bd9e9a5519253a6c66ce9ec78daa",
+      "starting_source_sha256": "03ac0c395f90c1660f7747675f5c52c9ffdeed676bb6d609077bb617795da4f2",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.990984817006392,
+      "worker_seconds": 20.990479624000727,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0280188,
+      "final_source_sha256": "1544217e95aaee8d4dc34fae1191534f9b036a64efb7ff09ab0f6313299293dd",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 56379,
+        "cached_input_tokens": 48768,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 792
+      }
+    },
+    {
+      "run_id": "07-conductor",
+      "task": "07",
+      "title": "Stable dependency ordering",
+      "category": "scheduling",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:03:19.362038+00:00",
+      "starting_commit": "4467f66d41a5bd9e9a5519253a6c66ce9ec78daa",
+      "starting_source_sha256": "03ac0c395f90c1660f7747675f5c52c9ffdeed676bb6d609077bb617795da4f2",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 27.111719362990698,
+      "worker_seconds": 27.05251232199953,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0457372,
+      "final_source_sha256": "52109c4017e2fdb0749e20e61b1ccc49e725f7120b91d9c510ab466a1b17565b",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 76180,
+        "cached_input_tokens": 61312,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 987
+      }
+    },
+    {
+      "run_id": "08-basic",
+      "task": "08",
+      "title": "Quoted material CSV",
+      "category": "import pipeline",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:06:04.034745+00:00",
+      "starting_commit": "4ea7c948edf5841ecb42dd53587182ce9eb92070",
+      "starting_source_sha256": "132dea4615702881479115763c0632ec7c4b8bde539a89ff7b160e4d7201e181",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.99055238100118,
+      "worker_seconds": 21.990050578009686,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.025911200000000002,
+      "final_source_sha256": "dd2a1fa09c05e6d2a98514baa0d91d94945e2ddde0e30700b8e91f7ed4a867f8",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53851,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 795
+      }
+    },
+    {
+      "run_id": "08-conductor",
+      "task": "08",
+      "title": "Quoted material CSV",
+      "category": "import pipeline",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:06:04.134557+00:00",
+      "starting_commit": "4ea7c948edf5841ecb42dd53587182ce9eb92070",
+      "starting_source_sha256": "132dea4615702881479115763c0632ec7c4b8bde539a89ff7b160e4d7201e181",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 28.307043673004955,
+      "worker_seconds": 28.247120869986247,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0227336,
+      "final_source_sha256": "67a5baaebcc254aa52af5e922c5439b12a43a09d262ef8a0d3e5a6eee3d42fc9",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 54810,
+        "cached_input_tokens": 51456,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1088
+      }
+    },
+    {
+      "run_id": "09-basic",
+      "task": "09",
+      "title": "Millimetres to cut length",
+      "category": "numeric correctness",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:07:37.382685+00:00",
+      "starting_commit": "9885828b5b23e380e5b426bbe7de536c9b8d48ab",
+      "starting_source_sha256": "c8d2db48412bced41d47dffdb1754ac9666be2a16ef6a81e60b02c9c90701091",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 25.195783129995107,
+      "worker_seconds": 25.195334076997824,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0207792,
+      "final_source_sha256": "586a7bcf6cc9831d0e16f12f2034309b40a271bc73d95848ff7e1a8b839458d1",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53857,
+        "cached_input_tokens": 49792,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 767
+      }
+    },
+    {
+      "run_id": "09-conductor",
+      "task": "09",
+      "title": "Millimetres to cut length",
+      "category": "numeric correctness",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:07:23.115954+00:00",
+      "starting_commit": "9885828b5b23e380e5b426bbe7de536c9b8d48ab",
+      "starting_source_sha256": "c8d2db48412bced41d47dffdb1754ac9666be2a16ef6a81e60b02c9c90701091",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 34.76941860599618,
+      "worker_seconds": 34.710893851995934,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0256932,
+      "final_source_sha256": "982f2b1935019b691a88755f7e97e6dc1faf4887b2c4a95aed1b0fcbad86d752",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73875,
+        "cached_input_tokens": 70272,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1146
+      }
+    },
+    {
+      "run_id": "10-basic",
+      "task": "10",
+      "title": "Atomic material reservation",
+      "category": "transactions",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:02:13.360382+00:00",
+      "starting_commit": "c4fd1f3418f170db35c90045a9bf44bb3ee92695",
+      "starting_source_sha256": "46a984bc018367ffb5dcd2f3c81a4bda6d5232cc62f42304d9521de891b56e55",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.991115933997207,
+      "worker_seconds": 21.990636971007916,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0293948,
+      "final_source_sha256": "83e31201cbc94b1b013eb7fcf9d961415037fae8e97e7f22a1782a19c3244a03",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72550,
+        "cached_input_tokens": 65408,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 857
+      }
+    },
+    {
+      "run_id": "10-conductor",
+      "task": "10",
+      "title": "Atomic material reservation",
+      "category": "transactions",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:02:12.804796+00:00",
+      "starting_commit": "c4fd1f3418f170db35c90045a9bf44bb3ee92695",
+      "starting_source_sha256": "46a984bc018367ffb5dcd2f3c81a4bda6d5232cc62f42304d9521de891b56e55",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 24.249651892998372,
+      "worker_seconds": 24.193725129996892,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0315228,
+      "final_source_sha256": "ce343f4e459a918b25523924fef857a20ccd1b875c3f0ff24d4a302b86789a0f",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73059,
+        "cached_input_tokens": 65408,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 968
+      }
+    },
+    {
+      "run_id": "11-basic",
+      "task": "11",
+      "title": "UTC overdue checks",
+      "category": "time handling",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:07:57.976151+00:00",
+      "starting_commit": "ba1b3cde9796e817342a788f32fbf484c06770f7",
+      "starting_source_sha256": "209bedb49425d8df8efec74f423a1a3f9508608259724c0ca5927478636259e6",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 23.59804210899165,
+      "worker_seconds": 23.59758758600219,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0298328,
+      "final_source_sha256": "034f5b0b7e716e44cd8035734eb2729a8673b25f89e7a7b1d8e686aecf9d9443",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 75033,
+        "cached_input_tokens": 67328,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 769
+      }
+    },
+    {
+      "run_id": "11-conductor",
+      "task": "11",
+      "title": "UTC overdue checks",
+      "category": "time handling",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:08:02.672821+00:00",
+      "starting_commit": "ba1b3cde9796e817342a788f32fbf484c06770f7",
+      "starting_source_sha256": "209bedb49425d8df8efec74f423a1a3f9508608259724c0ca5927478636259e6",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 32.25962735900248,
+      "worker_seconds": 32.20310140500078,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0380852,
+      "final_source_sha256": "8d96e9a4157b24e5dd2394600bfce7261d31cf2d74bb60cc471817d3caf47e3c",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 110431,
+        "cached_input_tokens": 102272,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1154
+      }
+    },
+    {
+      "run_id": "12-basic",
+      "task": "12",
+      "title": "Bounded retry delay",
+      "category": "harness reliability",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:08:55.956870+00:00",
+      "starting_commit": "18c23d5a753751e7973da774debb1c4b6da1467c",
+      "starting_source_sha256": "a08a6bd7cd048d0237fc8af691f9bbd4ba94cfe1678c720fc82e118fe8361f10",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 22.093767919999664,
+      "worker_seconds": 22.09331123699667,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0189276,
+      "final_source_sha256": "ea3aa8e38af0451b6810df015429999a2807f2f534fc950472170c1c6851a03d",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53681,
+        "cached_input_tokens": 50176,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 690
+      }
+    },
+    {
+      "run_id": "12-conductor",
+      "task": "12",
+      "title": "Bounded retry delay",
+      "category": "harness reliability",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:08:44.053507+00:00",
+      "starting_commit": "18c23d5a753751e7973da774debb1c4b6da1467c",
+      "starting_source_sha256": "a08a6bd7cd048d0237fc8af691f9bbd4ba94cfe1678c720fc82e118fe8361f10",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 34.71618555499299,
+      "worker_seconds": 34.660965368006146,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.042672,
+      "final_source_sha256": "73ca4a0e35d2ca22b2c52ca17a794c519e50a5943d63d4284c08a5a5eed4009e",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73128,
+        "cached_input_tokens": 60160,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1072
+      }
+    },
+    {
+      "run_id": "13-basic",
+      "task": "13",
+      "title": "Scoped idempotency keys",
+      "category": "data isolation",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:05:06.284749+00:00",
+      "starting_commit": "ba292593c88361318e34b73acf37b6d8743290ed",
+      "starting_source_sha256": "8df699fe4be68dfcf1f8295f639644ba1f957efde26db6b511a5cbeea60d6b6d",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 14.181205906003015,
+      "worker_seconds": 14.180686534004053,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0228556,
+      "final_source_sha256": "1ccb941ff8cf581fd90eac4fb841ef1a3f7b72860f85d33f62ee3367c26bab6e",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 71304,
+        "cached_input_tokens": 64896,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 355
+      }
+    },
+    {
+      "run_id": "13-conductor",
+      "task": "13",
+      "title": "Scoped idempotency keys",
+      "category": "data isolation",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:04:57.713439+00:00",
+      "starting_commit": "ba292593c88361318e34b73acf37b6d8743290ed",
+      "starting_source_sha256": "8df699fe4be68dfcf1f8295f639644ba1f957efde26db6b511a5cbeea60d6b6d",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 25.80829895399802,
+      "worker_seconds": 25.74607482900319,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0218584,
+      "final_source_sha256": "1ccb941ff8cf581fd90eac4fb841ef1a3f7b72860f85d33f62ee3367c26bab6e",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72422,
+        "cached_input_tokens": 68224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 664
+      }
+    },
+    {
+      "run_id": "14-basic",
+      "task": "14",
+      "title": "Tie-safe pagination",
+      "category": "API contracts",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:05:40.145178+00:00",
+      "starting_commit": "eda5b3a94835b7c537b8b6812148288a6474ffee",
+      "starting_source_sha256": "b3f70e72b47de90927930cafbb58cfeb3b7a2d0aaa4f78175d63773774dfdd27",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 23.894028269001865,
+      "worker_seconds": 23.89366007699573,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.024466,
+      "final_source_sha256": "b948bd2b8e8887497f70f373a7b94ff0034d73ba83ce8e41360dee7a172783c9",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53850,
+        "cached_input_tokens": 47360,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 675
+      }
+    },
+    {
+      "run_id": "14-conductor",
+      "task": "14",
+      "title": "Tie-safe pagination",
+      "category": "API contracts",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:05:41.198246+00:00",
+      "starting_commit": "eda5b3a94835b7c537b8b6812148288a6474ffee",
+      "starting_source_sha256": "b3f70e72b47de90927930cafbb58cfeb3b7a2d0aaa4f78175d63773774dfdd27",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 22.749210473994026,
+      "worker_seconds": 22.69152308399498,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.028772,
+      "final_source_sha256": "614a6bbbbe0522606efab6f71ba58387d2482e38b982cc9087ca97a37b75c72c",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73070,
+        "cached_input_tokens": 65920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 788
+      }
+    },
+    {
+      "run_id": "15-basic",
+      "task": "15",
+      "title": "Numeric revision sorting",
+      "category": "document control",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:06:54.510183+00:00",
+      "starting_commit": "4ea4a06f423f670ebf41cd45a9414d5b149dd8e5",
+      "starting_source_sha256": "76af510692084b9d90f97337dbcbb31fd7de1b2ad7cfc34d1e389b9f800282f7",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.89662935299566,
+      "worker_seconds": 21.896192440995947,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0239692,
+      "final_source_sha256": "3d64f824a228396a08104e0419a541ad3b05a3ff3f7cee93f1829d55202dd37f",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53605,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 650
+      }
+    },
+    {
+      "run_id": "15-conductor",
+      "task": "15",
+      "title": "Numeric revision sorting",
+      "category": "document control",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:06:42.742598+00:00",
+      "starting_commit": "4ea4a06f423f670ebf41cd45a9414d5b149dd8e5",
+      "starting_source_sha256": "76af510692084b9d90f97337dbcbb31fd7de1b2ad7cfc34d1e389b9f800282f7",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 24.007344144003582,
+      "worker_seconds": 23.9505163589929,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.032373599999999995,
+      "final_source_sha256": "7c07523bd93693b40c29dee9fe35f8f142b8c68aefcee8e535aa17b002791be5",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72995,
+        "cached_input_tokens": 64256,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 847
+      }
+    },
+    {
+      "run_id": "16-basic",
+      "task": "16",
+      "title": "Partial receiving status",
+      "category": "workflow state",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:09:18.146153+00:00",
+      "starting_commit": "9a072c2a84dc968f3ab57fe3c647fdc3f35ec051",
+      "starting_source_sha256": "c2821d660f006a1439b8813d1f7567a4f0bcd7fd3107233a850df36c6699041b",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 17.589661197998794,
+      "worker_seconds": 17.5892135460017,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0239572,
+      "final_source_sha256": "223e043438eb18c367be057a1f8eb72fbeee703de4f74f960540bc7882fca942",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53729,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 624
+      }
+    },
+    {
+      "run_id": "16-conductor",
+      "task": "16",
+      "title": "Partial receiving status",
+      "category": "workflow state",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:09:18.862951+00:00",
+      "starting_commit": "9a072c2a84dc968f3ab57fe3c647fdc3f35ec051",
+      "starting_source_sha256": "c2821d660f006a1439b8813d1f7567a4f0bcd7fd3107233a850df36c6699041b",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.246021141007077,
+      "worker_seconds": 20.18894806499884,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0391476,
+      "final_source_sha256": "223e043438eb18c367be057a1f8eb72fbeee703de4f74f960540bc7882fca942",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 4,
+          "total": 4,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72746,
+        "cached_input_tokens": 59776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 723
+      }
+    },
+    {
+      "run_id": "17-basic",
+      "task": "17",
+      "title": "Latest QA decision",
+      "category": "quality rules",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:05:23.615968+00:00",
+      "starting_commit": "dccd2ff899fae79cdfb956a44323fa34c216d1d1",
+      "starting_source_sha256": "44c7df061a533fe3ccb61e7cf436ba8735095ab30a10f66459c666d71ba02fd1",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 16.437622298995848,
+      "worker_seconds": 16.437085715995636,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.022667200000000002,
+      "final_source_sha256": "ba810848fba18a98e8f0a726eccaeaaa5c98a27aa932be3cc3f6fd1ce65b5431",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53514,
+        "cached_input_tokens": 47232,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 538
+      }
+    },
+    {
+      "run_id": "17-conductor",
+      "task": "17",
+      "title": "Latest QA decision",
+      "category": "quality rules",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:05:20.561880+00:00",
+      "starting_commit": "dccd2ff899fae79cdfb956a44323fa34c216d1d1",
+      "starting_source_sha256": "44c7df061a533fe3ccb61e7cf436ba8735095ab30a10f66459c666d71ba02fd1",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.547538026003167,
+      "worker_seconds": 20.49075312000059,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0400776,
+      "final_source_sha256": "ba810848fba18a98e8f0a726eccaeaaa5c98a27aa932be3cc3f6fd1ce65b5431",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72841,
+        "cached_input_tokens": 59776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 797
+      }
+    },
+    {
+      "run_id": "18-basic",
+      "task": "18",
+      "title": "Required station completion",
+      "category": "workflow state",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:04:00.166923+00:00",
+      "starting_commit": "886b546d1940c710c0aff8b31c65d79bcdf26280",
+      "starting_source_sha256": "f60f12b257959582813ee868504d2829cf7353d4dcde2dc8511d8fdd50bc0c22",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 18.441396944996086,
+      "worker_seconds": 18.44086268200772,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0343556,
+      "final_source_sha256": "092c6d04c321a60f210d06a5887b95a17cbe691c830c39238a264c8fe608987b",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53811,
+        "cached_input_tokens": 41856,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 626
+      }
+    },
+    {
+      "run_id": "18-conductor",
+      "task": "18",
+      "title": "Required station completion",
+      "category": "workflow state",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:04:14.842347+00:00",
+      "starting_commit": "886b546d1940c710c0aff8b31c65d79bcdf26280",
+      "starting_source_sha256": "f60f12b257959582813ee868504d2829cf7353d4dcde2dc8511d8fdd50bc0c22",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 42.784105940998415,
+      "worker_seconds": 42.727480375993764,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0319,
+      "final_source_sha256": "64670a22a3d1a86107592d464fa920c4da3d535085d320683e56e0451b068b37",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72625,
+        "cached_input_tokens": 64000,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 825
+      }
+    },
+    {
+      "run_id": "19-basic",
+      "task": "19",
+      "title": "Import validation errors",
+      "category": "API contracts",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:02:37.144181+00:00",
+      "starting_commit": "a4120a40af0ac4549b175fe4ecf56b1795ee757c",
+      "starting_source_sha256": "2d58bbbd89793d01bac57666a820c693305aa84f3974b93580ed1b10bed7d736",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 21.242646935002995,
+      "worker_seconds": 21.241881731999456,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.0294952,
+      "final_source_sha256": "d96f0ce1d4ee71545e205800189e18ea1fbd0d649c9be3542ad570d16ad3cd80",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 72317,
+        "cached_input_tokens": 65152,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 865
+      }
+    },
+    {
+      "run_id": "19-conductor",
+      "task": "19",
+      "title": "Import validation errors",
+      "category": "API contracts",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:02:35.444232+00:00",
+      "starting_commit": "a4120a40af0ac4549b175fe4ecf56b1795ee757c",
+      "starting_source_sha256": "2d58bbbd89793d01bac57666a820c693305aa84f3974b93580ed1b10bed7d736",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 27.76264852800523,
+      "worker_seconds": 27.704052860994125,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.044347199999999996,
+      "final_source_sha256": "46b0a99ba2855448071993f6ce0c4fbae23e46a6c57472dd298e353d10f881af",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 91893,
+        "cached_input_tokens": 77952,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 867
+      }
+    },
+    {
+      "run_id": "20-basic",
+      "task": "20",
+      "title": "Cached-token accounting",
+      "category": "harness reliability",
+      "arm": "basic",
+      "started_at": "2026-10-12T00:08:35.022423+00:00",
+      "starting_commit": "69c9cb7090da68a4f3ed96bab3713d369490000f",
+      "starting_source_sha256": "1eecb72346a749aae54cc08213ea1326d9547dec6f43695856ef275d49f85b8c",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 20.83977181299997,
+      "worker_seconds": 20.839133919987944,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.017828,
+      "final_source_sha256": "5da2c5276e1c7a2398a5d5b71c340233f0419d001150b3c6a71a8fc181772f6c",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 53889,
+        "cached_input_tokens": 51200,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 733
+      }
+    },
+    {
+      "run_id": "20-conductor",
+      "task": "20",
+      "title": "Cached-token accounting",
+      "category": "harness reliability",
+      "arm": "conductor",
+      "started_at": "2026-10-12T00:08:21.673620+00:00",
+      "starting_commit": "69c9cb7090da68a4f3ed96bab3713d369490000f",
+      "starting_source_sha256": "1eecb72346a749aae54cc08213ea1326d9547dec6f43695856ef275d49f85b8c",
+      "outcome": "done",
+      "correct": true,
+      "candidate_correct": true,
+      "changed": true,
+      "gate_escape": false,
+      "regression_escape": false,
+      "elapsed_seconds": 22.295984673008206,
+      "worker_seconds": 22.241314489001525,
+      "human_interventions": 0,
+      "usage_complete": true,
+      "api_equivalent_usd": 0.022684,
+      "final_source_sha256": "48c161ac5b061a25a9a85b9e5c4246d01d4cba05f20b61ba1bb0761608a9cdf4",
+      "sessions": 1,
+      "checks": {
+        "visible": {
+          "passed": 1,
+          "total": 1,
+          "ok": true
+        },
+        "acceptance": {
+          "passed": 3,
+          "total": 3,
+          "ok": true
+        },
+        "regression": {
+          "passed": 2,
+          "total": 2,
+          "ok": true
+        }
+      },
+      "failed_checks": {
+        "visible": [],
+        "acceptance": [],
+        "regression": []
+      },
+      "usage": {
+        "input_tokens": 73149,
+        "cached_input_tokens": 69760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 893
+      }
+    }
+  ]
+}

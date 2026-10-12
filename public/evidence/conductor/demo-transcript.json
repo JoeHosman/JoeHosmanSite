@@ -1,0 +1,72 @@
+[
+  {
+    "start_seconds": 0,
+    "title": "Conductor: failure and recovery",
+    "description": "A coding agent makes changes. The harness decides whether they land.",
+    "receipt": "Recorded run \u00b7 October 11, 2026 (Central)",
+    "caption": "Controlled fault injection; live GPT-6.1 Sol repairs. This is a captioned replay of actual event receipts."
+  },
+  {
+    "start_seconds": 12,
+    "title": "01  Assign a release-rule task",
+    "description": "A shop package needs an approval for its current revision before release.",
+    "receipt": "TASK \u2192 ISOLATED WORKTREE",
+    "caption": "Fixed starting files. The worker edits; Conductor owns the gate and merge."
+  },
+  {
+    "start_seconds": 24,
+    "title": "02  Introduce a bad change",
+    "description": "For this demonstration, a scripted worker approves every revision.",
+    "receipt": "CONTROLLED FAULT: always approve",
+    "caption": "The fault is deliberate. It is excluded from the model benchmark."
+  },
+  {
+    "start_seconds": 36,
+    "title": "03  The gate rejects it",
+    "description": "The visible check catches an old approval being accepted for a new revision.",
+    "receipt": "GATE RED \u2192 REPAIR PROMPT",
+    "caption": "Conductor sends the failing check and current diff to a live model. Main has not advanced."
+  },
+  {
+    "start_seconds": 48,
+    "title": "04  Verify, then merge",
+    "description": "The repair passes the gate and all six independent checks for this fixture.",
+    "receipt": "MERGED \u00b7 21255c524037",
+    "caption": "Conductor verifies the merged result before advancing main. The repair was made by the live model."
+  },
+  {
+    "start_seconds": 60,
+    "title": "05  Interrupt another worker",
+    "description": "A real subprocess saves a partial material-reservation edit. We send SIGTERM.",
+    "receipt": "EXIT \u221215 \u2192 PARTIAL DIFF SAVED",
+    "caption": "The improved interruption path persists the failure reason and diff before cleaning the worktree."
+  },
+  {
+    "start_seconds": 72,
+    "title": "06  Recover in a fresh process",
+    "description": "A new process reads the same saved diff and failure record. A live model completes the task.",
+    "receipt": "RECOVERED \u00b7 50d9c26f674b",
+    "caption": "The saved and loaded diff hashes match. The recovered change passes all six fixture checks and merges."
+  },
+  {
+    "start_seconds": 84,
+    "title": "07  Break main deliberately",
+    "description": "A red-main check creates a durable stop and a local alert receipt.",
+    "receipt": "DISPATCH HALTED \u00b7 0 NEW JOBS",
+    "caption": "No external notification is delivered in this test. That delivery failure is recorded; the stop still works."
+  },
+  {
+    "start_seconds": 96,
+    "title": "08  Restart cannot bypass the stop",
+    "description": "A new process still sees the incident. Recovery while the gate is red is rejected.",
+    "receipt": "RESTART \u2192 STILL HALTED",
+    "caption": "The operator restores the prior verified commit. Conductor must run the gate again before clearing the stop."
+  },
+  {
+    "start_seconds": 108,
+    "title": "09  Verify recovery",
+    "description": "Fresh verification passes at an unchanged main commit. The durable stop is cleared.",
+    "receipt": "VERIFIED RECOVERY \u00b7 21255c524037",
+    "caption": "Real Git operations, real gate commands, persisted receipts. Small fixtures demonstrate the recovery mechanism; no shop pilot is claimed."
+  }
+]

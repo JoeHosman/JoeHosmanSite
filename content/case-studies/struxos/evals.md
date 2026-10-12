@@ -6,6 +6,9 @@ order: 6
 
 ## The dataset and the grader
 
+*For the new paired experiment, see the [controlled benchmark](/projects/struxos-conductor/benchmark/).
+This chapter describes the historical, observational ledger.*
+
 Conductor appended every task attempt to a ledger. Between June 21 and June 29 it
 recorded **1,380 code-task attempts** on **1,141 distinct tasks**. Each attempt
 ended in one of three outcomes:

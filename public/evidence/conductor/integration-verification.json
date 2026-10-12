@@ -1,0 +1,38 @@
+{
+  "scope": "post-benchmark recovery integration; separate from the frozen model comparison",
+  "initial_integration": {
+    "passed": 360,
+    "failed": 1,
+    "failed_test": "test_many_independent_tasks_all_land_in_parallel"
+  },
+  "diagnosis": "Concurrent Git worktree removal could invalidate metadata while another worktree add scanned it; its retry then collided with the branch already created.",
+  "fix": "Serialize Git worktree commands within the threaded harness; no cross-process locking claim.",
+  "regression_test": "test_worktree_metadata_changes_do_not_overlap",
+  "final_evaluation_suite": {
+    "passed": 367,
+    "failed": 0,
+    "warnings": 1
+  },
+  "final_integrated_suite": {
+    "passed": 362,
+    "failed": 0,
+    "warnings": 1
+  },
+  "warning": "Existing FastAPI/Starlette HTTPX deprecation warning.",
+  "stress_verification": {
+    "parallel_batches": 40,
+    "tasks_per_batch": 12,
+    "tasks_landed": 480,
+    "all_verified": true
+  },
+  "daemon_startup": {
+    "real_daemon_startup_red_main_halted": true,
+    "dispatched_code_tasks": 0,
+    "returncode": 0
+  },
+  "log_sha256": {
+    "conductor-original-integrated-tests.log": "288440178c394e901618003cf8e55fc5ddcb6dbbdbbb142660f574b86cf86d9f",
+    "conductor-recovery-final-tests.log": "ecbb311824d98cdff14bbaeba7ebeb24aea061d1fb92ecb095d99f09ba56c8af",
+    "conductor-original-final-tests.log": "7ac8e7837bf5bb4b956997b0ed28b690d614ab799fa97fa43251e362adf1e30a"
+  }
+}

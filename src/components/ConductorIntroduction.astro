@@ -1,0 +1,63 @@
+---
+import ConductorRecoveryDemo from "./ConductorRecoveryDemo.astro";
+import results from "../../public/evidence/conductor/benchmark-v1.json";
+import { withBase } from "../lib/urls.mjs";
+const base = import.meta.env.BASE_URL;
+const arms = [results.aggregate.basic, results.aggregate.conductor];
+---
+
+<section class="prose conductor-introduction" aria-label="Conductor engineering overview">
+  <p>
+    I built Conductor to coordinate coding agents, isolate their changes, enforce
+    acceptance checks, and recover from failed attempts. StruxOs was the demanding
+    application I used to find out where that approach worked and where it broke.
+  </p>
+  <p>
+    My part was setting the direction, designing the harness and its gates, and
+    investigating the failures. Agents wrote most of the application code.
+  </p>
+  <h2>Watch it fail and recover</h2>
+  <ConductorRecoveryDemo />
+
+  <h2>The controlled comparison</h2>
+  <p>
+    I ran the same model on 20 fixed coding tasks through a basic agent session
+    and through Conductor. Separate checks scored the final behavior. Every run
+    is included below, including the absence of failures.
+  </p>
+  <table aria-label="Controlled benchmark results">
+    <thead><tr><th scope="col">Measure</th><th scope="col">Basic agent</th><th scope="col">Conductor</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Correct tasks</th>{arms.map(a => <td>{a.correct} / {a.scheduled}</td>)}</tr>
+      <tr><th scope="row">Regressions escaping the gate</th>{arms.map(a => <td>{a.regression_escapes}</td>)}</tr>
+      <tr><th scope="row">Manual interventions</th>{arms.map(a => <td>{a.human_interventions}</td>)}</tr>
+      <tr><th scope="row">Time / successful task</th>{arms.map(a => <td>{a.elapsed_seconds_per_success.toFixed(1)} s</td>)}</tr>
+      <tr><th scope="row">API-equivalent cost / success</th>{arms.map(a => <td>${a.api_equivalent_usd_per_success.toFixed(4)}</td>)}</tr>
+    </tbody>
+  </table>
+  <p class="benchmark-scope">
+    GPT-6.1 Sol, low reasoning. Twenty synthetic single-file tasks, one run per
+    setup per task. Dollar figures are standard API-price equivalents of recorded
+    tokens, not a subscription bill.
+  </p>
+  <p>
+    <strong>The result was a tie on correctness.</strong> The basic agent was
+    faster and cheaper here. These tasks were too easy to establish a completion-rate
+    benefit from Conductor. The fault demo separately checks whether its gates
+    and recovery mechanisms do what they claim.
+  </p>
+  <p>
+    <a href={withBase("/projects/struxos-conductor/benchmark/", base)}>Method, every task, and downloadable results</a>
+  </p>
+  <h2>Where the harness has authority</h2>
+  <a href={withBase("/images/projects/struxos-conductor/verified-execution.svg", base)}>
+    <img src={withBase("/images/projects/struxos-conductor/verified-execution.svg", base)}
+      alt="Conductor execution: a task enters an isolated agent worktree, visible gates send failures back for repair, a verified merge advances main, and separate held-out checks score the result. A red-main incident stops dispatch and writes a local alert until explicit recovery verifies an unchanged commit."
+      width="1200" height="620" loading="lazy" />
+  </a>
+</section>
+
+<style>
+  .benchmark-scope { font: 13px/1.65 var(--sans); color: var(--muted); margin-top: 12px; }
+  .conductor-introduction { margin-bottom: 38px; }
+</style>

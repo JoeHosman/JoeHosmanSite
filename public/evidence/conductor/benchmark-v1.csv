@@ -1,0 +1,41 @@
+run_id,title,arm,outcome,correct,gate_escape,regression_escape,human_interventions,elapsed_seconds,worker_seconds,api_equivalent_usd,usage_complete
+01-basic,Tenant-scoped inventory,basic,done,True,False,False,0,16.18694871700427,16.186499493996962,0.022827200000000002,True
+01-conductor,Tenant-scoped inventory,conductor,done,True,False,False,0,20.803164775003097,20.744774509992567,0.037973599999999996,True
+02-basic,Revision-specific approval,basic,done,True,False,False,0,16.033988448994933,16.033523375997902,0.0222584,True
+02-conductor,Revision-specific approval,conductor,done,True,False,False,0,20.795646523998585,20.738862576996326,0.0297548,True
+03-basic,Exact stock arithmetic,basic,done,True,False,False,0,34.012607434997335,34.01212222299364,0.035024400000000004,True
+03-conductor,Exact stock arithmetic,conductor,done,True,False,False,0,33.465365968004335,33.40658975900442,0.03281,True
+04-basic,QR identity round trip,basic,done,True,False,False,0,25.454513798991684,25.454003916005604,0.028272400000000003,True
+04-conductor,QR identity round trip,conductor,done,True,False,False,0,21.906196850992274,21.844231615992612,0.026225599999999998,True
+05-basic,Latest event per entity,basic,done,True,False,False,0,19.541338896000525,19.54084315300861,0.0240352,True
+05-conductor,Latest event per entity,conductor,done,True,False,False,0,28.1659264209884,28.108057017991086,0.0331184,True
+06-basic,Independent package copies,basic,done,True,False,False,0,16.53733722899051,16.53684296600113,0.0227872,True
+06-conductor,Independent package copies,conductor,done,True,False,False,0,21.906044920004206,21.84583249600837,0.027473599999999997,True
+07-basic,Stable dependency ordering,basic,done,True,False,False,0,20.990984817006392,20.990479624000727,0.0280188,True
+07-conductor,Stable dependency ordering,conductor,done,True,False,False,0,27.111719362990698,27.05251232199953,0.0457372,True
+08-basic,Quoted material CSV,basic,done,True,False,False,0,21.99055238100118,21.990050578009686,0.025911200000000002,True
+08-conductor,Quoted material CSV,conductor,done,True,False,False,0,28.307043673004955,28.247120869986247,0.0227336,True
+09-basic,Millimetres to cut length,basic,done,True,False,False,0,25.195783129995107,25.195334076997824,0.0207792,True
+09-conductor,Millimetres to cut length,conductor,done,True,False,False,0,34.76941860599618,34.710893851995934,0.0256932,True
+10-basic,Atomic material reservation,basic,done,True,False,False,0,21.991115933997207,21.990636971007916,0.0293948,True
+10-conductor,Atomic material reservation,conductor,done,True,False,False,0,24.249651892998372,24.193725129996892,0.0315228,True
+11-basic,UTC overdue checks,basic,done,True,False,False,0,23.59804210899165,23.59758758600219,0.0298328,True
+11-conductor,UTC overdue checks,conductor,done,True,False,False,0,32.25962735900248,32.20310140500078,0.0380852,True
+12-basic,Bounded retry delay,basic,done,True,False,False,0,22.093767919999664,22.09331123699667,0.0189276,True
+12-conductor,Bounded retry delay,conductor,done,True,False,False,0,34.71618555499299,34.660965368006146,0.042672,True
+13-basic,Scoped idempotency keys,basic,done,True,False,False,0,14.181205906003015,14.180686534004053,0.0228556,True
+13-conductor,Scoped idempotency keys,conductor,done,True,False,False,0,25.80829895399802,25.74607482900319,0.0218584,True
+14-basic,Tie-safe pagination,basic,done,True,False,False,0,23.894028269001865,23.89366007699573,0.024466,True
+14-conductor,Tie-safe pagination,conductor,done,True,False,False,0,22.749210473994026,22.69152308399498,0.028772,True
+15-basic,Numeric revision sorting,basic,done,True,False,False,0,21.89662935299566,21.896192440995947,0.0239692,True
+15-conductor,Numeric revision sorting,conductor,done,True,False,False,0,24.007344144003582,23.9505163589929,0.032373599999999995,True
+16-basic,Partial receiving status,basic,done,True,False,False,0,17.589661197998794,17.5892135460017,0.0239572,True
+16-conductor,Partial receiving status,conductor,done,True,False,False,0,20.246021141007077,20.18894806499884,0.0391476,True
+17-basic,Latest QA decision,basic,done,True,False,False,0,16.437622298995848,16.437085715995636,0.022667200000000002,True
+17-conductor,Latest QA decision,conductor,done,True,False,False,0,20.547538026003167,20.49075312000059,0.0400776,True
+18-basic,Required station completion,basic,done,True,False,False,0,18.441396944996086,18.44086268200772,0.0343556,True
+18-conductor,Required station completion,conductor,done,True,False,False,0,42.784105940998415,42.727480375993764,0.0319,True
+19-basic,Import validation errors,basic,done,True,False,False,0,21.242646935002995,21.241881731999456,0.0294952,True
+19-conductor,Import validation errors,conductor,done,True,False,False,0,27.76264852800523,27.704052860994125,0.044347199999999996,True
+20-basic,Cached-token accounting,basic,done,True,False,False,0,20.83977181299997,20.839133919987944,0.017828,True
+20-conductor,Cached-token accounting,conductor,done,True,False,False,0,22.295984673008206,22.241314489001525,0.022684,True

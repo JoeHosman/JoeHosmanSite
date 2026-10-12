@@ -6,6 +6,13 @@ order: 10
 
 ## What was reviewed
 
+**New runs, October 11, 2026 Central time:** the
+[controlled benchmark](/projects/struxos-conductor/benchmark/) records forty real
+model runs on twenty synthetic fixtures. The
+[recovery demonstration](/projects/struxos-conductor/recovery/) exercises the
+updated harness on real temporary repositories. These are separate from the
+historical StruxOs review below; they do not establish a completed shop pilot.
+
 This case study combines my account of the experiment with two reviews of the
 surviving records. The first, on September 27, 2026 Central time (September 28 UTC
 for the token-audit export), covered the local StruxOs repository, selected Codex

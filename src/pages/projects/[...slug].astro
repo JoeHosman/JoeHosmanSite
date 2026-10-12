@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import EditorialLayout from "../../layouts/EditorialLayout.astro";
 import MediaGallery from "../../components/MediaGallery.astro";
+import ConductorIntroduction from "../../components/ConductorIntroduction.astro";
 import { visibleEntries, categoryLabel } from "../../lib/content";
 import { formatProjectDate } from "../../lib/dates";
 import { withBase } from "../../lib/urls.mjs";
@@ -68,6 +69,7 @@ const statuses = {
       )}
     </figure>
   )}
+  {entry.id === "struxos-conductor" && <ConductorIntroduction />}
   <div class="prose">
     <Content />
     <MediaGallery items={entry.data.media} />
