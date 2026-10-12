@@ -10,7 +10,7 @@ None of them changed what the software did.
 
 For six weeks this summer I ran an experiment: how far could AI coding agents take a
 real product if I gave them goals instead of instructions? The product was StruxOs,
-software for a mechanical, electrical, and plumbing fabrication shop. The agents were
+a workflow prototype for a fabrication shop. The agents were
 Claude Code, OpenAI's Codex, and Pi, an open-source agent I scripted to run without me.
 By the time I paused, the repository held 7,069 commits, about 459,000 lines of code,
 and nearly 6,500 automated tests. In the final week, a harness I built called Conductor

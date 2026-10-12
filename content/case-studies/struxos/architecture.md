@@ -30,9 +30,9 @@ The most reused review prompt in the project was a persona: Claude, asked to
 review the code as Robert C. Martin might. The persona was a prompting device;
 he had no involvement. It ran on a timer in the first week,
 in numbered passes on particular concerns ("pass 5 on concurrency and locking"),
-and again whenever I suspected the work had drifted. On June 19 I asked for it
-plainly: "pretend to be uncle bob and give this code base an advisory review.
-Use sub agents to parallelize... tell me the truth."
+and again whenever I suspected the work had drifted. On June 19 I asked for a full
+advisory review in that voice, split across parallel sub-agents, with an explicit
+request for a candid verdict on whether the tests reflected real behavior.
 
 The May 31 review is worth quoting because it was both fair and harsh. It credited
 the structure, "The Dependency Rule is honored at compile time," and then summed up

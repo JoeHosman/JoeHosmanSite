@@ -22,7 +22,7 @@ a shop person decide, act, recover, or prove what happened without leaving the
 product" was a better instruction than any feature list. Situations from real shop
 work gave the agents something to fail against.
 
-**Adversarial review with receipts.** An "Uncle Bob" persona asked for the truth
+**Adversarial review with receipts.** An "Uncle Bob" persona asked for a candid verdict
 produced the most useful reviews in the project. They became trustworthy once every
 finding had to cite a file, a line, and the command that verified it.
 

@@ -20,8 +20,8 @@ The shape stabilized quickly. On May 30 a typical goal read:
 
 Once a milestone list existed, the goals shrank to pointers into it: "/goal m8",
 "/goal continue m26 to m30", "/goal continue to m175", and finally "/goal keep
-trucking to m250". Claude's memory records the chain of virtual-design-and-construction
-milestones reaching M250 on May 31. The goal named a tracked artifact rather than
+trucking to m250". Claude's memory records the milestone chain reaching M250 on
+May 31. The goal named a tracked artifact rather than
 the work itself, which let a short prompt carry a large amount of intent.
 
 ## Four kinds of goal
@@ -40,9 +40,8 @@ The records show four forms, which I adopted roughly in this order:
    > A slice counts only if it helps a shop person decide, act, recover, or prove
    > what happened without leaving the product.
 3. **Persona audits.** I asked agents to inspect StruxOs as a specific shop role
-   and to forget what they knew: "audit struxos with this actor in mind: also,
-   remember you don't know struxos well at all, you're just a fab guy." The
-   complaints went straight back in as goals ("/goal review and fix the audit
+   and to approach it as a newcomer who had never seen the software, not as the
+   agent that built it. The complaints went straight back in as goals ("/goal review and fix the audit
    complaints").
 4. **Situations.** Rather than features, I described things that go wrong in a
    real shop and asked whether the software would help. These are described below.

@@ -38,7 +38,7 @@ credentials, or private source code.
 | Unattended loop | Pi scripts, extensions, and control documents in the repository; Pi session logs | Supports the account of the Pi loop and its roughly 3,350 automated prompts. |
 | Goals and situations | The usable-shop goal document, scenario library and verdicts, ten shop simulations, and the pilot script catalog | Supports the goals chapter and the lineage from situations to executable checks. |
 | Architecture enforcement | Architecture tests, the May 31 review, the June 19 advisory, the maintainability ratchet and its history | Supports the architecture chapter. |
-| Pilot operating path | `docs/pilot/one-week-shop-pilot-runbook.md` | Defines the narrow shop-to-field workflow and distinguishes rehearsal from a real pilot. |
+| Pilot operating path | `docs/pilot/one-week-shop-pilot-runbook.md` | Defines the narrow one-week pilot workflow and distinguishes rehearsal from a real pilot. |
 | Early gap assessment | May 31 scenario-library verdicts and shop-floor walkthrough | Records 28 scenario verdicts; explicitly a code/copy review, not a live operator study. |
 | Shop-tour translation | `docs/audits/shop-tour-derived-real-workflows.md`, completed-todo archive, and timed local transcript | Connects an identified shop-tour video to specific backlog rules. |
 | Automated run results | June 5, June 23, and June 27 Codex tool outputs | Supplies actual recorded pass counts for the test classes discussed in the validation chapter. |

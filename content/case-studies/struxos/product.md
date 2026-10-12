@@ -4,38 +4,40 @@ description: "Two connected systems: software for a fabrication shop, and a harn
 order: 1
 ---
 
-## The product became more specific than the original brief
+## A test bed for the agents
 
-My starting ambition was an industry-leading project management tool. StruxOs
-developed into something more focused: a prototype for coordinating a mechanical,
-electrical, and plumbing fabrication shop, from the work released by a designer
-to the assemblies received in the field.
+My starting ambition was an industry-leading project management tool. I chose a
+fabrication shop as the domain because I know that work well enough to judge
+whether the agents got it right. The requirements came from public shop-tour
+videos, written shop simulations, and persona audits run by the agents, and this
+case study describes StruxOs only by what it actually implemented and tested.
 
-That focus matters. A generic task board can say that a job is in progress. A
-shop needs to know whether the material is available, the drawing is current,
-the worker can perform the operation, and a quality hold prevents shipment.
-Those became concrete product questions for the agents to work against.
+The domain mattered for one reason: it gave the agents hard, checkable questions.
+A generic task board can say that a job is in progress. A shop needs to know
+whether the material is there, the drawing is current, and a quality hold should
+stop the work. Those questions became rules the agents had to implement and prove.
 
-## Following one package through the shop
+## What StruxOs actually did
 
-The pilot runbook narrows the product to one company, one project, one shop site,
-and one work package. The intended operating path is:
+These are the rules with tests in the repository, several with recorded passing
+runs described in the [validation chapter](/projects/struxos-conductor/validation/):
 
-1. **Set up the shop.** Establish the company, project, users, roles, and stations.
-2. **Release work.** A designer or VDC lead prepares a package with its drawing
-   and revision context. VDC means virtual design and construction.
-3. **Prepare materials.** Identify shortages, substitutions, and receiving problems
-   before work reaches a station.
-4. **Build at the station.** A worker follows a traveler, the record that accompanies
-   the work through its operations, and records progress or blockers.
-5. **Inspect.** QA records a pass, hold, or rework decision.
-6. **Load and dispatch.** Coordinate bundles, load plans, and shipment evidence.
-7. **Receive in the field.** Record arrival and exceptions such as damage or missing parts.
-8. **Review the day.** Follow the package's decisions and handoffs across the roles.
+- **Station work waits for material.** A station cannot start a job until the
+  required material has been received and verified.
+- **Repeated work needs an approved mockup.** New copies of a repeated design are
+  refused until a mockup approval is recorded, with approver, time, and comments.
+- **A cut and its label share one identity.** The cut record and its printed label
+  carry the same identifier, and labels can be reprinted after cutting.
+- **Supplies are attributable.** Each issue of consumables records the employee,
+  station, and work order, and an issue without an employee is rejected.
+- **Quality holds stop movement.** QA records pass, hold, or rework, and situation
+  scripts check that held work stays off a shipment.
+- **Each company sets its own strictness.** Workflow rules can be enforced,
+  advisory, or off per company, because not every shop runs the same process.
 
-This is the product's organizing workflow. Its existence in a runbook does not
-mean a customer has run it successfully. The [validation chapter](/projects/struxos-conductor/validation/)
-separates the implemented and tested portions from that stronger claim.
+A one-week pilot runbook ties these together for one company, one project, and a
+single batch of work, followed through each shop role. A runbook is a plan, not
+evidence that a shop has used it; no outside shop pilot took place.
 
 ## The application underneath
 

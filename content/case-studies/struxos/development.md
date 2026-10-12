@@ -66,8 +66,8 @@ collisions, and each one became a standing rule in Claude's memory:
 | May 31 | Agents kept adding in-memory persistence that hid real database behavior | No new in-memory persistence; use the Docker PostgreSQL and MongoDB |
 
 On June 3–5 Claude dispatched about 30 sub-agents, each in its own short-lived
-worktree, to work on separate tracks such as the work-package state machine,
-repeat-family assemblies, and the station shell.
+worktree, to work on separate tracks such as the workflow state machine, repeat-design
+mockups, and the station screen.
 
 ![Gantt-style chart of 43 git branches between May 30 and June 5, 2026. A diagonal staircase of short green bars labelled worktree-agent shows parallel sub-agent branches created and merged on June 4 and 5.](/images/projects/struxos-conductor/branch-lifetimes.webp)
 
@@ -106,10 +106,9 @@ what happened in detail.
 The last stretch was interactive again. With Codex I turned the one-week pilot
 runbook into Playwright runs I could watch, then ran a loop of "audit for gaps,
 fix those, iterate until no more gaps" across a catalog of shop situations. With
-Claude I attacked the interface itself. I wrote that StruxOs "was built by
-claude/codex without much UX guidance" and had become "giant views of endless
-scrolling." The final commits introduced a "control room, not scroll"
-layout doctrine and viewport-height budgets; for example, the field-receiving
+Claude I treated the interface as a design problem in its own right: built quickly
+without UX direction, it had grown into long scrolling pages. The final commits introduced a "control room, not scroll"
+layout doctrine and viewport-height budgets; for example, one receiving
 page went from about 9,100 pixels tall to about 1,300. The project paused after
 July 6.
 
@@ -120,20 +119,20 @@ intervened again. Across the project I typed 597 prompts to Claude and 549 to
 Codex. Many were nudges ("continue," "do next thing"), but the ones that changed
 the outcome were domain corrections and changes to the standard of proof:
 
-- "location is mostly for scheduling. assembly goes past level and rooms (same
-  bathroom can appear all over a building)"
-- "Everything the shop builds is from an IFC or Revit model"
+- "this enforcement should be configurable by company"
+- Build the real capability behind each integration point inside StruxOs,
+  rather than connecting placeholders
 - "not every shop uses the same governance lanes and flow"
 - Use Playwright to walk the shop page as a fab worker would, not just pass
   component tests
-- "why are we mocking and not using real api and database?"
+- Test against the real API and databases instead of mocks
 
 The autonomy was inside a directed process. I treated the agents the way I would
 treat a fast, literal-minded team: they could investigate, implement, test, and
 continue across many steps, while I owned the domain model, the goal, and the
 standard of proof. When the numbers looked good but the product did not, I said so.
-On June 26 I wrote, "okay, i feel like we've gone backwards," and that judgment is
-what redirected Conductor from internal refactoring to a shop pilot the same day.
+On June 26 I judged that the loop had stopped making real progress, and that call
+redirected Conductor from internal refactoring to a shop pilot the same day.
 
 ## Why validation had to change
 

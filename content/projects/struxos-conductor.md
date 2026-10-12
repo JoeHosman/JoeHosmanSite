@@ -56,7 +56,7 @@ possible. I used goal-driven sessions (`/loop`, then `/goal`) and introduced
 YouTube shop-tour transcripts and simulated bad days in a fabrication shop as
 situations the product should handle.
 
-The result was **StruxOs**, a construction and prefab-workflow prototype, and
+The result was **StruxOs**, a fabrication-shop workflow prototype, and
 **Conductor**, a harness I built so agents could keep working on it without me in
 the loop. The experiment is paused. The original ambition frames the
 investigation; it is not a claim that the prototype became an industry leader.
@@ -83,7 +83,7 @@ value; the chapters below look at what the activity produced.*
 ## Read the case study
 
 1. [What I built](/projects/struxos-conductor/product/): the application,
-   its shop-to-field operating path, and the size of what the agents produced.
+   the shop rules it implemented and tested, and the size of what the agents produced.
 2. [How the experiment progressed](/projects/struxos-conductor/development/):
    the eras of the project, from Codex scaffolding through Claude's goal sprints,
    the Pi loop, and Conductor.
